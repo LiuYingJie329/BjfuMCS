@@ -1,0 +1,3 @@
+include ':app', ':splashlib', ':keepalivelib'
+project(':splashlib').projectDir = new File('material-intro-screen')
+project(':keepalivelib').projectDir = new File('hellodaemon')

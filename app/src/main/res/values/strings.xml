@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">MCSByGraduate</string>
+    <string name="login_success">登录成功</string>
+    <string name="login">登录</string>
+    <string name="Username">用户名</string>
+    <string name="Password">密码</string>
+    <string name="forgot_your_password">忘记密码?</string>
+    <string name="go">GO</string>
+    <string name="repeat_password">重复密码</string>
+    <string name="next">NEXT</string>
+    <string name="register">注册</string>
+    <string name="launch_intro_activity">启动App</string>
+    <string name="check_to_pass">同意</string>
+    <string name="error_message">Please accept terms and conditions first.</string>
+</resources>

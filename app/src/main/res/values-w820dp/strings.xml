@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="launch_intro_activity">启动App</string>
+    <string name="check_to_pass">同意</string>
+    <string name="error_message">Please accept terms and conditions first.</string>
+</resources>
