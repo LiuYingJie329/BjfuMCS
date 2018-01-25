@@ -3,4 +3,20 @@
     <string name="launch_intro_activity">启动App</string>
     <string name="check_to_pass">同意</string>
     <string name="error_message">Please accept terms and conditions first.</string>
+    <string name="nav_city">选择区域</string>
+    <string name="multi_cities">多路选择</string>
+    <string name="setting">设置</string>
+    <string name="about">关于</string>
+    <string name="can_not_find_version_name">找不到版本号</string>
+    <string name="navigation_drawer_open">open drawer</string>
+    <string name="navigation_drawer_close">Close drawer</string>
+    <string name="drawer_item_crossfade_drawer_layout_drawer">抽屉页</string>
+    <string name="drawer_item_compact_header">CompactHeader Drawer</string>
+    <string name="drawer_item_action_bar_drawer">ActionBar Drawer</string>
+    <string name="drawer_item_multi_drawer">Multi Drawer</string>
+    <string name="drawer_item_non_translucent_status_drawer">NonTranslucentStatus Drawer</string>
+    <string name="drawer_item_advanced_drawer">Advanced Drawer</string>
+    <string name="drawer_item_section_header">Section Header</string>
+    <string name="drawer_item_open_source">Open Source</string>
+    <string name="drawer_item_contact">Contact</string>
 </resources>

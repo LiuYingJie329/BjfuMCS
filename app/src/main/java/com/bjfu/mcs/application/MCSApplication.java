@@ -43,9 +43,10 @@ public class MCSApplication extends Application {
         DaemonEnv.startServiceMayBind(DaemonService.class);
         DaemonEnv.startServiceMayBind(PlayerMusicService.class);
         /*百度初始化定位sdk*/
-        locationService = new BaiduMapLocationService(application);
-        mVibrator =(Vibrator)application.getSystemService(Service.VIBRATOR_SERVICE);
-        SDKInitializer.initialize(application);
+//        locationService = new BaiduMapLocationService(application);
+//        mVibrator =(Vibrator)application.getSystemService(Service.VIBRATOR_SERVICE);
+//        SDKInitializer.initialize(application);
+//        setupDatabase("locationdetails");
     }
 
     private void setupDatabase(String str) {

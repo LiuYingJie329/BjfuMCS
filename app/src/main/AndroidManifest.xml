@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.bjfu.mcs">
 
+    <uses-permission android:name="android.permission.UPDATE_APP_OPS_STATS" />
+    <uses-permission
+        android:name="android.permission.FORCE_STOP_PACKAGES"
+        tools:ignore="ProtectedPermissions" />
     <!-- Normal Permissions 不需要运行时注册 -->
     <!-- 获取运营商信息，用于支持提供运营商信息相关的接口 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -50,12 +55,116 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".loginSign.RegisterActivity" />
-        <activity android:name=".activity.MainActivity"></activity>
-        <activity android:name=".splash.SplashActivity"></activity>
-        <activity
-            android:name=".splash.IntroActivity"
+        <activity android:name=".loginSign.RegisterActivity"
+            android:theme="@style/Translucent"/>
+        <activity android:name=".activity.MainActivity"
+            android:theme="@style/MaterialDrawerTheme.TranslucentStatus">
+
+        </activity>
+        <activity android:name=".splash.SplashActivity"
+            android:theme="@style/SplashScreen">
+
+        </activity>
+        <activity android:name=".splash.IntroActivity"
             android:theme="@style/Theme.Intro" />
+
+        <!-- 百度地图定位Start -->
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote">
+            <intent-filter>
+                <action android:name="com.baidu.location.service_v2.2">
+
+                </action>
+            </intent-filter>
+        </service>
+
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="3soh2bAY8ErCCHQbuubk9jHHiet7agmN" /> <!-- http://lbsyun.baidu.com/apiconsole/key -->
+        <!-- meta-data需要写在application中 -->
+        <!-- 百度地图定位End -->
+
+        <!--
+         排除在RecentTask中显示
+         不能使用android:process=":live"
+                android:enable="false"属性
+        -->
+        <activity
+            android:name=".keepalive.SinglePixelActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|navigation|keyboard"
+            android:excludeFromRecents="true"
+            android:finishOnTaskLaunch="false"
+            android:launchMode="singleInstance"
+            android:theme="@style/SingleActivityStyle" />
+
+        <!-- 注册Service -->
+        <service
+            android:name=".keepalive.service.DaemonService"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":daemon_service" />
+        <service
+            android:name=".keepalive.service.CancelNoticeService"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":service" />
+        <service
+            android:name=".keepalive.service.PlayerMusicService"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":music_service" />
+        <service
+            android:name=".keepalive.service.AliveJobService"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
+        <!-- 接收系统广播接收器 -->
+        <receiver android:name=".keepalive.receiver.KeepAliveReceiver">
+
+            <!-- 设备重启广播 -->
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <!-- 安装或卸载广播 -->
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+            <!-- 解锁广播 -->
+            <intent-filter>
+                <action android:name="android.intent.action.ACTION_USER_PRESENT" />
+            </intent-filter>
+            <!-- 存储卡挂载广播 -->
+            <intent-filter>
+                <action android:name="android.intent.action.MEDIA_MOUNTED" />
+                <action android:name="android.intent.action.MEDIA_UNMOUNTED" />
+
+                <data android:scheme="file"></data>
+            </intent-filter>
+            <!-- 网络状态广播 -->
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
+                <action android:name="android.net.wifi.STATE_CHANGE" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name=".keepalive.daemon.TraceServiceImpl" />
+
+        <activity
+            android:name=".keepalive.daemon.GenOpsActivity"
+            android:theme="@android:style/Theme.NoDisplay"></activity>
+        <activity
+            android:name=".keepalive.daemon.KillActivity"
+            android:theme="@android:style/Theme.NoDisplay"></activity>
+        <activity
+            android:name=".keepalive.daemon.RevokeActivity"
+            android:theme="@android:style/Theme.NoDisplay"></activity>
     </application>
 
 </manifest>
