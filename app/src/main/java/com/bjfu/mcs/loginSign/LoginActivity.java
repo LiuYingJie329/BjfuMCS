@@ -1,6 +1,7 @@
 package com.bjfu.mcs.loginSign;
 
 import android.app.ActivityOptions;
+import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -15,8 +16,12 @@ import android.widget.EditText;
 
 import com.bjfu.mcs.R;
 import com.bjfu.mcs.activity.MainActivity;
+import com.bjfu.mcs.application.MCSApplication;
 import com.bjfu.mcs.base.BaseActivity;
 import com.bjfu.mcs.splash.SplashActivity;
+import com.bjfu.mcs.utils.Rx.RxDataTool;
+import com.bjfu.mcs.utils.Rx.RxToast;
+import com.bjfu.mcs.utils.security.SecuritySharedPreference;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -34,6 +39,9 @@ public class LoginActivity extends BaseActivity {
     @BindView(R.id.fab)
     FloatingActionButton fab;
 
+    private String pwfromShare = null;
+    private String usernamefromShare = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,18 +52,44 @@ public class LoginActivity extends BaseActivity {
         return R.layout.activity_login;
     }
 
-    @OnClick({R.id.bt_go,R.id.fab})
+    @OnClick({R.id.bt_go, R.id.fab})
     public void setListener(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.bt_go:
+                String username = etUsername.getText().toString();
+                String password = etPassword.getText().toString();
                 Explode explode = new Explode();
                 explode.setDuration(500);
 
                 getWindow().setExitTransition(explode);
                 getWindow().setEnterTransition(explode);
-                ActivityOptionsCompat oc2 = ActivityOptionsCompat.makeSceneTransitionAnimation(LoginActivity.this);
-                Intent i2 = new Intent(LoginActivity.this,SplashActivity.class);
-                startActivity(i2, oc2.toBundle());
+
+                try {
+                    SecuritySharedPreference security = new SecuritySharedPreference(MCSApplication.getApplication(), username, Context.MODE_PRIVATE);
+                    pwfromShare = security.getString("password", null);
+                    usernamefromShare = security.getString("username", null);
+                } catch (Exception e) {
+                    pwfromShare = null;
+                    usernamefromShare = null;
+                }
+                if(RxDataTool.isNullString(username)){
+                    RxToast.error("用户名不能为空");
+                    return;
+                }
+                if(RxDataTool.isNullString(pwfromShare)){
+                    RxToast.error("密码不能为空");
+                    return;
+                }
+
+                if (!RxDataTool.isNullString(username) && !RxDataTool.isNullString(password)
+                        && !RxDataTool.isNullString(pwfromShare) && !RxDataTool.isNullString(usernamefromShare)
+                        && username.equals(usernamefromShare) && password.equals(pwfromShare)) {
+                    RxToast.normal("登录成功");
+                    ActivityOptionsCompat oc2 = ActivityOptionsCompat.makeSceneTransitionAnimation(LoginActivity.this);
+                    Intent i2 = new Intent(LoginActivity.this, SplashActivity.class);
+                    startActivity(i2, oc2.toBundle());
+                }
+
                 break;
             case R.id.fab:
                 getWindow().setExitTransition(null);

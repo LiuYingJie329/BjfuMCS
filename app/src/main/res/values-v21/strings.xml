@@ -17,6 +17,10 @@
     <string name="drawer_item_non_translucent_status_drawer">NonTranslucentStatus Drawer</string>
     <string name="drawer_item_advanced_drawer">Advanced Drawer</string>
     <string name="drawer_item_section_header">Section Header</string>
-    <string name="drawer_item_open_source">Open Source</string>
+    <string name="drawer_item_open_source">关于</string>
     <string name="drawer_item_contact">Contact</string>
+    <string name="toast_phoe_error">请输入正确手机号</string>
+    <string name="toast_register_success">注册成功</string>
+    <string name="toast_password_null">密码不能为空</string>
+    <string name="toast_password_noequal">两次密码不一致</string>
 </resources>
