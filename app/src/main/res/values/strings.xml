@@ -42,6 +42,9 @@
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="title_activity_drawer">DrawerActivity</string>
     <string name="title_activity_settings">Settings</string>
+    <string name="notifyTitle">提示</string>
+    <string name="notifyMsg">当前应用缺少必要权限。\n\n请点击\"设置\"-\"权限\"-打开所需权限。</string>
+    <string name="cancel">取消</string>
 
     <!-- Strings related to Settings -->
 
@@ -206,4 +209,18 @@
     </string>
     <string name="title_activity_basic">BasicActivity</string>
     <string name="title_activity_scrolling2">ScrollingActivity2</string>
+    <string name="foot">步行</string>
+    <string name="distance">距离</string>
+    <string name="each_hour">每小时</string>
+    <string name="price">0.5元</string>
+    <string name="bike_code">编码</string>
+    <string name="book_countdown">倒计时</string>
+    <string name="cancel_book">取消</string>
+    <string name="bike_sound">声音提示</string>
+    <string name="book">预约</string>
+    <string name="book_prompt">自动取消</string>
+    <string name="unlock">解锁</string>
+    <string name="end_route">结束</string>
+    <string name="beijing">北京</string>
+    <string name="bybike">开启步行</string>
 </resources>

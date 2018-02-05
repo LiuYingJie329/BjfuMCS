@@ -85,7 +85,7 @@
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="3soh2bAY8ErCCHQbuubk9jHHiet7agmN" /> <!-- http://lbsyun.baidu.com/apiconsole/key -->
+            android:value="KeVOkQVxjvlCCQBd3t3S0Ze7uuYn1GAV" /> <!-- http://lbsyun.baidu.com/apiconsole/key -->
         <!-- meta-data需要写在application中 -->
         <!-- 百度地图定位End -->
 

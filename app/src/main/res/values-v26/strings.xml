@@ -4,4 +4,22 @@
     <string name="toast_register_success">注册成功</string>
     <string name="toast_password_null">密码不能为空</string>
     <string name="toast_password_noequal">两次密码不一致</string>
+    <string name="notifyTitle">提示</string>
+    <string name="notifyMsg">当前应用缺少必要权限。\n\n请点击\"设置\"-\"权限\"-打开所需权限。</string>
+    <string name="setting">设置</string>
+    <string name="cancel">取消</string>
+    <string name="foot">步行</string>
+    <string name="distance">距离</string>
+    <string name="each_hour">每小时</string>
+    <string name="price">0.5元</string>
+    <string name="bike_code">编码</string>
+    <string name="book_countdown">倒计时</string>
+    <string name="cancel_book">取消</string>
+    <string name="bike_sound">声音提示</string>
+    <string name="book">预约</string>
+    <string name="book_prompt">自动取消</string>
+    <string name="unlock">解锁</string>
+    <string name="end_route">结束</string>
+    <string name="beijing">北京</string>
+    <string name="bybike">开启步行</string>
 </resources>

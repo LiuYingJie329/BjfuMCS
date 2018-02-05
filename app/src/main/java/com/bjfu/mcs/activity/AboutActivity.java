@@ -8,13 +8,14 @@ import android.view.View;
 
 import com.bjfu.mcs.R;
 import com.bjfu.mcs.base.BaseActivity;
+import com.bjfu.mcs.base.CheckPermissionsActivity;
 
-public class AboutActivity extends BaseActivity {
+public class AboutActivity extends CheckPermissionsActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setContentView(R.layout.activity_about);
         final Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -31,10 +32,5 @@ public class AboutActivity extends BaseActivity {
                         .setAction("Action", null).show();
             }
         });
-    }
-
-    @Override
-    protected int layoutId() {
-        return R.layout.activity_about;
     }
 }

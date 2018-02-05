@@ -4,6 +4,20 @@ apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'org.greenrobot.greendao'
 
 android {
+    signingConfigs {
+        debug {
+            keyAlias 'android.keystore'
+            keyPassword 'BjfuMCS'
+            storeFile file('android.keystore')
+            storePassword 'BjfuMCS'
+        }
+        release{
+            keyAlias 'android.keystore'
+            keyPassword 'BjfuMCS'
+            storeFile file('android.keystore')
+            storePassword 'BjfuMCS'
+        }
+    }
     compileSdkVersion 26
     buildToolsVersion "26.0.2"
     defaultConfig {
@@ -19,12 +33,23 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        debug {
+            // 不显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+            //debug模式无需混淆 因此false
+            minifyEnabled false
+            //Zipalign优化
+            zipAlignEnabled true
+            // 移除无用的resource文件
+            //shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
+        }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-
     //greendao配置
     greendao {
         //版本号，升级时可配置
@@ -32,7 +57,26 @@ android {
         daoPackage 'com.bjfu.mcs.greendao'//自己包名
         targetGenDir 'src/main/java'
     }
+    lintOptions {
+        abortOnError false
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDir 'libs'
+        }
 
+        // Move the tests to tests/java, tests/res, etc...
+        //instrumentTest.setRoot('tests')
+
+        // Move the build types to build-types/<type>
+        // For instance, build-types/debug/java, build-types/debug/AndroidManifest.xml, ...
+        // This moves them out of them default location under src/<type>/... which would
+        // conflict with src/ being used by the main source set.
+        // Adding new build types or product flavors should be accompanied
+        // by a similar customization.
+        //debug.setRoot('build-types/debug')
+        //release.setRoot('build-types/release')
+    }
 }
 
 dependencies {
@@ -45,7 +89,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     compile files('libs/jxl.jar')
-    compile files('libs/BaiduLBS_Android.jar')
     //butterknife工具
     compile 'com.jakewharton:butterknife:8.4.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
@@ -77,7 +120,10 @@ dependencies {
     compile 'com.mikepenz:google-material-typeface:3.0.1.1.original@aar'
     compile 'com.mikepenz:fontawesome-typeface:4.7.0.1@aar'
     compile 'com.mikepenz:octicons-typeface:3.0.0.1@aar'
-    compile("com.mikepenz:materialdrawer:6.0.2@aar") {
+    compile('com.mikepenz:materialdrawer:6.0.2@aar') {
         transitive = true
     }
+    implementation files('libs/IndoorscapeAlbumPlugin.jar')
+    implementation files('libs/httpmime-4.1.2.jar')
+    implementation files('libs/BaiduLBS_Android.jar')
 }
