@@ -13,6 +13,7 @@ public class Constants {
 
     public static final String PACKAGE_NAME = "com.bjfu.mcs";
 
+    //LocationService定位数据上传
     public static final int upLoad = 1;
     //本地数据库加密
     public static final String SQLITE_ENCRTPT = "mashangyingbanmahui";

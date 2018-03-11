@@ -69,6 +69,7 @@
         <item name="android:theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
         <item name="android:elevation">2dp</item>
     </style>
+
     <style name="text_style">
 
         <item name="android:layout_width">fill_parent</item>

@@ -22,4 +22,5 @@
     <string name="end_route">结束</string>
     <string name="beijing">北京</string>
     <string name="bybike">开启步行</string>
+    <string name="extra20">最多输入20字</string>
 </resources>

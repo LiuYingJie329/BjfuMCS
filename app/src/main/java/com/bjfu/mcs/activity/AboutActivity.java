@@ -17,6 +17,10 @@ public class AboutActivity extends CheckPermissionsActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
         final Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        //set the back arrow in the toolbar
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("关于MCS");
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

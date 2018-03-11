@@ -41,6 +41,8 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <!-- 悬浮窗 -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <!-- 腾讯bugly -->
+    <uses-permission android:name="android.permission.READ_LOGS" />
 
     <application
         android:name=".application.MCSApplication"
@@ -50,8 +52,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".loginSign.LoginActivity"
-            android:launchMode="singleTask"/>
+        <activity
+            android:name=".loginSign.LoginActivity"
+            android:launchMode="singleTask" />
         <activity
             android:name=".loginSign.RegisterActivity"
             android:launchMode="singleTask"
@@ -171,11 +174,101 @@
             android:theme="@android:style/Theme.NoDisplay" />
         <activity
             android:name=".activity.AboutActivity"
-            android:label="@string/title_activity_scrolling2"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity.SettingActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar" />
+        <activity
+            android:name=".activity.NewAboutActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar" />
+        <activity
+            android:name=".activity.SettingActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar" />
+
+        <!-- &lt;!&ndash; 配置APP ID &ndash;&gt; -->
+        <!-- <meta-data -->
+        <!-- android:name="BUGLY_APPID" -->
+        <!-- android:value="<APP_ID>" /> -->
+        <!-- &lt;!&ndash; 配置APP版本号 &ndash;&gt; -->
+        <!-- <meta-data -->
+        <!-- android:name="BUGLY_APP_VERSION" -->
+        <!-- android:value="<APP_Version>" /> -->
+        <!-- &lt;!&ndash; 配置APP渠道号 &ndash;&gt; -->
+        <!-- <meta-data -->
+        <!-- android:name="BUGLY_APP_CHANNEL" -->
+        <!-- android:value="<APP_Channel>" /> -->
+        <!-- &lt;!&ndash; 配置Bugly调试模式（true或者false）&ndash;&gt; -->
+        <!-- <meta-data -->
+        <!-- android:name="BUGLY_ENABLE_DEBUG" -->
+        <!-- android:value="<isDebug>" /> -->
+        <activity
+            android:name=".activity.LocationActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar" />
+        <activity
+            android:name=".activity.MeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar"></activity>
+        <!-- 拍照 从相册 图片裁切 -->
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activity.ChartMainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar"></activity>
+        <!-- 图表形式 -->
+        <activity
+            android:name=".chart.ChartsActivity"
+            android:label="@string/title_activity_charts"></activity>
+        <activity
+            android:name=".chart.SeekBarActivity"
+            android:label="@string/title_activity_seek_bar"></activity>
+        <activity
+            android:name=".chart.SpinnerActivity"
+            android:label="@string/title_activity_spinner"></activity>
+        <activity
+            android:name=".chart.GradientActivity"
+            android:label="@string/title_activity_gradient"></activity>
+        <activity
+            android:name=".chart.HBARScrollActivity"
+            android:hardwareAccelerated="false"
+            android:label="@string/title_activity_hbarscroll"></activity>
+        <activity
+            android:name=".chart.HLNScrollActivity"
+            android:hardwareAccelerated="false"
+            android:label="@string/title_activity_hlnscroll">
+
+            <!-- 2014-9-30  pand   解决了scrollview超过450dp不显示的问题 -->
+        </activity>
+        <activity
+            android:name=".chart.CircleChartActivity"
+            android:label="@string/title_activity_circle_chart"></activity>
+        <activity
+            android:name=".chart.GaugeChartActivity"
+            android:label="@string/title_activity_gauge_chart"></activity>
+        <activity
+            android:name=".chart.ClickChartsActivity"
+            android:label="@string/title_activity_click_charts"></activity>
+        <activity
+            android:name=".chart.DialChartActivity"
+            android:label="@string/title_activity_dial_chart"></activity>
+        <activity
+            android:name=".chart.DialChart2Activity"
+            android:label="@string/title_activity_dial_chart2"></activity>
+        <activity
+            android:name=".chart.DialChart3Activity"
+            android:label="@string/title_activity_dial_chart3"></activity>
+        <activity
+            android:name=".chart.DialChart4Activity"
+            android:label="@string/title_activity_dial_chart4"></activity>
+        <activity
+            android:name=".chart.DySpActivity"
+            android:label="@string/title_activity_dy_sp"></activity>
+        <activity android:name=".activity.ExcelActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar">
 
         </activity>
     </application>

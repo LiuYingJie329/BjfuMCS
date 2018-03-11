@@ -74,7 +74,8 @@ public abstract class CheckPermissionsActivity extends AppCompatActivity {
 			Manifest.permission.READ_EXTERNAL_STORAGE,
 			Manifest.permission.READ_PHONE_STATE,
 			Manifest.permission.BLUETOOTH,
-			Manifest.permission.BLUETOOTH_ADMIN
+			Manifest.permission.BLUETOOTH_ADMIN,
+			Manifest.permission.READ_LOGS
 			};
 	
 	private static final int PERMISSON_REQUESTCODE = 0;

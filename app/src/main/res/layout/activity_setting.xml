@@ -7,13 +7,24 @@
     android:orientation="vertical"
     tools:context="com.bjfu.mcs.activity.SettingActivity">
 
+    <!--<android.support.v7.widget.Toolbar-->
+        <!--style="@style/AppTheme.Toolbar"-->
+        <!--android:id="@+id/toolbar"-->
+        <!--app:navigationIcon="?attr/homeAsUpIndicator"-->
+        <!--app:background="?attr/colorPrimary"-->
+        <!--app:title="基本设置"/>-->
+
     <android.support.v7.widget.Toolbar
-        style="@style/AppTheme.Toolbar"
         android:id="@+id/toolbar"
-        app:navigationIcon="?attr/homeAsUpIndicator"
-        app:title="基本设置"/>
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
     <TextView
+        android:id="@+id/tv_text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
