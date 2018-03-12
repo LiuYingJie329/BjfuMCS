@@ -4,6 +4,7 @@ import android.app.Application;
 import android.app.Service;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Vibrator;
+import android.util.Log;
 
 import com.baidu.mapapi.CoordType;
 import com.baidu.mapapi.SDKInitializer;
@@ -19,7 +20,13 @@ import com.bjfu.mcs.utils.log.Utils;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.xdandroid.hellodaemon.DaemonEnv;
 
+import cn.bmob.push.BmobPush;
 import cn.bmob.v3.Bmob;
+import cn.bmob.v3.BmobInstallation;
+import cn.bmob.v3.BmobInstallationManager;
+import cn.bmob.v3.InstallationListener;
+import cn.bmob.v3.exception.BmobException;
+import common.Logger;
 
 /**
  * Created by ly on 2018/1/17.
@@ -62,7 +69,6 @@ public class MCSApplication extends Application {
         Bmob.initialize(this, "410847461a2086a65b522fb4da7c3967");
         // 注:自v3.5.2开始，数据sdk内部缝合了统计sdk，开发者无需额外集成，传渠道参数即可，不传默认没开启数据统计功能
         //Bmob.initialize(this, "Your Application ID","bmob");
-
         //第二：自v3.4.7版本开始,设置BmobConfig,允许设置请求超时时间、文件分片上传时每片的大小、文件的过期时间(单位为秒)，
         //BmobConfig config =new BmobConfig.Builder(this)
         ////设置appkey
@@ -75,6 +81,19 @@ public class MCSApplication extends Application {
         //.setFileExpiration(2500)
         //.build();
         //Bmob.initialize(config);
+        // 使用推送服务时的初始化操作,保存设备信息，用于推送功能
+        BmobInstallationManager.getInstance().initialize(new InstallationListener<BmobInstallation>() {
+            @Override
+            public void done(BmobInstallation bmobInstallation, BmobException e) {
+                if (e == null) {
+                    Log.i("MCSApplication",bmobInstallation.getObjectId() + "-" + bmobInstallation.getInstallationId());
+                } else {
+                    Log.e("MCSApplication",e.getMessage());
+                }
+            }
+        });
+        // 启动推送服务
+        BmobPush.startWork(this);
     }
 
     private void setupDatabase(String str) {

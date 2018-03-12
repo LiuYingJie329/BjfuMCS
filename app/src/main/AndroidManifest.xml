@@ -43,6 +43,8 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <!-- 腾讯bugly -->
     <uses-permission android:name="android.permission.READ_LOGS" />
+    <!-- 推送所需的权限 -->
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
 
     <application
         android:name=".application.MCSApplication"
@@ -161,6 +163,55 @@
             </intent-filter>
         </receiver>
 
+        <!-- BombPush -->
+        <!-- TODO 集成：1.2、添加推送所需要的服务和广播 -->
+        <service
+            android:name="cn.bmob.push.lib.service.PushService"
+            android:exported="true"
+            android:label="PushService"
+            android:process=":bmobpush">
+            <intent-filter>
+                <action android:name="cn.bmob.push.lib.service.PushService" />
+            </intent-filter>
+        </service>
+
+        <!-- 用于进程保活 -->
+        <service
+            android:name="cn.bmob.push.lib.service.PushNotifyService"
+            android:process=":bmobpush"></service>
+
+        <receiver android:name="cn.bmob.push.PushReceiver">
+            <intent-filter>
+
+                <!-- 系统启动完成后会调用 -->
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <!-- 解锁完成后会调用 -->
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <!-- 监听网络连通性 -->
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+
+        <!-- 第3步中创建的消息接收器，在这里进行注册 -->
+        <receiver android:name=".bmob.BmobPushReceiver">
+            <intent-filter>
+                <action android:name="cn.bmob.push.action.MESSAGE" />
+            </intent-filter>
+        </receiver>
+
+        <!-- 接收心跳和唤醒的广播，要和PushService运行在同个进程 -->
+        <receiver
+            android:name="cn.bmob.push.PushNotifyReceiver"
+            android:process=":bmobpush">
+            <intent-filter>
+
+                <!-- 接收心跳广播的action -->
+                <action android:name="cn.bmob.push.action.HEARTBEAT" />
+                <!-- 接收唤醒广播的action -->
+                <action android:name="cn.bmob.push.action.NOTIFY" />
+            </intent-filter>
+        </receiver>
+
         <service android:name=".keepalive.daemon.TraceServiceImpl" />
 
         <activity
@@ -208,7 +259,7 @@
         <activity
             android:name=".activity.MeActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar"></activity>
+            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar" />
         <!-- 拍照 从相册 图片裁切 -->
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
@@ -217,24 +268,24 @@
         <activity
             android:name=".activity.ChartMainActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar"></activity>
+            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar" />
         <!-- 图表形式 -->
         <activity
             android:name=".chart.ChartsActivity"
-            android:label="@string/title_activity_charts"></activity>
+            android:label="@string/title_activity_charts" />
         <activity
             android:name=".chart.SeekBarActivity"
-            android:label="@string/title_activity_seek_bar"></activity>
+            android:label="@string/title_activity_seek_bar" />
         <activity
             android:name=".chart.SpinnerActivity"
-            android:label="@string/title_activity_spinner"></activity>
+            android:label="@string/title_activity_spinner" />
         <activity
             android:name=".chart.GradientActivity"
-            android:label="@string/title_activity_gradient"></activity>
+            android:label="@string/title_activity_gradient" />
         <activity
             android:name=".chart.HBARScrollActivity"
             android:hardwareAccelerated="false"
-            android:label="@string/title_activity_hbarscroll"></activity>
+            android:label="@string/title_activity_hbarscroll" />
         <activity
             android:name=".chart.HLNScrollActivity"
             android:hardwareAccelerated="false"
@@ -244,29 +295,33 @@
         </activity>
         <activity
             android:name=".chart.CircleChartActivity"
-            android:label="@string/title_activity_circle_chart"></activity>
+            android:label="@string/title_activity_circle_chart" />
         <activity
             android:name=".chart.GaugeChartActivity"
-            android:label="@string/title_activity_gauge_chart"></activity>
+            android:label="@string/title_activity_gauge_chart" />
         <activity
             android:name=".chart.ClickChartsActivity"
-            android:label="@string/title_activity_click_charts"></activity>
+            android:label="@string/title_activity_click_charts" />
         <activity
             android:name=".chart.DialChartActivity"
-            android:label="@string/title_activity_dial_chart"></activity>
+            android:label="@string/title_activity_dial_chart" />
         <activity
             android:name=".chart.DialChart2Activity"
-            android:label="@string/title_activity_dial_chart2"></activity>
+            android:label="@string/title_activity_dial_chart2" />
         <activity
             android:name=".chart.DialChart3Activity"
-            android:label="@string/title_activity_dial_chart3"></activity>
+            android:label="@string/title_activity_dial_chart3" />
         <activity
             android:name=".chart.DialChart4Activity"
-            android:label="@string/title_activity_dial_chart4"></activity>
+            android:label="@string/title_activity_dial_chart4" />
         <activity
             android:name=".chart.DySpActivity"
-            android:label="@string/title_activity_dy_sp"></activity>
-        <activity android:name=".activity.ExcelActivity"
+            android:label="@string/title_activity_dy_sp" />
+        <activity
+            android:name=".activity.ExcelActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar" />
+        <activity android:name=".activity.SetPushActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar">
 

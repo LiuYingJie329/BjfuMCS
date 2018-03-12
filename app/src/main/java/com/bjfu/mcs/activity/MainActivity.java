@@ -178,7 +178,7 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
                         new PrimaryDrawerItem().withName("地图展示").withIcon(GoogleMaterial.Icon.gmd_brightness_5).withIdentifier(1),
                         new PrimaryDrawerItem().withName("excel展示").withIcon(FontAwesome.Icon.faw_home).withBadge("22").withBadgeStyle(new BadgeStyle(Color.RED, Color.RED)).withIdentifier(2).withSelectable(false),
                         new PrimaryDrawerItem().withName("图表展示").withIcon(FontAwesome.Icon.faw_gamepad).withIdentifier(3),
-                        new PrimaryDrawerItem().withName("图形展示").withIcon(FontAwesome.Icon.faw_eye).withIdentifier(4),
+                        new PrimaryDrawerItem().withName("推送服务").withIcon(FontAwesome.Icon.faw_eye).withIdentifier(4),
                         new PrimaryDrawerItem().withDescription("经度\n纬度").withName("定位").withIcon(GoogleMaterial.Icon.gmd_adb).withIdentifier(5),
                         new PrimaryDrawerItem().withName("我的主页").withIcon(FontAwesome.Icon.faw_user).withIdentifier(6),
                         new SectionDrawerItem().withName("其他"),
@@ -192,14 +192,16 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
                             Intent intent = null;
                             if (drawerItem.getIdentifier() == 1) {
                                 RxToast.normal(drawerItem.getIdentifier() + "");
-                                RxActivityTool.skipActivity(MainActivity.this, ChartMainActivity.class);
+
                             } else if (drawerItem.getIdentifier() == 2) {
                                 RxToast.normal(drawerItem.getIdentifier() + "");
                                 RxActivityTool.skipActivity(MainActivity.this, ExcelActivity.class);
                             } else if (drawerItem.getIdentifier() == 3) {
                                 RxToast.normal(drawerItem.getIdentifier() + "");
+                                RxActivityTool.skipActivity(MainActivity.this, ChartMainActivity.class);
                             } else if (drawerItem.getIdentifier() == 4) {
                                 RxToast.normal(drawerItem.getIdentifier() + "");
+                                RxActivityTool.skipActivity(MainActivity.this, SetPushActivity.class);
                             } else if (drawerItem.getIdentifier() == 5) {
                                 RxToast.normal(drawerItem.getIdentifier() + "");
                                 RxActivityTool.skipActivity(MainActivity.this, LocationActivity.class);

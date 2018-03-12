@@ -1,5 +1,6 @@
 package com.bjfu.mcs.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -32,8 +33,23 @@ public class AboutActivity extends CheckPermissionsActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+//                Snackbar.make(view, "分享MCS", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View v) {
+//                                Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+//                                sharingIntent.setType("text/plain");
+//                                sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "Subject Here");
+//                                sharingIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.app_name));
+//                                startActivity(Intent.createChooser(sharingIntent, getString(R.string.app_name)));
+//                            }
+//                        }).show();
+                Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+                sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "Subject Here");
+                sharingIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.app_name));
+                startActivity(Intent.createChooser(sharingIntent, getString(R.string.app_name)));
+
             }
         });
     }
