@@ -15,6 +15,7 @@ import com.bjfu.mcs.keepalive.daemon.TraceServiceImpl;
 import com.bjfu.mcs.keepalive.service.DaemonService;
 import com.bjfu.mcs.keepalive.service.PlayerMusicService;
 import com.bjfu.mcs.mapservice.BaiduMapLocationService;
+import com.bjfu.mcs.utils.Rx.RxDataTool;
 import com.bjfu.mcs.utils.Rx.RxTool;
 import com.bjfu.mcs.utils.log.Utils;
 import com.tencent.bugly.crashreport.CrashReport;
@@ -86,6 +87,7 @@ public class MCSApplication extends Application {
             @Override
             public void done(BmobInstallation bmobInstallation, BmobException e) {
                 if (e == null) {
+
                     Log.i("MCSApplication",bmobInstallation.getObjectId() + "-" + bmobInstallation.getInstallationId());
                 } else {
                     Log.e("MCSApplication",e.getMessage());

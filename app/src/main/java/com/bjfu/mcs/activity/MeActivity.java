@@ -3,6 +3,7 @@ package com.bjfu.mcs.activity;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.net.Uri;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -76,6 +77,8 @@ public class MeActivity extends AppCompatActivity {
     TextView mTextView2;
     @BindView(R.id.editText2)
     TextView mEditText2;
+    @BindView(R.id.tv_sex)
+    TextView mTvSex;
     @BindView(R.id.btn_exit)
     Button mBtnExit;
     @BindView(R.id.activity_user)
@@ -243,7 +246,8 @@ public class MeActivity extends AppCompatActivity {
                 .start(mContext);
     }
 
-    @OnClick({R.id.tv_birthday,R.id.tv_constellation,R.id.tv_address,R.id.tv_name,R.id.editText2,R.id.tv_lables})
+    @OnClick({R.id.tv_birthday,R.id.tv_constellation,R.id.tv_address,
+            R.id.tv_name,R.id.editText2,R.id.tv_lables,R.id.tv_sex})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.tv_birthday:
@@ -395,6 +399,24 @@ public class MeActivity extends AppCompatActivity {
                                 false,
                                 (dialog, input) -> showToast("Hello, " + input.toString() + "!"))
                         .show();
+                break;
+            case R.id.tv_sex:
+                OptionPicker sexpicker = new OptionPicker(this, new String[]{
+                        "男", "女"
+                });
+                sexpicker.setCanceledOnTouchOutside(false);
+                sexpicker.setDividerRatio(WheelView.DividerConfig.FILL);
+                sexpicker.setShadowColor(Color.RED, 40);
+                sexpicker.setSelectedIndex(1);
+                sexpicker.setCycleDisable(true);
+                sexpicker.setTextSize(11);
+                sexpicker.setOnOptionPickListener(new OptionPicker.OnOptionPickListener() {
+                    @Override
+                    public void onOptionPicked(int index, String item) {
+                        showToast("index=" + index + ", item=" + item);
+                    }
+                });
+                sexpicker.show();
                 break;
             default:
                 break;
