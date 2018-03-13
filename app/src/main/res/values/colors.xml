@@ -37,6 +37,9 @@
     <color name="brown1">#766156</color>
     <color name="blue">#3F51B5</color>
     <color name="e">#EEEEEE</color>
+    <color name="pickerdivid">#D8D8D8</color>
+    <color name="pickercancel">#787878</color>
+    <color name="pickersure">#4C92F9</color>
 
     <!--Splash Screen-->
     <item name="splash_background" type="color">@color/colorPrimary</item>

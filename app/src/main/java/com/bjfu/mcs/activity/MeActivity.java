@@ -295,17 +295,17 @@ public class MeActivity extends AppCompatActivity {
                         });
                 optionPicker.setCycleDisable(false);//不禁用循环
                 optionPicker.setTopBackgroundColor(0xFFEEEEEE);
-                optionPicker.setTopHeight(30);
-                optionPicker.setTopLineColor(0xFFEE0000);
+                optionPicker.setTopHeight(35);
+                optionPicker.setTopLineColor(Color.BLUE);
                 optionPicker.setTopLineHeight(1);
                 optionPicker.setTitleText(isChinese ? "请选择" : "Please pick");
                 optionPicker.setTitleTextColor(0xFF999999);
-                optionPicker.setTitleTextSize(12);
-                optionPicker.setCancelTextColor(0xFFEE0000);
-                optionPicker.setCancelTextSize(13);
-                optionPicker.setSubmitTextColor(0xFFEE0000);
-                optionPicker.setSubmitTextSize(13);
-                optionPicker.setTextColor(0xFFEE0000, 0xFF999999);
+                optionPicker.setTitleTextSize(15);
+                optionPicker.setCancelTextColor(getResources().getColor(R.color.pickercancel));
+                optionPicker.setCancelTextSize(16);
+                optionPicker.setSubmitTextColor(getResources().getColor(R.color.pickersure));
+                optionPicker.setSubmitTextSize(16);
+                optionPicker.setTextColor(Color.BLACK, 0xFF999999);
                 WheelView.DividerConfig config = new WheelView.DividerConfig();
                 config.setColor(0xFFEE0000);//线颜色
                 config.setAlpha(140);//线透明度
@@ -406,10 +406,17 @@ public class MeActivity extends AppCompatActivity {
                 });
                 sexpicker.setCanceledOnTouchOutside(false);
                 sexpicker.setDividerRatio(WheelView.DividerConfig.FILL);
-                sexpicker.setShadowColor(Color.RED, 40);
+                sexpicker.setShadowColor(Color.WHITE, 40);
+                sexpicker.setTextColor(Color.BLACK);
                 sexpicker.setSelectedIndex(1);
+                sexpicker.setSubmitTextSize(16);
+                sexpicker.setCancelTextSize(16);
                 sexpicker.setCycleDisable(true);
-                sexpicker.setTextSize(11);
+                sexpicker.setCancelTextColor(getResources().getColor(R.color.pickercancel));
+                sexpicker.setSubmitTextColor(getResources().getColor(R.color.pickersure));
+                sexpicker.setDividerColor(getResources().getColor(R.color.pickerdivid));
+                sexpicker.setTopLineColor(getResources().getColor(R.color.pickerdivid));
+                sexpicker.setTextSize(18);
                 sexpicker.setOnOptionPickListener(new OptionPicker.OnOptionPickListener() {
                     @Override
                     public void onOptionPicked(int index, String item) {
