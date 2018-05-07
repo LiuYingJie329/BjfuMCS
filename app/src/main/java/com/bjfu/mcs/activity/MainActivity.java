@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ZoomControls;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
@@ -82,6 +84,8 @@ import java.util.Random;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.bjfu.mcs.utils.Rx.RxToast.showToast;
 
 
 public class MainActivity extends CheckPermissionsActivity implements OnGetRoutePlanResultListener {
@@ -183,7 +187,11 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
                         new PrimaryDrawerItem().withName("我的主页").withIcon(FontAwesome.Icon.faw_user).withIdentifier(6),
                         new SectionDrawerItem().withName("其他"),
                         new SecondaryDrawerItem().withName("设置").withIcon(FontAwesome.Icon.faw_info).withIdentifier(7),
-                        new SecondaryDrawerItem().withName("关于").withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withTag("Bullhorn").withIdentifier(8)
+                        new SecondaryDrawerItem().withName("关于").withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withTag("Bullhorn").withIdentifier(8),
+                        new SecondaryDrawerItem().withName("系统设置").withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withTag("Bullhorn").withIdentifier(9),
+                        new SecondaryDrawerItem().withName("系统设置").withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withTag("Bullhorn").withIdentifier(10),
+                        new SecondaryDrawerItem().withName("系统设置").withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withTag("Bullhorn").withIdentifier(11),
+                        new SecondaryDrawerItem().withName("系统设置").withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withTag("Bullhorn").withIdentifier(12)
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
@@ -214,6 +222,22 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
                             } else if (drawerItem.getIdentifier() == 8) {
                                 RxToast.normal(drawerItem.getIdentifier() + "");
                                 RxActivityTool.skipActivity(MainActivity.this, NewAboutActivity.class);
+                            }
+                            else if (drawerItem.getIdentifier() == 9) {
+                                RxToast.normal(drawerItem.getIdentifier() + "");
+                                RxActivityTool.skipActivity(MainActivity.this, NewSettingActivity.class);
+                            }
+                            else if (drawerItem.getIdentifier() == 10) {
+                                RxToast.normal(drawerItem.getIdentifier() + "");
+                                RxActivityTool.skipActivity(MainActivity.this, FeedBackActivity.class);
+                            }
+                            else if (drawerItem.getIdentifier() == 11) {
+                                RxToast.normal(drawerItem.getIdentifier() + "");
+                                RxActivityTool.skipActivity(MainActivity.this, Selectctivity.class);
+                            }
+                            else if (drawerItem.getIdentifier() == 12) {
+                                RxToast.normal(drawerItem.getIdentifier() + "");
+                                RxActivityTool.skipActivity(MainActivity.this, SetPlaceActivity.class);
                             }
                             if (intent != null) {
                                 MainActivity.this.startActivity(intent);
@@ -251,6 +275,47 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
         });
 
         initMap();
+
+        initDialogs();
+    }
+
+    private void initDialogs() {
+        /*new MaterialDialog.Builder(this)
+                .iconRes(R.mipmap.ic_launcher)
+                .limitIconToDefaultSize() // limits the displayed icon size to 48dp
+                .title("发现新版本")
+                .content(R.string.update_content, true)
+                .positiveText("同意升级")
+                .negativeText("暂不升级")
+                .show();*/
+
+        new MaterialDialog.Builder(this)
+                .title(R.string.quickresons)
+                .items(R.array.socialNetworks)
+                .itemsCallbackMultiChoice(
+                        new Integer[] {1, 3},
+                        (dialog, which, text) -> {
+                            StringBuilder str = new StringBuilder();
+                            for (int i = 0; i < which.length; i++) {
+                                if (i > 0) {
+                                    str.append('\n');
+                                }
+                                str.append(which[i]);
+                                str.append(": ");
+                                str.append(text[i]);
+                            }
+                            showToast(str.toString());
+                            return true; // allow selection
+                        })
+                .onNeutral((dialog, which) -> dialog.clearSelectedIndices())
+                .onPositive((dialog, which) -> dialog.dismiss())
+                .alwaysCallMultiChoiceCallback()
+                .positiveText(R.string.sure)
+                .autoDismiss(false)
+                .neutralText(R.string.clear_selection)
+                .show();
+
+
     }
 
 

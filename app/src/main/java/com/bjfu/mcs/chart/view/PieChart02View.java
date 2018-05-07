@@ -116,8 +116,8 @@ public class PieChart02View extends DemoView implements Runnable {
 			//chart.setDataSource(chartData);												
 		
 			//标题
-			chart.setTitle("擂茶配方比");
-			chart.addSubtitle("(XCL-Charts Demo)");
+			chart.setTitle("一周活动比率");
+			chart.addSubtitle("One week activity rate");
 			//chart.setTitleVerticalAlign(XEnum.VerticalAlign.MIDDLE);
 				
 			//隐藏渲染效果
@@ -152,25 +152,25 @@ public class PieChart02View extends DemoView implements Runnable {
 		//用图库中的MathHelper.getInstance()来做运算,以保证总值为100%
 		
 		//设置图表数据源				
-		PieData pieData = new PieData("芝麻","芝麻:15%",15, Color.rgb(77, 83, 97)) ;
+		PieData pieData = new PieData("图书馆","图书馆:15%",15, Color.rgb(77, 83, 97)) ;
 		pieData.setCustLabelStyle(XEnum.SliceLabelStyle.INSIDE, Color.WHITE);
 		
 		//pieData.setItemLabelRotateAngle(rotateAngle)
 		
 		chartData.add(pieData);
 				
-		chartData.add(new PieData("白糖","白糖(5%)",5, Color.rgb(75, 132, 1)));
+		chartData.add(new PieData("食堂","食堂(5%)",5, Color.rgb(75, 132, 1)));
 		
 		//将此比例块突出显示		
-		PieData pd = new PieData("花生","花生:35%",35, Color.rgb(180, 205, 230));
+		PieData pd = new PieData("教室","教室:35%",35, Color.rgb(180, 205, 230));
 		pd.setItemLabelRotateAngle(45.f);
 		chartData.add(pd);
 		
-		PieData pdOther = new PieData("其它","其它(炒米，炒花生之类)",15, Color.rgb(148, 159, 181));
+		PieData pdOther = new PieData("其它","其它",15, Color.rgb(148, 159, 181));
 		pdOther.setCustLabelStyle(XEnum.SliceLabelStyle.INSIDE, Color.BLACK);
 		chartData.add(pdOther);
 		
-		PieData pdTea = new PieData("茶叶","茶叶(30%)",30, Color.rgb(253, 180, 90),true);
+		PieData pdTea = new PieData("操场","操场(30%)",30, Color.rgb(253, 180, 90),true);
 		pdTea.setCustLabelStyle(XEnum.SliceLabelStyle.OUTSIDE, Color.rgb(253, 180, 90));
 		chartData.add(pdTea);			
 	}

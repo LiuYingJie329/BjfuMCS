@@ -38,7 +38,7 @@ public class SettingActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         //set the back arrow in the toolbar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("基本设置");
+        getSupportActionBar().setTitle("任务情况");
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,12 +63,9 @@ public class SettingActivity extends AppCompatActivity {
          */
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-        infoEntities.add(new InfoEntity(getResources().getString(R.string.about), "0"));
-        infoEntities.add(new InfoEntity(getResources().getString(R.string.setting), "1"));
-        infoEntities.add(new InfoEntity(getResources().getString(R.string.beijing), "2"));
-        infoEntities.add(new InfoEntity(getResources().getString(R.string.book), "3"));
-        infoEntities.add(new InfoEntity(getResources().getString(R.string.notifyTitle), "4"));
-        infoEntities.add(new InfoEntity(getResources().getString(R.string.book_countdown), "5"));
+        infoEntities.add(new InfoEntity(getResources().getString(R.string.donetask), "当前无已完成任务，请继续努力"));
+        infoEntities.add(new InfoEntity(getResources().getString(R.string.doingtask), "正在进行第二次移动群智感知任务，任务id:20180302"));
+        infoEntities.add(new InfoEntity(getResources().getString(R.string.untask), "很棒，当前无未完成任务"));
         mSectionsPagerAdapter.init(infoEntities);
 
         // Set up the ViewPager with the sections adapter.

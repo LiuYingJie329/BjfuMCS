@@ -10,6 +10,9 @@ import android.view.View;
 import com.bjfu.mcs.R;
 import com.bjfu.mcs.base.BaseActivity;
 import com.bjfu.mcs.base.CheckPermissionsActivity;
+import com.bjfu.mcs.keepalive.service.DaemonService;
+import com.xdandroid.hellodaemon.DaemonEnv;
+import com.xdandroid.hellodaemon.IntentWrapper;
 
 public class AboutActivity extends CheckPermissionsActivity {
 
@@ -28,6 +31,8 @@ public class AboutActivity extends CheckPermissionsActivity {
                 finish();
             }
         });
+
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.bjfu.mcs.R;
 import com.bjfu.mcs.activity.MainActivity;
@@ -28,6 +29,8 @@ import butterknife.OnClick;
 
 public class LoginActivity extends BaseActivity {
 
+    @BindView(R.id.tirdway)
+    TextView tirdway;
     @BindView(R.id.et_username)
     EditText etUsername;
     @BindView(R.id.et_password)
@@ -52,7 +55,7 @@ public class LoginActivity extends BaseActivity {
         return R.layout.activity_login;
     }
 
-    @OnClick({R.id.bt_go, R.id.fab})
+    @OnClick({R.id.bt_go, R.id.fab,R.id.tirdway})
     public void setListener(View v) {
         switch (v.getId()) {
             case R.id.bt_go:

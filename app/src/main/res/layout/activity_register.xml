@@ -10,14 +10,14 @@
         android:layout_centerInParent="true"
         android:paddingTop="70dp"
         android:layout_width="350dp"
-        android:layout_height="500dp">
+        android:layout_height="550dp">
         <android.support.v7.widget.CardView
             android:id="@+id/cv_add"
             app:cardBackgroundColor="#2ea67f"
             android:layout_marginTop="10dp"
             android:layout_gravity="center_horizontal"
             android:layout_width="match_parent"
-            android:layout_height="400dp"
+            android:layout_height="450dp"
             app:cardCornerRadius="6dp"
             app:cardElevation="3dp"
             app:cardUseCompatPadding="true"
@@ -62,6 +62,47 @@
                             />
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="65dp">
+                    <LinearLayout
+                        android:id="@+id/ll_sms"
+                        android:layout_marginTop="10dp"
+                        android:paddingStart="50dp"
+                        android:paddingEnd="30dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="65dp">
+                        <android.support.design.widget.TextInputLayout
+                            android:textColorHint="#f0f7f4"
+                            android:layout_width="250dp"
+                            android:theme="@style/TextLabel"
+                            android:layout_height="wrap_content">
+
+                            <EditText
+                                android:id="@+id/sms"
+                                android:layout_width="match_parent"
+                                android:layout_height="50dp"
+                                android:background="@drawable/selector_bg_edit_2"
+                                android:hint="验证码"
+                                android:inputType="phone"
+                                android:paddingBottom="2dp"
+                                android:textColor="#f0f7f4"
+                                android:textCursorDrawable="@drawable/bg_input_cursor_2"
+                                android:textSize="16sp" />
+                        </android.support.design.widget.TextInputLayout>
+                    </LinearLayout>
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignEnd="@+id/ll_sms"
+                        android:layout_alignParentBottom="true"
+                        android:background="@drawable/bt_shape_2"
+                        android:layout_marginEnd="30dp"
+                        android:text="获取验证码"
+                        android:textColor="#2fa881" />
+                </RelativeLayout>
+
                 <LinearLayout
                     android:paddingStart="50dp"
                     android:paddingEnd="30dp"
@@ -122,7 +163,7 @@
                     android:stateListAnimator="@drawable/state_list_animator_z"
                     android:layout_width="150dp"
                     android:layout_height="50dp"
-                    android:text="@string/next"
+                    android:text="注册"
                     android:textColor="#2fa881"
                     >
                 </Button>

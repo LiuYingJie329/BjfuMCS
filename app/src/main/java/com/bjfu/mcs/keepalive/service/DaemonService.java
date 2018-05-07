@@ -33,8 +33,8 @@ public class DaemonService extends Service{
         if(Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR2){
             Notification.Builder builder = new Notification.Builder(this);
             builder.setSmallIcon(R.mipmap.ic_launcher);
-            builder.setContentTitle("收钱啦");
-            builder.setContentText("收钱啦");
+            builder.setContentTitle("MCS实验系统");
+            builder.setContentText("MCS实验系统");
             startForeground(NOTIFICATION_ID,builder.build());
             // 如果觉得常驻通知栏体验不好
             // 可以通过启动CancelNoticeService，将通知移除，oom_adj值不变

@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.bjfu.mcs.R;
+import com.xdandroid.hellodaemon.IntentWrapper;
 
 import agency.tango.materialintroscreen.MaterialIntroActivity;
 import agency.tango.materialintroscreen.MessageButtonBehaviour;
@@ -20,6 +21,7 @@ public class IntroActivity extends MaterialIntroActivity {
         super.onCreate(savedInstanceState);
         enableLastSlideAlphaExitTransition(true);
 
+        IntentWrapper.whiteListMatters(this, "群智感知系统服务持续运行");
         getBackButtonTranslationWrapper()
                 .setEnterTranslation(new IViewTranslation() {
                     @Override
@@ -32,21 +34,21 @@ public class IntroActivity extends MaterialIntroActivity {
                         .backgroundColor(R.color.first_slide_background)
                         .buttonsColor(R.color.first_slide_buttons)
                         .image(R.drawable.img_office)
-                        .title("Organize your time with us")
-                        .description("Would you try?")
+                        .title("欢迎来到移动群智感知系统")
+                        .description("进一步了解吧！")
                         .build(),
                 new MessageButtonBehaviour(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        showMessage("We provide solutions to make you love your work");
+                        showMessage("我们准备新功能等你来尝试");
                     }
-                }, "Work with love"));
+                }, "下一步"));
 
         addSlide(new SlideFragmentBuilder()
                 .backgroundColor(R.color.second_slide_background)
                 .buttonsColor(R.color.second_slide_buttons)
-                .title("Want more?")
-                .description("Go on")
+                .title("想了解更多?")
+                .description("GO ON")
                 .build());
 
         addSlide(new CustomSlide());
@@ -58,27 +60,25 @@ public class IntroActivity extends MaterialIntroActivity {
                         //.neededPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION})
                         .neededPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION})
                         .image(R.drawable.img_equipment)
-                        .title("We provide best tools")
-                        .description("ever")
+                        .title("App提供最好用的功能")
                         .build(),
                 new MessageButtonBehaviour(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        showMessage("Try us!");
+                        showMessage("进一步了解吧!");
                     }
-                }, "Tools"));
+                }, "下一步"));
 
         addSlide(new SlideFragmentBuilder()
                 .backgroundColor(R.color.fourth_slide_background)
                 .buttonsColor(R.color.fourth_slide_buttons)
-                .title("That's it")
-                .description("Would you join us?")
+                .title("开启移动群智感知新生活吧！")
+                .description("欢迎你加入我们")
                 .build());
     }
 
     @Override
     public void onFinish() {
         super.onFinish();
-        Toast.makeText(this, "Try this library in your project! :)", Toast.LENGTH_SHORT).show();
     }
 }

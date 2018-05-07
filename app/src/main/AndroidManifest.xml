@@ -66,18 +66,19 @@
             android:launchMode="singleTask"
             android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
         </activity>
         <activity
             android:name=".splash.SplashActivity"
             android:theme="@style/SplashScreen" />
         <activity
             android:name=".splash.IntroActivity"
-            android:theme="@style/Theme.Intro" />
+            android:theme="@style/Theme.Intro">
 
+        </activity>
         <!-- 百度地图定位Start -->
         <service
             android:name="com.baidu.location.f"
@@ -178,7 +179,7 @@
         <!-- 用于进程保活 -->
         <service
             android:name="cn.bmob.push.lib.service.PushNotifyService"
-            android:process=":bmobpush"></service>
+            android:process=":bmobpush" />
 
         <receiver android:name="cn.bmob.push.PushReceiver">
             <intent-filter>
@@ -321,11 +322,26 @@
             android:name=".activity.ExcelActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar" />
-        <activity android:name=".activity.SetPushActivity"
+        <activity
+            android:name=".activity.SetPushActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar">
-
-        </activity>
+            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar" />
+        <activity
+            android:name=".activity.NewSettingActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar" />
+        <activity
+            android:name=".activity.FeedBackActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar" />
+        <activity
+            android:name=".activity.Selectctivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar" />
+        <activity
+            android:name=".activity.SetPlaceActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar"></activity>
     </application>
 
 </manifest>

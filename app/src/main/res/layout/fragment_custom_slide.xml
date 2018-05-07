@@ -16,7 +16,10 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="需要申请的权限" />
+            android:textSize="20sp"
+            android:lineSpacingMultiplier="1.3"
+            android:layout_marginTop="10dp"
+            android:text="需要申请的权限:\n定位权限,用于地图的展示\n存储卡的读写权限，用于设置头像\n读取应用列表，用于第三方登录\n获取手机信息，用于您账户和当前手机绑定使用\nApp有很多功能，如地图显示、地图标记、轨迹路线图、分享功能、签到等。更加详细的等你来发现" />
     </ScrollView>
 
     <CheckBox

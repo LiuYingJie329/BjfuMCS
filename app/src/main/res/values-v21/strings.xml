@@ -2,7 +2,7 @@
 <resources>
     <string name="launch_intro_activity">启动App</string>
     <string name="check_to_pass">同意</string>
-    <string name="error_message">Please accept terms and conditions first.</string>
+    <string name="error_message">请勾选同意框哦</string>
     <string name="nav_city">选择区域</string>
     <string name="multi_cities">多路选择</string>
     <string name="setting">设置</string>
@@ -63,4 +63,14 @@
     <string name="title_activity_dial_chart4">DialChart4Activity</string>
     <string name="title_activity_dy_sp">DySpActivity</string>
     <string name="showdata">Show Data : %1$s</string>
+    <string name="update_content">最新版本:1.0.1 新版本大小:16.7M  更新内容:修复了已经BUG</string>
+    <string name="donetask">已经完成的任务</string>
+    <string name="doingtask">正在进行的任务</string>
+    <string name="untask">未完成的任务</string>
+    <string name="quickresons">退出原因</string>
+    <string name="clear_selection">清空</string>
+    <string name="sure">确定</string>
+    <string name="appname">移动群智感知系统</string>
+    <string name="nextpage">下一页</string>
+    <string name="prepages">上一页</string>
 </resources>

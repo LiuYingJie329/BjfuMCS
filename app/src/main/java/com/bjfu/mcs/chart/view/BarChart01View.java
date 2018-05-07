@@ -138,7 +138,7 @@ public class BarChart01View extends DemoView implements Runnable { //DemoView
 			chart.setCategories(chartLabels);	
 												
 			//轴标题
-			chart.getAxisTitle().setLeftTitle("数据库");
+			chart.getAxisTitle().setLeftTitle("活动类型");
 			chart.getAxisTitle().setLowerTitle("分布位置");
 			
 			//数据轴
@@ -230,20 +230,20 @@ public class BarChart01View extends DemoView implements Runnable { //DemoView
 		dataSeriesA.add(66d); 
 		dataSeriesA.add(33d); 
 		dataSeriesA.add(50d);
-		BarData BarDataA = new BarData("Oracle",dataSeriesA,colorORACLE);
+		BarData BarDataA = new BarData("教室",dataSeriesA,colorORACLE);
 		
 		
 		List<Double> dataSeriesB= new ArrayList<Double>();
 		dataSeriesB.add(0.d); //32
 		dataSeriesB.add(25d);
 		dataSeriesB.add(18d);
-		BarData BarDataB = new BarData("SQL Server",dataSeriesB,colorMSSQL);
+		BarData BarDataB = new BarData("宿舍",dataSeriesB,colorMSSQL);
 		
 		List<Double> dataSeriesC= new ArrayList<Double>();
 		dataSeriesC.add(79d);
 		dataSeriesC.add(91d);
 		dataSeriesC.add(65d);
-		BarData BarDataC = new BarData("MySQL",dataSeriesC,colorMYSQL);
+		BarData BarDataC = new BarData("图书馆",dataSeriesC,colorMYSQL);
 		
 		List<Double> dataSeriesD= new ArrayList<Double>();
 		dataSeriesD.add(52d);
@@ -259,9 +259,9 @@ public class BarChart01View extends DemoView implements Runnable { //DemoView
 	
 	private void chartLabels()
 	{
-		chartLabels.add("福田数据中心"); 
-		chartLabels.add("西丽数据中心"); 
-		chartLabels.add("观澜数据中心"); 
+		chartLabels.add("8am-12am");
+		chartLabels.add("12am-5pm");
+		chartLabels.add("5pm-12pm");
 	}	
 		
 	@Override
@@ -317,8 +317,8 @@ public class BarChart01View extends DemoView implements Runnable { //DemoView
 	private void drawLast()
 	{		
 		//标题
-		chart.setTitle("数据库统计");
-		chart.addSubtitle("(XCL-Charts Demo)");	
+		chart.setTitle("活动类型统计");
+		chart.addSubtitle("Activity type statistics");
 		chart.getPlotTitle().getTitlePaint().setColor(colorTitalAxes);
 		chart.getPlotTitle().getSubtitlePaint().setColor(colorTitalAxes); 
 		
@@ -359,7 +359,7 @@ public class BarChart01View extends DemoView implements Runnable { //DemoView
 		
 		AnchorDataPoint an4 = new AnchorDataPoint(0,1, XEnum.AnchorStyle.CAPRECT);
 		an4.setBgColor(Color.rgb(255, 145, 126));
-		an4.setAnchor("我是批注");
+		//an4.setAnchor("我是批注");
 				
 		mAnchorSet.add(an1);
 		mAnchorSet.add(an2);
@@ -416,19 +416,19 @@ public class BarChart01View extends DemoView implements Runnable { //DemoView
 		pDyLegend.setColor(Color.GREEN);
 		PlotDot dotDyLegend = new PlotDot();
 		dotDyLegend.setDotStyle(XEnum.DotStyle.RECT);
-		dyLegend.addLegend(dotDyLegend, "库可用xxx(PB)", pDyLegend);
+		dyLegend.addLegend(dotDyLegend, "已参加(个)", pDyLegend);
 		
 		Paint pDyLegend2 = new Paint(Paint.ANTI_ALIAS_FLAG);
 		pDyLegend2.setColor(Color.RED);
-		dyLegend.addLegend(dotDyLegend, "库已用xxx(PB)", pDyLegend2);
+		dyLegend.addLegend(dotDyLegend, "未参加(个)", pDyLegend2);
 		
 		Paint pDyLegend3 = new Paint(Paint.ANTI_ALIAS_FLAG);
 		pDyLegend3.setColor(Color.CYAN);
-		dyLegend.addLegend(dotDyLegend,"未分配xxx(PB)", pDyLegend3);
+		dyLegend.addLegend(dotDyLegend,"等待参加(个)", pDyLegend3);
 		
 		Paint pDyLegend4 = new Paint(Paint.ANTI_ALIAS_FLAG);
 		pDyLegend4.setColor(Color.YELLOW);
-		dyLegend.addLegend("总计:xxx(PB)", pDyLegend4);
+		dyLegend.addLegend("总计:xxx(个)", pDyLegend4);
 			
 	}
 	

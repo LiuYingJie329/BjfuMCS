@@ -19,7 +19,6 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 
 public class WatchDogService extends Service {
-
     protected static final int HASH_CODE = 2;
 
     protected static Disposable sDisposable;

@@ -107,7 +107,7 @@
                 android:paddingBottom="5dp"
                 android:paddingLeft="40dp"
                 android:paddingRight="40dp"
-                android:text="秋逸"
+                android:text="群智感知"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="20dp"/>
 
@@ -130,7 +130,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_weight="1"
-            android:text="星座"
+            android:text="邮箱"
             android:textColor="@color/brown1"/>
 
         <TextView
@@ -138,7 +138,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="20dp"
-            android:text="精灵座"
+            android:text="1234567890@163.com"
             android:textColor="@color/brown1"/>
 
 
@@ -251,12 +251,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="20dp"
-            android:text="无厘头"
+            android:text="操场、图书馆"
             android:textColor="@color/brown1"/>
 
 
     </LinearLayout>
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -283,7 +282,7 @@
             android:layout_marginTop="10dp"
             android:ems="10"
             android:paddingLeft="30dp"
-            android:text="长按头像显示大图。"
+            android:text="爱运行、爱学习、爱编程"
             android:textColor="#939393"/>
     </LinearLayout>
 
@@ -291,7 +290,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="bottom"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="invisible">
 
         <Button
             android:id="@+id/btn_exit"
@@ -299,6 +299,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:background="@drawable/shape_round_hot_pink"
-            android:text="退出登录"/>
+            android:text="退出登录"
+            />
     </LinearLayout>
 </LinearLayout>

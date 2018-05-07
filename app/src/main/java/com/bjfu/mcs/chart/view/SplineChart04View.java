@@ -107,9 +107,9 @@ public class SplineChart04View extends DemoView {
 						ltrb[2]+ DensityUtil.dip2px(this.getContext(), 20), ltrb[3]);
 			
 			//标题
-			chart.setTitle("New GitHub repositories");
-			chart.addSubtitle("(XCL-Charts Demo)");
-			chart.getAxisTitle().setLeftTitle("Percentage (annual)");
+			chart.setTitle("一周活动趋势");
+			chart.addSubtitle("One week activity trend");
+			chart.getAxisTitle().setLeftTitle("曲线表示");
 			chart.getAxisTitle().getLeftTitlePaint().setColor(Color.BLACK);
 			
 		
@@ -221,17 +221,17 @@ public class SplineChart04View extends DemoView {
 	
 	private void chartLabels()
 	{
-		labels.add("2018");
-		labels.add("2019");
-		labels.add("2020");
-		labels.add("2021");
-		labels.add("2022");
-		labels.add("2023");
+		labels.add("周一");
+		labels.add("周二");
+		labels.add("周三");
+		labels.add("周四");
+		labels.add("周五");
+		labels.add("周六日");
 	}
 	
 	private void chartDesireLines()
 	{			
-		CustomLineData s = new CustomLineData("GO",15d, Color.rgb(54, 141, 238),3);
+		CustomLineData s = new CustomLineData("图书馆",15d, Color.rgb(54, 141, 238),3);
 		
 		s.hideLine();		
 		s.getLineLabelPaint().setColor(Color.rgb(54, 141, 238));
@@ -240,7 +240,7 @@ public class SplineChart04View extends DemoView {
 		s.setLabelOffset(5);
 		mCustomLineDataset.add(s);
 		
-		CustomLineData s2 = new CustomLineData("C/C++",18d, Color.rgb(255, 165, 132),3);
+		CustomLineData s2 = new CustomLineData("食堂",18d, Color.rgb(255, 165, 132),3);
 		
 		s2.hideLine();		
 		s2.getLineLabelPaint().setColor(Color.rgb(255, 165, 132));
@@ -248,7 +248,7 @@ public class SplineChart04View extends DemoView {
 		s2.setLabelOffset(5);
 		mCustomLineDataset.add(s2);
 	
-		CustomLineData s3 = new CustomLineData("Java",16d, Color.rgb(77, 184, 73),3);
+		CustomLineData s3 = new CustomLineData("教室",16d, Color.rgb(77, 184, 73),3);
 		
 		s3.getLineLabelPaint().setColor(Color.rgb(77, 184, 73));
 		s3.getLineLabelPaint().setTextSize(25);

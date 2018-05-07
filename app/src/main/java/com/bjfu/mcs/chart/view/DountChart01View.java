@@ -94,7 +94,7 @@ public class DountChart01View extends DemoView {
 			
 			//数据源
 			chart.setDataSource(lPieData);
-			chart.setCenterText("新品太多!!!");			
+			chart.setCenterText("一周活动");
 			chart.getCenterTextPaint().setColor(Color.rgb(242, 167, 69));
 									
 			//标签显示(隐藏，显示在中间，显示在扇区外面) 
@@ -103,7 +103,7 @@ public class DountChart01View extends DemoView {
 			
 			//标题
 			chart.setTitle("环形图");
-			chart.addSubtitle("(XCL-Charts Demo)");
+			chart.addSubtitle("Ring diagram");
 			//显示key
 			//chart.getPlotLegend().show();		
 			//显示图例
@@ -156,22 +156,21 @@ public class DountChart01View extends DemoView {
 		paintTB.setColor(Color.GRAY);
 		paintTB.setTextAlign(Align.CENTER);
 		paintTB.setTextSize(25);			
-		chart.getPlotAttrInfo().addAttributeInfo(XEnum.Location.TOP, "九月的手机,", 0.5f, paintTB);
-		chart.getPlotAttrInfo().addAttributeInfo(XEnum.Location.BOTTOM, "绝对不够......", 0.5f, paintTB);
+		chart.getPlotAttrInfo().addAttributeInfo(XEnum.Location.TOP, "教室", 0.5f, paintTB);
+		chart.getPlotAttrInfo().addAttributeInfo(XEnum.Location.BOTTOM, "图书馆", 0.5f, paintTB);
 		
 		Paint paintLR = new Paint();
 		paintLR.setTextAlign(Align.CENTER);
 		paintLR.setTextSize(25);
 		paintLR.setColor(Color.rgb(191, 79, 75));
-		chart.getPlotAttrInfo().addAttributeInfo(XEnum.Location.LEFT, "性能高!", 0.5f, paintLR);
-		chart.getPlotAttrInfo().addAttributeInfo(XEnum.Location.RIGHT, "诱惑大!", 0.5f, paintLR);
+		chart.getPlotAttrInfo().addAttributeInfo(XEnum.Location.LEFT, "宿舍楼", 0.5f, paintLR);
+		chart.getPlotAttrInfo().addAttributeInfo(XEnum.Location.RIGHT, "食堂", 0.5f, paintLR);
 		
 		Paint paintBase = new Paint();
 		paintBase.setTextAlign(Align.CENTER);
 		paintBase.setTextSize(25);
 		paintBase.setColor(Color.rgb(242, 167, 69));
-		chart.getPlotAttrInfo().addAttributeInfo(XEnum.Location.BOTTOM,
-								"一个肾,", 0.3f, paintBase);		
+		//chart.getPlotAttrInfo().addAttributeInfo(XEnum.Location.BOTTOM, "一个肾,", 0.3f, paintBase);
 		/////////////////////////////////////////////////////////////
 	}
 	
@@ -180,10 +179,10 @@ public class DountChart01View extends DemoView {
 	{
 		//设置图表数据源				
 		//PieData(标签，百分比，在饼图中对应的颜色)
-		lPieData.add(new PieData("Solaris","20%",20, Color.rgb(77, 83, 97)));
-		lPieData.add(new PieData("Aix","30%",30, Color.rgb(148, 159, 181)));
-		lPieData.add(new PieData("HP-UX","10%",10, Color.rgb(253, 180, 90)));
-		lPieData.add(new PieData("Linux","40%",40, Color.rgb(52, 194, 188)));
+		lPieData.add(new PieData("图书馆","20%",20, Color.rgb(77, 83, 97)));
+		lPieData.add(new PieData("宿舍楼","30%",30, Color.rgb(148, 159, 181)));
+		lPieData.add(new PieData("食堂","10%",10, Color.rgb(253, 180, 90)));
+		lPieData.add(new PieData("教室","40%",40, Color.rgb(52, 194, 188)));
 	}
 	
 	@Override

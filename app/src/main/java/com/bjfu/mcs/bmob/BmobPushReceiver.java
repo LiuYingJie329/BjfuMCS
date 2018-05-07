@@ -19,8 +19,8 @@ public class BmobPushReceiver extends BroadcastReceiver {
             Notify notify = new Notify(context);
             notify.setId(msg.hashCode());
             notify.setTitle(msg);
-            notify.setAutoCancel(true);
-            notify.setSmallIcon(R.mipmap.ic_launcher);
+            notify.setAutoCancel(false);
+            notify.setSmallIcon(R.mipmap.ic_launcher_round);
             notify.notification();
             notify.show();
         }
