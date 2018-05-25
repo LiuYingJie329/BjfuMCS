@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bjfu.mcs.R;
+import com.bjfu.mcs.bean.PersonInfo;
 import com.bjfu.mcs.utils.Rx.RxPhotoTool;
 import com.bjfu.mcs.utils.Rx.RxSPTool;
 import com.bjfu.mcs.utils.Rx.dialog.RxDialogChooseImage;
@@ -47,6 +48,9 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.UpdateListener;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import okhttp3.OkHttpClient;
 
@@ -428,5 +432,20 @@ public class MeActivity extends AppCompatActivity {
             default:
                 break;
         }
+    }
+
+    public void updatepersoninfo(){
+        PersonInfo user = BmobUser.getCurrentUser(PersonInfo.class);
+
+        user.update(user.getObjectId(), new UpdateListener() {
+            @Override
+            public void done(BmobException e) {
+                if(e == null){
+                    //保存成功
+                }else{
+                    //保存失败
+                }
+            }
+        });
     }
 }

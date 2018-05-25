@@ -107,14 +107,14 @@ public class Notify {
 
     public Notify setAutoCancel(Boolean autoCancel) {
         mAutoCancel = autoCancel;
-        AsyncCustomEndpoints asyncCustomEndpoints = new AsyncCustomEndpoints();
-
-        asyncCustomEndpoints.callEndpoint("", new JSONObject(), new CloudCodeListener() {
-            @Override
-            public void done(Object o, BmobException e) {
-
-            }
-        });
+//        AsyncCustomEndpoints asyncCustomEndpoints = new AsyncCustomEndpoints();
+//
+//        asyncCustomEndpoints.callEndpoint("", new JSONObject(), new CloudCodeListener() {
+//            @Override
+//            public void done(Object o, BmobException e) {
+//
+//            }
+//        });
         return this;
     }
 

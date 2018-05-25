@@ -7,7 +7,7 @@ import android.widget.Toast;
 
 import com.bjfu.mcs.R;
 
-import cn.bmob.push.PushConstants;
+//import cn.bmob.push.PushConstants;
 
 
 public class BmobPushReceiver extends BroadcastReceiver {
@@ -15,14 +15,14 @@ public class BmobPushReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         String msg = intent.getStringExtra("msg");
-        if (intent.getAction().equals(PushConstants.ACTION_MESSAGE)) {
-            Notify notify = new Notify(context);
-            notify.setId(msg.hashCode());
-            notify.setTitle(msg);
-            notify.setAutoCancel(false);
-            notify.setSmallIcon(R.mipmap.ic_launcher_round);
-            notify.notification();
-            notify.show();
-        }
+//        if (intent.getAction().equals(PushConstants.ACTION_MESSAGE)) {
+//            Notify notify = new Notify(context);
+//            notify.setId(msg.hashCode());
+//            notify.setTitle(msg);
+//            notify.setAutoCancel(false);
+//            notify.setSmallIcon(R.mipmap.ic_launcher_round);
+//            notify.notification();
+//            notify.show();
+//        }
     }
 }

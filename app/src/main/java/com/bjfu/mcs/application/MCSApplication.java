@@ -21,7 +21,8 @@ import com.bjfu.mcs.utils.log.Utils;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.xdandroid.hellodaemon.DaemonEnv;
 
-import cn.bmob.push.BmobPush;
+//import cn.bmob.push.BmobPush;
+import cn.bmob.sms.BmobSMS;
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobInstallation;
 import cn.bmob.v3.BmobInstallationManager;
@@ -83,19 +84,21 @@ public class MCSApplication extends Application {
         //.build();
         //Bmob.initialize(config);
         // 使用推送服务时的初始化操作,保存设备信息，用于推送功能
-        BmobInstallationManager.getInstance().initialize(new InstallationListener<BmobInstallation>() {
-            @Override
-            public void done(BmobInstallation bmobInstallation, BmobException e) {
-                if (e == null) {
-
-                    Log.i("MCSApplication",bmobInstallation.getObjectId() + "-" + bmobInstallation.getInstallationId());
-                } else {
-                    Log.e("MCSApplication",e.getMessage());
-                }
-            }
-        });
+//        BmobInstallationManager.getInstance().initialize(new InstallationListener<BmobInstallation>() {
+//            @Override
+//            public void done(BmobInstallation bmobInstallation, BmobException e) {
+//                if (e == null) {
+//
+//                    Log.i("MCSApplication",bmobInstallation.getObjectId() + "-" + bmobInstallation.getInstallationId());
+//                } else {
+//                    Log.e("MCSApplication",e.getMessage());
+//                }
+//            }
+//        });
         // 启动推送服务
-        BmobPush.startWork(this);
+        //BmobPush.startWork(application);
+        //Bmob短信初始化
+        BmobSMS.initialize(this,"410847461a2086a65b522fb4da7c3967");
     }
 
     private void setupDatabase(String str) {

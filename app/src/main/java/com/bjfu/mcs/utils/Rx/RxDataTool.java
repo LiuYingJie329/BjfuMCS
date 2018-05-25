@@ -18,6 +18,7 @@ import java.text.DecimalFormat;
 import java.util.Collection;
 import java.util.Locale;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import static com.bjfu.mcs.utils.Rx.RxConstTool.BYTE;
 import static com.bjfu.mcs.utils.Rx.RxConstTool.GB;
@@ -32,6 +33,31 @@ public class RxDataTool {
 
     private static final DecimalFormat amountFormat = new DecimalFormat("###,###,###,##0.00");
 
+    /**
+     * 密码校验
+     * 要求6-16位数字和英文字母组合
+     * @param pwd
+     * @return
+     */
+    public static boolean isPassword(String pwd) {
+        /**
+         * ^ 匹配一行的开头位置(?![0-9]+$) 预测该位置后面不全是数字
+         * (?![a-zA-Z]+$) 预测该位置后面不全是字母
+         * [0-9A-Za-z] {6,16} 由6-16位数字或这字母组成
+         */
+        return validation("^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$", pwd);
+    }
+    /**
+     * 正则校验
+     * @param str
+     * 需要校验的字符串
+     * @return 验证通过返回true
+     */
+    public static boolean validation(String pattern, String str) {
+        if (str == null)
+            return false;
+        return Pattern.compile(pattern).matcher(str).matches();
+    }
     /**
      * 判断字符串是否为空 为空即true
      *

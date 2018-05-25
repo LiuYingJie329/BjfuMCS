@@ -54,6 +54,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <!--注册登录页开始-->
         <activity
             android:name=".loginSign.LoginActivity"
             android:launchMode="singleTask" />
@@ -61,24 +62,32 @@
             android:name=".loginSign.RegisterActivity"
             android:launchMode="singleTask"
             android:theme="@style/Translucent" />
+        <!--注册登录页结束-->
+
+        <!--主界面-->
+        <!--android:launchMode="singleTask"-->
         <activity
             android:name=".activity.MainActivity"
             android:launchMode="singleTask"
             android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar">
-            <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
         </activity>
+
+        <!--引导页开始-->
         <activity
             android:name=".splash.SplashActivity"
-            android:theme="@style/SplashScreen" />
+            android:theme="@style/SplashScreen" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".splash.IntroActivity"
             android:theme="@style/Theme.Intro">
 
         </activity>
+        <!--引导页结束-->
         <!-- 百度地图定位Start -->
         <service
             android:name="com.baidu.location.f"
@@ -164,9 +173,9 @@
             </intent-filter>
         </receiver>
 
-        <!-- BombPush -->
+        <!-- BombPush Bmob消息推送-->
         <!-- TODO 集成：1.2、添加推送所需要的服务和广播 -->
-        <service
+<!--        <service
             android:name="cn.bmob.push.lib.service.PushService"
             android:exported="true"
             android:label="PushService"
@@ -176,7 +185,7 @@
             </intent-filter>
         </service>
 
-        <!-- 用于进程保活 -->
+        &lt;!&ndash; 用于进程保活 &ndash;&gt;
         <service
             android:name="cn.bmob.push.lib.service.PushNotifyService"
             android:process=":bmobpush" />
@@ -184,34 +193,34 @@
         <receiver android:name="cn.bmob.push.PushReceiver">
             <intent-filter>
 
-                <!-- 系统启动完成后会调用 -->
+                &lt;!&ndash; 系统启动完成后会调用 &ndash;&gt;
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <!-- 解锁完成后会调用 -->
+                &lt;!&ndash; 解锁完成后会调用 &ndash;&gt;
                 <action android:name="android.intent.action.USER_PRESENT" />
-                <!-- 监听网络连通性 -->
+                &lt;!&ndash; 监听网络连通性 &ndash;&gt;
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
 
-        <!-- 第3步中创建的消息接收器，在这里进行注册 -->
+        &lt;!&ndash; 第3步中创建的消息接收器，在这里进行注册 &ndash;&gt;
         <receiver android:name=".bmob.BmobPushReceiver">
             <intent-filter>
                 <action android:name="cn.bmob.push.action.MESSAGE" />
             </intent-filter>
         </receiver>
 
-        <!-- 接收心跳和唤醒的广播，要和PushService运行在同个进程 -->
+        &lt;!&ndash; 接收心跳和唤醒的广播，要和PushService运行在同个进程 &ndash;&gt;
         <receiver
             android:name="cn.bmob.push.PushNotifyReceiver"
             android:process=":bmobpush">
             <intent-filter>
 
-                <!-- 接收心跳广播的action -->
+                &lt;!&ndash; 接收心跳广播的action &ndash;&gt;
                 <action android:name="cn.bmob.push.action.HEARTBEAT" />
-                <!-- 接收唤醒广播的action -->
+                &lt;!&ndash; 接收唤醒广播的action &ndash;&gt;
                 <action android:name="cn.bmob.push.action.NOTIFY" />
             </intent-filter>
-        </receiver>
+        </receiver>-->
 
         <service android:name=".keepalive.daemon.TraceServiceImpl" />
 

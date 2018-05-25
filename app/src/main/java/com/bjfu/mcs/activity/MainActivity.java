@@ -280,6 +280,8 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
     }
 
     private void initDialogs() {
+
+        /*升级对话框*/
         /*new MaterialDialog.Builder(this)
                 .iconRes(R.mipmap.ic_launcher)
                 .limitIconToDefaultSize() // limits the displayed icon size to 48dp
@@ -289,7 +291,8 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
                 .negativeText("暂不升级")
                 .show();*/
 
-        new MaterialDialog.Builder(this)
+        /*退出原因对话框*/
+       /* new MaterialDialog.Builder(this)
                 .title(R.string.quickresons)
                 .items(R.array.socialNetworks)
                 .itemsCallbackMultiChoice(
@@ -313,7 +316,7 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
                 .positiveText(R.string.sure)
                 .autoDismiss(false)
                 .neutralText(R.string.clear_selection)
-                .show();
+                .show();*/
 
 
     }

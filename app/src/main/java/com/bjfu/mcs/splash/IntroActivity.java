@@ -1,6 +1,7 @@
 package com.bjfu.mcs.splash;
 
 import android.Manifest;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.FloatRange;
 import android.support.annotation.Nullable;
@@ -8,6 +9,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.bjfu.mcs.R;
+import com.bjfu.mcs.loginSign.LoginActivity;
+import com.bjfu.mcs.utils.Rx.RxActivityTool;
 import com.xdandroid.hellodaemon.IntentWrapper;
 
 import agency.tango.materialintroscreen.MaterialIntroActivity;
@@ -21,7 +24,10 @@ public class IntroActivity extends MaterialIntroActivity {
         super.onCreate(savedInstanceState);
         enableLastSlideAlphaExitTransition(true);
 
-        IntentWrapper.whiteListMatters(this, "群智感知系统服务持续运行");
+
+        //IntentWrapper.whiteListMatters(this, "群智感知系统服务持续运行");
+
+
         getBackButtonTranslationWrapper()
                 .setEnterTranslation(new IViewTranslation() {
                     @Override
@@ -75,10 +81,14 @@ public class IntroActivity extends MaterialIntroActivity {
                 .title("开启移动群智感知新生活吧！")
                 .description("欢迎你加入我们")
                 .build());
+
     }
+
 
     @Override
     public void onFinish() {
+        Intent intent = new Intent(IntroActivity.this, LoginActivity.class);
+        startActivity(intent);
         super.onFinish();
     }
 }

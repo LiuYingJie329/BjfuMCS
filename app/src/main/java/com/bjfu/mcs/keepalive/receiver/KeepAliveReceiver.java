@@ -32,9 +32,12 @@ public class KeepAliveReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 
         if(RxNetTool.isConnected(context)){
-            Intent intentAlive = new Intent(context, MainActivity.class);
-            intentAlive.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(intentAlive);
+
+            //因为此，安装完APK后会出现MainActivity界面
+//            Intent intentAlive = new Intent(context, MainActivity.class);
+//            intentAlive.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//            context.startActivity(intentAlive);
+            Toast.makeText(context,"启动MainActivity!!!!!!",Toast.LENGTH_SHORT).show();
             //Log.i(TAG,"KeepAliveReceiver-->复活进程APP");
         }
 

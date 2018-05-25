@@ -69,126 +69,134 @@ public class SetPushActivity extends AppCompatActivity {
         BmobQuery<BmobInstallation> query = BmobInstallation.getQuery();
         switch (view.getId()) {
             case R.id.btn_broadcast://OK
-                bmobPushManager.pushMessageAll("消息内容", new PushListener() {
-                    @Override
-                    public void done(BmobException e) {
-                        if (e == null) {
-                            Toast.makeText(SetPushActivity.this,"推送成功",Toast.LENGTH_LONG).show();
-                        } else {
-                            Toast.makeText(SetPushActivity.this,"推送异常"+e.getMessage(),Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
+                Toast.makeText(this,"推送失效",Toast.LENGTH_LONG).show();
+//                bmobPushManager.pushMessageAll("消息内容", new PushListener() {
+//                    @Override
+//                    public void done(BmobException e) {
+//                        if (e == null) {
+//                            Toast.makeText(SetPushActivity.this,"推送成功",Toast.LENGTH_LONG).show();
+//                        } else {
+//                            Toast.makeText(SetPushActivity.this,"推送异常"+e.getMessage(),Toast.LENGTH_LONG).show();
+//                        }
+//                    }
+//                });
                 break;
             case R.id.btn_multi_cast_channel:
-                List<String> channels = new ArrayList<>();
-                //TODO 替换成你需要推送的所有频道，推送前请确认已有设备订阅了该频道，也就是channels属性存在该值
-                channels.add("NBA");
-                bmobPushManager.setQuery(query);
-                query.addWhereContainedIn("channels", channels);
-                bmobPushManager.pushMessage("消息内容", new PushListener() {
-                    @Override
-                    public void done(BmobException e) {
-                        if (e == null) {
-                            Toast.makeText(SetPushActivity.this,"推送成功",Toast.LENGTH_LONG).show();
-                        } else {
-                            Toast.makeText(SetPushActivity.this,"推送异常"+e.getMessage(),Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
+                Toast.makeText(this,"推送失效",Toast.LENGTH_LONG).show();
+//                List<String> channels = new ArrayList<>();
+//                //TODO 替换成你需要推送的所有频道，推送前请确认已有设备订阅了该频道，也就是channels属性存在该值
+//                channels.add("NBA");
+//                bmobPushManager.setQuery(query);
+//                query.addWhereContainedIn("channels", channels);
+//                bmobPushManager.pushMessage("消息内容", new PushListener() {
+//                    @Override
+//                    public void done(BmobException e) {
+//                        if (e == null) {
+//                            Toast.makeText(SetPushActivity.this,"推送成功",Toast.LENGTH_LONG).show();
+//                        } else {
+//                            Toast.makeText(SetPushActivity.this,"推送异常"+e.getMessage(),Toast.LENGTH_LONG).show();
+//                        }
+//                    }
+//                });
                 break;
             case R.id.btn_multi_cast_platform://OK
+                Toast.makeText(this,"推送失效",Toast.LENGTH_LONG).show();
                 //TODO 属性值为android或者ios
-                query.addWhereEqualTo("deviceType", "android");
-                //query.addWhereEqualTo("deviceType", "ios");
-                bmobPushManager.setQuery(query);
-                bmobPushManager.pushMessage("消息内容", new PushListener() {
-                    @Override
-                    public void done(BmobException e) {
-                        if (e == null) {
-                            Toast.makeText(SetPushActivity.this,"推送成功",Toast.LENGTH_LONG).show();
-                        } else {
-                            Toast.makeText(SetPushActivity.this,"推送异常"+e.getMessage(),Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
+//                query.addWhereEqualTo("deviceType", "android");
+//                //query.addWhereEqualTo("deviceType", "ios");
+//                bmobPushManager.setQuery(query);
+//                bmobPushManager.pushMessage("消息内容", new PushListener() {
+//                    @Override
+//                    public void done(BmobException e) {
+//                        if (e == null) {
+//                            Toast.makeText(SetPushActivity.this,"推送成功",Toast.LENGTH_LONG).show();
+//                        } else {
+//                            Toast.makeText(SetPushActivity.this,"推送异常"+e.getMessage(),Toast.LENGTH_LONG).show();
+//                        }
+//                    }
+//                });
                 break;
             case R.id.btn_multi_cast_location://OK
-                //TODO 替换你需要推送的地理位置的经纬度和范围，发送前请确认installation表中已有location的BmobGeoPoint类型属性
-                query.addWhereWithinRadians("location", new BmobGeoPoint(113.385610000, 23.0561000000), 1.0);
-                bmobPushManager.setQuery(query);
-                bmobPushManager.pushMessage("消息内容", new PushListener() {
-                    @Override
-                    public void done(BmobException e) {
-                        if (e == null) {
-                            Toast.makeText(SetPushActivity.this,"推送成功",Toast.LENGTH_LONG).show();
-                        } else {
-                            Toast.makeText(SetPushActivity.this,"推送异常"+e.getMessage()+"发送前请确认installation表中已有location的BmobGeoPoint类型属性",Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
+                Toast.makeText(this,"推送失效",Toast.LENGTH_LONG).show();
+//                //TODO 替换你需要推送的地理位置的经纬度和范围，发送前请确认installation表中已有location的BmobGeoPoint类型属性
+//                query.addWhereWithinRadians("location", new BmobGeoPoint(113.385610000, 23.0561000000), 1.0);
+//                bmobPushManager.setQuery(query);
+//                bmobPushManager.pushMessage("消息内容", new PushListener() {
+//                    @Override
+//                    public void done(BmobException e) {
+//                        if (e == null) {
+//                            Toast.makeText(SetPushActivity.this,"推送成功",Toast.LENGTH_LONG).show();
+//                        } else {
+//                            Toast.makeText(SetPushActivity.this,"推送异常"+e.getMessage()+"发送前请确认installation表中已有location的BmobGeoPoint类型属性",Toast.LENGTH_LONG).show();
+//                        }
+//                    }
+//                });
                 break;
             case R.id.btn_multi_cast_active://OK
+                Toast.makeText(this,"推送失效",Toast.LENGTH_LONG).show();
                 //TODO 替换你需要的判断为不活跃的时间点
-                query.addWhereLessThan("updatedAt", new BmobDate(new Date()));
-                bmobPushManager.setQuery(query);
-                bmobPushManager.pushMessage("消息内容", new PushListener() {
-                    @Override
-                    public void done(BmobException e) {
-                        if (e == null) {
-                            Toast.makeText(SetPushActivity.this,"推送成功",Toast.LENGTH_LONG).show();
-                        } else {
-                            Toast.makeText(SetPushActivity.this,"推送异常"+e.getMessage(),Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
+//                query.addWhereLessThan("updatedAt", new BmobDate(new Date()));
+//                bmobPushManager.setQuery(query);
+//                bmobPushManager.pushMessage("消息内容", new PushListener() {
+//                    @Override
+//                    public void done(BmobException e) {
+//                        if (e == null) {
+//                            Toast.makeText(SetPushActivity.this,"推送成功",Toast.LENGTH_LONG).show();
+//                        } else {
+//                            Toast.makeText(SetPushActivity.this,"推送异常"+e.getMessage(),Toast.LENGTH_LONG).show();
+//                        }
+//                    }
+//                });
                 break;
             case R.id.btn_multi_cast_query://OK
+                Toast.makeText(this,"推送失效",Toast.LENGTH_LONG).show();
                 //TODO 替换成你作为判断需要推送的属性名和属性值，推送前请确认installation表已有该属性
-                query.addWhereEqualTo("替换成你作为判断需要推送的属性名", "替换成你作为判断需要推送的属性值");
-                bmobPushManager.setQuery(query);
-                bmobPushManager.pushMessage("消息内容", new PushListener() {
-                    @Override
-                    public void done(BmobException e) {
-                        if (e == null) {
-                            Toast.makeText(SetPushActivity.this,"推送成功",Toast.LENGTH_LONG).show();
-                        } else {
-                            Toast.makeText(SetPushActivity.this,"推送异常"+e.getMessage(),Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
+//                query.addWhereEqualTo("替换成你作为判断需要推送的属性名", "替换成你作为判断需要推送的属性值");
+//                bmobPushManager.setQuery(query);
+//                bmobPushManager.pushMessage("消息内容", new PushListener() {
+//                    @Override
+//                    public void done(BmobException e) {
+//                        if (e == null) {
+//                            Toast.makeText(SetPushActivity.this,"推送成功",Toast.LENGTH_LONG).show();
+//                        } else {
+//                            Toast.makeText(SetPushActivity.this,"推送异常"+e.getMessage(),Toast.LENGTH_LONG).show();
+//                        }
+//                    }
+//                });
                 break;
             case R.id.btn_uni_cast_android://OK
+                Toast.makeText(this,"推送失效",Toast.LENGTH_LONG).show();
                 //TODO 替换成所需要推送的Android客户端installationId
-                String installationId = "替换成所需要推送的Android客户端installationId";
-                query.addWhereEqualTo("installationId", installationId);
-                bmobPushManager.setQuery(query);
-                bmobPushManager.pushMessage("消息内容", new PushListener() {
-                    @Override
-                    public void done(BmobException e) {
-                        if (e == null) {
-                            Toast.makeText(SetPushActivity.this,"推送成功",Toast.LENGTH_LONG).show();
-                        } else {
-                            Toast.makeText(SetPushActivity.this,"推送异常"+e.getMessage(),Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
+//                String installationId = "替换成所需要推送的Android客户端installationId";
+//                query.addWhereEqualTo("installationId", installationId);
+//                bmobPushManager.setQuery(query);
+//                bmobPushManager.pushMessage("消息内容", new PushListener() {
+//                    @Override
+//                    public void done(BmobException e) {
+//                        if (e == null) {
+//                            Toast.makeText(SetPushActivity.this,"推送成功",Toast.LENGTH_LONG).show();
+//                        } else {
+//                            Toast.makeText(SetPushActivity.this,"推送异常"+e.getMessage(),Toast.LENGTH_LONG).show();
+//                        }
+//                    }
+//                });
                 break;
             case R.id.btn_uni_cast_ios://OK
+                Toast.makeText(this,"推送失效",Toast.LENGTH_LONG).show();
                 //TODO 替换成所需要推送的iOS客户端deviceToken
-                String deviceToken = "";
-                query.addWhereEqualTo("deviceToken", deviceToken);
-                bmobPushManager.setQuery(query);
-                bmobPushManager.pushMessage("消息内容", new PushListener() {
-                    @Override
-                    public void done(BmobException e) {
-                        if (e == null) {
-                            Toast.makeText(SetPushActivity.this,"推送成功",Toast.LENGTH_LONG).show();
-                        } else {
-                            Toast.makeText(SetPushActivity.this,"推送异常"+e.getMessage(),Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
+//                String deviceToken = "";
+//                query.addWhereEqualTo("deviceToken", deviceToken);
+//                bmobPushManager.setQuery(query);
+//                bmobPushManager.pushMessage("消息内容", new PushListener() {
+//                    @Override
+//                    public void done(BmobException e) {
+//                        if (e == null) {
+//                            Toast.makeText(SetPushActivity.this,"推送成功",Toast.LENGTH_LONG).show();
+//                        } else {
+//                            Toast.makeText(SetPushActivity.this,"推送异常"+e.getMessage(),Toast.LENGTH_LONG).show();
+//                        }
+//                    }
+//                });
                 break;
         }
     }

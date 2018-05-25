@@ -46,7 +46,7 @@ android {
 }
 
 dependencies {
-    compile 'io.reactivex.rxjava2:rxjava:2.+'
+    compile 'io.reactivex.rxjava2:rxjava:2.1.9'
     compile 'com.android.support:support-annotations:+'
 }
 
