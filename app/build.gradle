@@ -177,6 +177,8 @@ dependencies {
     compile 'com.afollestad.material-dialogs:commons:0.9.6.0'
     compile 'com.afollestad.material-dialogs:core:0.9.6.0'
 
+    //progress
+    compile 'com.github.ForgetAll:LoadingDialog:v1.0.4'
     //友盟系列
 
     //必备

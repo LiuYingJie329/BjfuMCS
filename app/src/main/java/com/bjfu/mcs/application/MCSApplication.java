@@ -16,8 +16,12 @@ import com.bjfu.mcs.keepalive.service.DaemonService;
 import com.bjfu.mcs.keepalive.service.PlayerMusicService;
 import com.bjfu.mcs.mapservice.BaiduMapLocationService;
 import com.bjfu.mcs.utils.Rx.RxDataTool;
+import com.bjfu.mcs.utils.Rx.RxToast;
 import com.bjfu.mcs.utils.Rx.RxTool;
 import com.bjfu.mcs.utils.log.Utils;
+import com.bjfu.mcs.utils.network.NetChangeObserver;
+import com.bjfu.mcs.utils.network.NetStateReceiver;
+import com.bjfu.mcs.utils.network.NetworkUtils;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.xdandroid.hellodaemon.DaemonEnv;
 
@@ -37,10 +41,13 @@ import common.Logger;
  */
 
 public class MCSApplication extends Application {
+
     private static MCSApplication application = null;
     public BaiduMapLocationService locationService;
     public Vibrator mVibrator;
     private DaoSession daoSession;
+    public NetworkUtils.NetworkType mNetType;
+    private NetStateReceiver netStateReceiver;
     @Override
     public void onCreate() {
         super.onCreate();
@@ -99,6 +106,9 @@ public class MCSApplication extends Application {
         //BmobPush.startWork(application);
         //Bmob短信初始化
         BmobSMS.initialize(this,"410847461a2086a65b522fb4da7c3967");
+
+
+        initNetChangeReceiver();
     }
 
     private void setupDatabase(String str) {
@@ -126,4 +136,68 @@ public class MCSApplication extends Application {
     public static MCSApplication getApplication(){
         return application;
     }
+
+    /**
+     * 应用全局的网络变化处理
+     */
+    private void initNetChangeReceiver() {
+        //获取当前网络类型
+        mNetType = NetworkUtils.getNetworkType(this);
+        //定义网络状态的广播接受者
+        netStateReceiver = NetStateReceiver.getReceiver();
+        //给广播接受者注册一个观察者
+        netStateReceiver.registerObserver(netChangeObserver);
+        //注册网络变化广播
+        NetworkUtils.registerNetStateReceiver(this, netStateReceiver);
+    }
+
+    private NetChangeObserver netChangeObserver = new NetChangeObserver() {
+        @Override
+        public void onConnect(NetworkUtils.NetworkType type) {
+            MCSApplication.this.onNetConnect(type);
+        }
+        @Override
+        public void onDisConnect() {
+            MCSApplication.this.onNetDisConnect();
+        }
+    };
+
+    protected void onNetDisConnect() {
+        RxToast.info("网络已断开,请检查网络设置");
+        mNetType = NetworkUtils.NetworkType.NETWORK_NONE;
+    }
+
+    protected void onNetConnect(NetworkUtils.NetworkType type) {
+        if (type == mNetType) return; //net not change
+        switch (type) {
+            case NETWORK_WIFI:
+                RxToast.info("已切换到 WIFI 网络");
+                break;
+            case NETWORK_MOBILE:
+                RxToast.info("已切换到 2G/3G/4G 网络");
+                break;
+        }
+        mNetType = type;
+    }
+
+    //释放广播接受者(建议在 最后一个 Activity 退出前调用)
+    private void destroyReceiver() {
+        //移除里面的观察者
+        netStateReceiver.removeObserver(netChangeObserver);
+        //解注册广播接受者,
+        try {
+            NetworkUtils.unRegisterNetStateReceiver(this, netStateReceiver);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @Override
+    public void onTerminate() {
+        // 程序终止的时候执行
+        super.onTerminate();
+        destroyReceiver();
+    }
+
 }

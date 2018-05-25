@@ -1,5 +1,7 @@
 package com.bjfu.mcs.base;
 
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -9,6 +11,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.bjfu.mcs.R;
+import com.bjfu.mcs.utils.widget.BaseProgressDialog;
 
 import butterknife.ButterKnife;
 
@@ -18,6 +21,8 @@ import butterknife.ButterKnife;
  */
 
 public abstract class BaseActivity extends AppCompatActivity {
+
+    private BaseProgressDialog mProgressDialog = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState ) {
@@ -37,4 +42,50 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     protected abstract int layoutId();
+
+    public void showProgressDialog(BaseProgressDialog.OnCancelListener cancelListener, boolean cancelable, String msg) {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            return;
+        }
+        mProgressDialog = new BaseProgressDialog(this);
+        if (cancelListener != null) {
+            mProgressDialog.setOnCancelListener(cancelListener);
+        }
+        mProgressDialog.setCancelable(cancelable);
+        mProgressDialog.show();
+    }
+
+    public void showProgressDialog(boolean cancelable, String msg) {
+        showProgressDialog(null, cancelable, msg);
+    }
+
+    public void showProgressDialog(boolean cancelable) {
+        showProgressDialog(cancelable, "");
+    }
+
+    public void stopProgressDialog() {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.stop();
+        }
+        mProgressDialog = null;
+    }
+
+    protected void cancelProgressDialog() {
+        if (mProgressDialog.cancel()) {
+            mProgressDialog = null;
+        }
+    }
+
+    /**
+     * 检查网络连接
+     * @return
+     */
+    public boolean checkInternetConnection() {
+        NetworkInfo info = null;
+        if (info == null) {
+            ConnectivityManager manager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+            info = manager.getActiveNetworkInfo();
+        }
+        return info != null && info.isAvailable();
+    }
 }

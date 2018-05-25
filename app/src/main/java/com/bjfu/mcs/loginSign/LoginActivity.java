@@ -60,6 +60,13 @@ public class LoginActivity extends BaseActivity {
         return R.layout.activity_login;
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+    }
+
+
     @OnClick({R.id.bt_go, R.id.fab,R.id.tirdway})
     public void setListener(View v) {
         switch (v.getId()) {
@@ -72,14 +79,7 @@ public class LoginActivity extends BaseActivity {
                 getWindow().setExitTransition(explode);
                 getWindow().setEnterTransition(explode);
 
-                try {
-                    SecuritySharedPreference security = new SecuritySharedPreference(MCSApplication.getApplication(), phone, Context.MODE_PRIVATE);
-                    pwfromShare = security.getString("password", null);
-                    usernamefromShare = security.getString("username", null);
-                } catch (Exception e) {
-                    pwfromShare = null;
-                    usernamefromShare = null;
-                }
+
                 if(RxDataTool.isNullString(phone)){
                     RxToast.error("用户名不能为空");
                     return;
@@ -89,14 +89,6 @@ public class LoginActivity extends BaseActivity {
                     return;
                 }
 
-//                if (!RxDataTool.isNullString(username) && !RxDataTool.isNullString(password)
-//                        && !RxDataTool.isNullString(pwfromShare) && !RxDataTool.isNullString(usernamefromShare)
-//                        && username.equals(usernamefromShare) && password.equals(pwfromShare)) {
-//                    RxToast.normal("登录成功");
-//                    ActivityOptionsCompat oc2 = ActivityOptionsCompat.makeSceneTransitionAnimation(LoginActivity.this);
-//                    Intent i2 = new Intent(LoginActivity.this, SplashActivity.class);
-//                    startActivity(i2, oc2.toBundle());
-//                }
 
                 if(!RxDataTool.isNullString(phone) && !RxDataTool.isNullString(password)){
                     doLogin(phone,password);
@@ -115,13 +107,14 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void doLogin(final String mobile, String pwd) {
+        showProgressDialog(false);
         PersonInfo user = new PersonInfo();
         user.setUsername(mobile);
         user.setPassword(pwd);
         user.login(new SaveListener<PersonInfo>() {
             @Override
             public void done(PersonInfo user, BmobException e) {
-
+                stopProgressDialog();
                 if(e == null){
 
 //                    PersonInfo pi = PersonInfo.getCurrentUser(PersonInfo.class);
@@ -129,6 +122,8 @@ public class LoginActivity extends BaseActivity {
 //
 //                    }
                     RxToast.success("登录成功");
+                    saveloginfirst();
+                    saveRegisterData(mobile,pwd);
                     RxActivityTool.skipActivityAndFinish(LoginActivity.this,MainActivity.class);
                 }else{
                     RxToast.error("登录失败:" + e.getMessage());
@@ -137,6 +132,25 @@ public class LoginActivity extends BaseActivity {
         });
 
     }
+
+    /**
+     * 将用户名和密码保存在本地的SharedPreference数据库分钟
+     */
+    private void saveRegisterData(String mobile, String password) {
+        SecuritySharedPreference securitySharedPreference = new SecuritySharedPreference(MCSApplication.getApplication(), "spf_loginInfo", Context.MODE_PRIVATE);
+        SecuritySharedPreference.Editor editor = securitySharedPreference.edit();
+        editor.putString("username", mobile);
+        editor.putString("password", password);
+        editor.apply();
+    }
+
+    private void saveloginfirst() {
+        SecuritySharedPreference securitySharedPreference = new SecuritySharedPreference(MCSApplication.getApplication(), "spf_loginfirst", Context.MODE_PRIVATE);
+        SecuritySharedPreference.Editor editor = securitySharedPreference.edit();
+        editor.putBoolean("loginfirst", false);
+        editor.apply();
+    }
+
     @Override
     protected void onRestart() {
         super.onRestart();
@@ -147,5 +161,32 @@ public class LoginActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         fab.setVisibility(View.VISIBLE);
+
+        try {
+            SecuritySharedPreference security = new SecuritySharedPreference(MCSApplication.getApplication(), "spf_loginInfo", Context.MODE_PRIVATE);
+            pwfromShare = security.getString("password", null);
+            usernamefromShare = security.getString("username", null);
+        } catch (Exception e) {
+            pwfromShare = null;
+            usernamefromShare = null;
+        }
+
+        try {
+            if(!RxDataTool.isNullString(usernamefromShare)
+                    &&!RxDataTool.isNullString(pwfromShare)){
+                //注册界面返回至登录界面
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        etUsername.setText(usernamefromShare);
+                        etPassword.setText(usernamefromShare);
+                    }
+                });
+
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 }

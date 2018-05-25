@@ -180,7 +180,7 @@ public class RegisterActivity extends BaseActivity {
                         && !RxDataTool.isNullString(password)
                         && !RxDataTool.isNullString(repassword)
                         && password.equals(repassword)) {
-                    saveRegisterData(phone, password);
+
                     doRegist(phone ,phone,password);
 
                 }
@@ -195,7 +195,7 @@ public class RegisterActivity extends BaseActivity {
      * 将用户名和密码保存在本地的SharedPreference数据库分钟
      */
     private void saveRegisterData(String mobile, String password) {
-        SecuritySharedPreference securitySharedPreference = new SecuritySharedPreference(MCSApplication.getApplication(), phone, Context.MODE_PRIVATE);
+        SecuritySharedPreference securitySharedPreference = new SecuritySharedPreference(MCSApplication.getApplication(), "spf_loginInfo", Context.MODE_PRIVATE);
         SecuritySharedPreference.Editor editor = securitySharedPreference.edit();
         editor.putString("username", mobile);
         editor.putString("password", password);
@@ -206,16 +206,19 @@ public class RegisterActivity extends BaseActivity {
      * Bmob注册用户
      */
     private void doRegist(String phone,String mobile, String pwd) {
+        showProgressDialog(false);
         PersonInfo piInfo = new PersonInfo();
         piInfo.setMobilePhoneNumber(mobile);
         piInfo.setUsername(mobile);
         piInfo.setPassword(pwd);
+        piInfo.setMobilePhoneNumberVerified(true);
         piInfo.signUp(new SaveListener<PersonInfo>() {
             @Override
             public void done(PersonInfo user,BmobException e) {
-
+                stopProgressDialog();
                 if(e==null){
                     RxToast.normal(getString(R.string.toast_register_success));
+                    saveRegisterData(mobile, pwd);
                     RxActivityTool.skipActivity(RegisterActivity.this,LoginActivity.class);
                 }else{
                     RxToast.normal("注册失败");
