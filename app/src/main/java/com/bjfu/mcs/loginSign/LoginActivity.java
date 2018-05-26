@@ -21,7 +21,9 @@ import com.bjfu.mcs.activity.MainActivity;
 import com.bjfu.mcs.application.MCSApplication;
 import com.bjfu.mcs.base.BaseActivity;
 import com.bjfu.mcs.bean.PersonInfo;
+import com.bjfu.mcs.greendao.DataBaseHandler;
 import com.bjfu.mcs.splash.SplashActivity;
+import com.bjfu.mcs.utils.ConfigKey;
 import com.bjfu.mcs.utils.Rx.RxActivityTool;
 import com.bjfu.mcs.utils.Rx.RxDataTool;
 import com.bjfu.mcs.utils.Rx.RxToast;
@@ -31,6 +33,8 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
+
+import static com.bjfu.mcs.application.MCSApplication.appcache;
 
 public class LoginActivity extends BaseActivity {
 
@@ -116,11 +120,15 @@ public class LoginActivity extends BaseActivity {
             public void done(PersonInfo user, BmobException e) {
                 stopProgressDialog();
                 if(e == null){
-
-//                    PersonInfo pi = PersonInfo.getCurrentUser(PersonInfo.class);
-//                    if(null != pi){
-//
-//                    }
+                    appcache.put("has_login","yes");
+                    appcache.put(ConfigKey.KEY_CURR_LOGIN_MOBILE,mobile);
+                    PersonInfo pi = PersonInfo.getCurrentUser(PersonInfo.class);
+                    if(null != pi){
+                        pi.setSqlmobilePhoneNumber(mobile);
+                        pi.setSqlusername(mobile);
+                        pi.setSqlpassword(pwd);
+                        DataBaseHandler.insertPesonInfo(pi);
+                    }
                     RxToast.success("登录成功");
                     saveloginfirst();
                     saveRegisterData(mobile,pwd);

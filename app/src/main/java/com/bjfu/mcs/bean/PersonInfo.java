@@ -17,13 +17,14 @@ public class PersonInfo extends BmobUser {
     @Id
     private Long id;
 
-//    private String username;
-//    private String password;
-//    private Boolean mobilePhoneNumberVerified;
-//    private String mobilePhoneNumber;
-//    private Boolean emailVerified;
-//    private String email;
+    private String sqlusername;
+    private String sqlpassword;
+    private Boolean sqlmobilePhoneNumberVerified;
+    private String sqlmobilePhoneNumber;
+    private Boolean sqlemailVerified;
+    private String sqlemail;
 
+    private String userNickname;
     private String userTag;
     private String loginType;
     private String userActs;
@@ -37,12 +38,22 @@ public class PersonInfo extends BmobUser {
     private String usersex;
     private String userSign;
     private String deviceIMEI;
-    @Generated(hash = 830465848)
-    public PersonInfo(Long id, String userTag, String loginType, String userActs,
-            String userAddress, String userAvatar, String userBirthday,
-            String userChannels, String userConstellation, String userHome,
-            String userSchool, String usersex, String userSign, String deviceIMEI) {
+    @Generated(hash = 798615171)
+    public PersonInfo(Long id, String sqlusername, String sqlpassword,
+            Boolean sqlmobilePhoneNumberVerified, String sqlmobilePhoneNumber,
+            Boolean sqlemailVerified, String sqlemail, String userNickname,
+            String userTag, String loginType, String userActs, String userAddress,
+            String userAvatar, String userBirthday, String userChannels,
+            String userConstellation, String userHome, String userSchool,
+            String usersex, String userSign, String deviceIMEI) {
         this.id = id;
+        this.sqlusername = sqlusername;
+        this.sqlpassword = sqlpassword;
+        this.sqlmobilePhoneNumberVerified = sqlmobilePhoneNumberVerified;
+        this.sqlmobilePhoneNumber = sqlmobilePhoneNumber;
+        this.sqlemailVerified = sqlemailVerified;
+        this.sqlemail = sqlemail;
+        this.userNickname = userNickname;
         this.userTag = userTag;
         this.loginType = loginType;
         this.userActs = userActs;
@@ -65,6 +76,49 @@ public class PersonInfo extends BmobUser {
     }
     public void setId(Long id) {
         this.id = id;
+    }
+    public String getSqlusername() {
+        return this.sqlusername;
+    }
+    public void setSqlusername(String sqlusername) {
+        this.sqlusername = sqlusername;
+    }
+    public String getSqlpassword() {
+        return this.sqlpassword;
+    }
+    public void setSqlpassword(String sqlpassword) {
+        this.sqlpassword = sqlpassword;
+    }
+    public Boolean getSqlmobilePhoneNumberVerified() {
+        return this.sqlmobilePhoneNumberVerified;
+    }
+    public void setSqlmobilePhoneNumberVerified(
+            Boolean sqlmobilePhoneNumberVerified) {
+        this.sqlmobilePhoneNumberVerified = sqlmobilePhoneNumberVerified;
+    }
+    public String getSqlmobilePhoneNumber() {
+        return this.sqlmobilePhoneNumber;
+    }
+    public void setSqlmobilePhoneNumber(String sqlmobilePhoneNumber) {
+        this.sqlmobilePhoneNumber = sqlmobilePhoneNumber;
+    }
+    public Boolean getSqlemailVerified() {
+        return this.sqlemailVerified;
+    }
+    public void setSqlemailVerified(Boolean sqlemailVerified) {
+        this.sqlemailVerified = sqlemailVerified;
+    }
+    public String getSqlemail() {
+        return this.sqlemail;
+    }
+    public void setSqlemail(String sqlemail) {
+        this.sqlemail = sqlemail;
+    }
+    public String getUserNickname() {
+        return this.userNickname;
+    }
+    public void setUserNickname(String userNickname) {
+        this.userNickname = userNickname;
     }
     public String getUserTag() {
         return this.userTag;
@@ -144,5 +198,5 @@ public class PersonInfo extends BmobUser {
     public void setDeviceIMEI(String deviceIMEI) {
         this.deviceIMEI = deviceIMEI;
     }
-    
+   
 }

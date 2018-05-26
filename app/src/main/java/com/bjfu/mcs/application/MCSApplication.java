@@ -45,13 +45,19 @@ public class MCSApplication extends Application {
     private static MCSApplication application = null;
     public BaiduMapLocationService locationService;
     public Vibrator mVibrator;
-    private DaoSession daoSession;
+    public static ApplicationCache appcache;
+
+    public static DaoMaster daoMaster;
+    public static DaoSession daoSession;
+
     public NetworkUtils.NetworkType mNetType;
     private NetStateReceiver netStateReceiver;
     @Override
     public void onCreate() {
         super.onCreate();
         application = this;
+
+        appcache = ApplicationCache.get(this);
         //工具类 初始化
         RxTool.init(application);
         // Log 写入txt文件 工具类 初始化
@@ -121,7 +127,7 @@ public class MCSApplication extends Application {
         //DaoMaster daoMaster = new DaoMaster(openHelper.getEncryptedReadableDb(Constants.SQLITE_ENCRTPT));
         //不加密
         SQLiteDatabase db = openHelper.getWritableDatabase();
-        DaoMaster daoMaster = new DaoMaster(db);
+        daoMaster = new DaoMaster(db);
         //实例化DaoSession对象
         daoSession = daoMaster.newSession();
     }

@@ -1,15 +1,20 @@
 package com.bjfu.mcs.activity;
 
+import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -21,8 +26,13 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bjfu.mcs.R;
 import com.bjfu.mcs.bean.PersonInfo;
+import com.bjfu.mcs.greendao.DataBaseHandler;
+import com.bjfu.mcs.loginSign.LoginActivity;
+import com.bjfu.mcs.utils.Rx.RxActivityTool;
+import com.bjfu.mcs.utils.Rx.RxDataTool;
 import com.bjfu.mcs.utils.Rx.RxPhotoTool;
 import com.bjfu.mcs.utils.Rx.RxSPTool;
+import com.bjfu.mcs.utils.Rx.RxToast;
 import com.bjfu.mcs.utils.Rx.dialog.RxDialogChooseImage;
 import com.bjfu.mcs.utils.Rx.dialog.RxDialogScaleView;
 import com.bjfu.mcs.utils.other.ConvertUtils;
@@ -49,11 +59,15 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.UpdateListener;
+import cn.bmob.v3.listener.UploadFileListener;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import okhttp3.OkHttpClient;
 
+import static cn.bmob.v3.BmobUser.getCurrentUser;
+import static com.bjfu.mcs.application.MCSApplication.appcache;
 import static com.bjfu.mcs.utils.Rx.RxToast.showToast;
 import static com.bjfu.mcs.utils.Rx.dialog.RxDialogChooseImage.LayoutType.TITLE;
 
@@ -69,6 +83,8 @@ public class MeActivity extends AppCompatActivity {
     RelativeLayout mRlAvatar;
     @BindView(R.id.tv_name)
     TextView mTvName;
+    @BindView(R.id.tv_email)
+    TextView mTvEmail;
     @BindView(R.id.tv_constellation)
     TextView mTvConstellation;
     @BindView(R.id.tv_birthday)
@@ -89,6 +105,17 @@ public class MeActivity extends AppCompatActivity {
     LinearLayout mActivityUser;
     private Uri resultUri;
     private MeActivity mContext;
+    private String headerimgurl;
+    private static final int updateImage = 1;
+    private static final int updateEmail = 2;
+    private static final int updateBirthday = 3;
+    private static final int updateCons = 4;
+    private static final int updateSex = 5;
+    private static final int updateLoc = 6;
+    private static final int updateTag = 7;
+    private static final int updateSign = 8;
+    private static final int updateNick = 9;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,7 +135,370 @@ public class MeActivity extends AppCompatActivity {
 
             }
         });
+
+        initData();
     }
+
+    private void initData() {
+
+        PersonInfo personInfo = DataBaseHandler.getCurrPesonInfo();
+        if (null != personInfo) {
+            Glide.with(mContext).
+                    load(personInfo.getUserAvatar()).
+                    bitmapTransform(new CropCircleTransformation(mContext)).
+                    thumbnail(0.5f).
+                    placeholder(R.drawable.circle_elves_ball).
+                    priority(Priority.LOW).
+                    error(R.drawable.circle_elves_ball).
+                    fallback(R.drawable.circle_elves_ball).
+                    into(mIvAvatar);
+
+            Log.i("initData---","更新头像成功");
+            if(!RxDataTool.isNullString(personInfo.getSqlemail())){
+                mTvEmail.setText(personInfo.getSqlemail());
+            }
+            if(!RxDataTool.isNullString(personInfo.getUserNickname())){
+                mTvName.setText(personInfo.getUserNickname());
+            }
+            if(!RxDataTool.isNullString(personInfo.getUserBirthday())){
+                mTvBirthday.setText(personInfo.getUserBirthday());
+            }
+            if(!RxDataTool.isNullString(personInfo.getUserConstellation())){
+                mTvConstellation.setText(personInfo.getUserConstellation());
+            }
+            if(!RxDataTool.isNullString(personInfo.getUsersex())){
+                mTvSex.setText(personInfo.getUsersex());
+            }
+            if(!RxDataTool.isNullString(personInfo.getUserAddress())){
+                mTvAddress.setText(personInfo.getUserAddress());
+            }
+            if(!RxDataTool.isNullString(personInfo.getUserTag())){
+                mTvLables.setText(personInfo.getUserTag());
+            }
+            if(!RxDataTool.isNullString(personInfo.getUserSign())){
+                mEditText2.setText(personInfo.getUserSign());
+            }
+        }
+    }
+
+    @SuppressLint("HandlerLeak")
+    private Handler mHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case updateImage:
+                    final BmobFile bmobFile = new BmobFile(new File(RxPhotoTool.getImageAbsolutePath(mContext, (Uri) msg.obj)));
+                    bmobFile.uploadblock(new UploadFileListener() {
+                        @Override
+                        public void done(BmobException e) {
+                            if(e == null){
+                                headerimgurl= bmobFile.getFileUrl();
+                                PersonInfo personInfo = getCurrentUser(PersonInfo.class);
+                                personInfo.setUserAvatar(headerimgurl);
+                                personInfo.update(personInfo.getObjectId(),new UpdateListener() {
+                                    @Override
+                                    public void done(BmobException e) {
+                                        if(e == null){
+                                            PersonInfo piInfo = DataBaseHandler.getCurrPesonInfo();
+                                            if(null != piInfo){
+                                                piInfo.setUserAvatar(headerimgurl);
+                                            }
+                                            DataBaseHandler.updatePesonInfo(piInfo);
+                                            RxToast.success("更新头像成功");
+                                        }else {
+                                            if(e.getErrorCode() == 206){
+                                                RxToast.error("您的账号在其他地方登录，请重新登录");
+                                                appcache.put("has_login", "no");
+                                                PersonInfo.logOut();
+                                                RxActivityTool.skipActivityAndFinish(MeActivity.this, LoginActivity.class);
+                                            }else{
+                                                RxToast.error("更新头像失败");
+                                            }
+                                        }
+                                    }
+                                });
+                            }else{
+                                RxToast.error("头像上传失败");
+                            }
+                        }
+
+                        @Override
+                        public void onProgress(Integer value) {
+                            //返回上传进度
+                            RxToast.info("上传" + value + "%");
+                            super.onProgress(value);
+                        }
+                    });
+                    break;
+                case updateEmail:
+                    String email = (String) msg.obj;
+                    PersonInfo personInfoEmail = BmobUser.getCurrentUser(PersonInfo.class);
+                    personInfoEmail.setSqlemail(email);
+                    personInfoEmail.update(personInfoEmail.getObjectId(),new UpdateListener() {
+                        @Override
+                        public void done(BmobException e) {
+                            if(e == null){
+                                PersonInfo piInfo = DataBaseHandler.getCurrPesonInfo();
+                                if(null != piInfo){
+                                    piInfo.setSqlemail(email);
+                                }
+                                DataBaseHandler.updatePesonInfo(piInfo);
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        mTvEmail.setText(email);
+                                    }
+                                });
+                                RxToast.success("邮箱信息更新成功");
+                            }else {
+                                if(e.getErrorCode() == 206){
+                                    RxToast.error("您的账号在其他地方登录，请重新登录");
+                                    appcache.put("has_login", "no");
+                                    PersonInfo.logOut();
+                                    RxActivityTool.skipActivityAndFinish(MeActivity.this, LoginActivity.class);
+                                }else{
+                                    RxToast.error("邮箱信息更新失败");
+                                }
+                            }
+                        }
+                    });
+                    break;
+                case updateBirthday:
+                    String birthday = (String) msg.obj;
+                    PersonInfo personInfoBir = BmobUser.getCurrentUser(PersonInfo.class);
+                    personInfoBir.setUserBirthday(birthday);
+                    personInfoBir.update(personInfoBir.getObjectId(),new UpdateListener() {
+                        @Override
+                        public void done(BmobException e) {
+                            if(e == null){
+                                PersonInfo piInfo = DataBaseHandler.getCurrPesonInfo();
+                                if(null != piInfo){
+                                    piInfo.setUserBirthday(birthday);
+                                }
+                                DataBaseHandler.updatePesonInfo(piInfo);
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        mTvBirthday.setText(birthday);
+                                    }
+                                });
+                                RxToast.success("生日信息更新成功");
+                            }else {
+                                if(e.getErrorCode() == 206){
+                                    RxToast.error("您的账号在其他地方登录，请重新登录");
+                                    appcache.put("has_login", "no");
+                                    PersonInfo.logOut();
+                                    RxActivityTool.skipActivityAndFinish(MeActivity.this, LoginActivity.class);
+                                }else{
+                                    RxToast.error("生日信息更新失败");
+                                }
+                            }
+                        }
+                    });
+                    break;
+                case updateCons:
+                    String constellation = (String) msg.obj;
+                    PersonInfo personInfoCons = BmobUser.getCurrentUser(PersonInfo.class);
+                    personInfoCons.setUserConstellation(constellation);
+                    personInfoCons.update(personInfoCons.getObjectId(),new UpdateListener() {
+                        @Override
+                        public void done(BmobException e) {
+                            if(e == null){
+                                PersonInfo piInfo = DataBaseHandler.getCurrPesonInfo();
+                                if(null != piInfo){
+                                    piInfo.setUserConstellation(constellation);
+                                }
+                                DataBaseHandler.updatePesonInfo(piInfo);
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        mTvConstellation.setText(constellation);
+                                    }
+                                });
+                                RxToast.success("星座信息更新成功");
+                            }else {
+                                if(e.getErrorCode() == 206){
+                                    RxToast.error("您的账号在其他地方登录，请重新登录");
+                                    appcache.put("has_login", "no");
+                                    PersonInfo.logOut();
+                                    RxActivityTool.skipActivityAndFinish(MeActivity.this, LoginActivity.class);
+                                }else{
+                                    RxToast.error("星座信息更新失败");
+                                }
+                            }
+                        }
+                    });
+                    break;
+                case updateSex:
+                    String sex = (String) msg.obj;
+                    PersonInfo personInfoSex = BmobUser.getCurrentUser(PersonInfo.class);
+                    personInfoSex.setUsersex(sex);
+                    personInfoSex.update(personInfoSex.getObjectId(),new UpdateListener() {
+                        @Override
+                        public void done(BmobException e) {
+                            if(e == null){
+                                PersonInfo piInfo = DataBaseHandler.getCurrPesonInfo();
+                                if(null != piInfo){
+                                    piInfo.setUsersex(sex);
+                                }
+                                DataBaseHandler.updatePesonInfo(piInfo);
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        mTvSex.setText(sex);
+                                    }
+                                });
+                                RxToast.success("性别信息更新成功");
+                            }else {
+                                if(e.getErrorCode() == 206){
+                                    RxToast.error("您的账号在其他地方登录，请重新登录");
+                                    appcache.put("has_login", "no");
+                                    PersonInfo.logOut();
+                                    RxActivityTool.skipActivityAndFinish(MeActivity.this, LoginActivity.class);
+                                }else{
+                                    RxToast.error("性别信息更新失败");
+                                }
+                            }
+                        }
+                    });
+                    break;
+                case updateLoc:
+                    String address = (String) msg.obj;
+                    PersonInfo personInfoLoc = BmobUser.getCurrentUser(PersonInfo.class);
+                    personInfoLoc.setUserAddress(address);
+                    personInfoLoc.update(personInfoLoc.getObjectId(),new UpdateListener() {
+                        @Override
+                        public void done(BmobException e) {
+                            if(e == null){
+                                PersonInfo piInfo = DataBaseHandler.getCurrPesonInfo();
+                                if(null != piInfo){
+                                    piInfo.setUserAddress(address);
+                                }
+                                DataBaseHandler.updatePesonInfo(piInfo);
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        mTvAddress.setText(address);
+                                    }
+                                });
+                                RxToast.success("所在地信息更新成功");
+                            }else {
+                                if(e.getErrorCode() == 206){
+                                    RxToast.error("您的账号在其他地方登录，请重新登录");
+                                    appcache.put("has_login", "no");
+                                    PersonInfo.logOut();
+                                    RxActivityTool.skipActivityAndFinish(MeActivity.this, LoginActivity.class);
+                                }else{
+                                    RxToast.error("所在地信息更新失败");
+                                }
+                            }
+                        }
+                    });
+                    break;
+                case updateTag:
+                    String usertag = (String) msg.obj;
+                    PersonInfo personInfotag = BmobUser.getCurrentUser(PersonInfo.class);
+                    personInfotag.setUserTag(usertag);
+                    personInfotag.update(personInfotag.getObjectId(),new UpdateListener() {
+                        @Override
+                        public void done(BmobException e) {
+                            if(e == null){
+                                PersonInfo piInfo = DataBaseHandler.getCurrPesonInfo();
+                                if(null != piInfo){
+                                    piInfo.setUserTag(usertag);
+                                }
+                                DataBaseHandler.updatePesonInfo(piInfo);
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        mTvLables.setText(usertag);
+                                    }
+                                });
+                                RxToast.success("标签信息更新成功");
+                            }else {
+                                if(e.getErrorCode() == 206){
+                                    RxToast.error("您的账号在其他地方登录，请重新登录");
+                                    appcache.put("has_login", "no");
+                                    PersonInfo.logOut();
+                                    RxActivityTool.skipActivityAndFinish(MeActivity.this, LoginActivity.class);
+                                }else{
+                                    RxToast.error("标签信息更新失败");
+                                }
+                            }
+                        }
+                    });
+                    break;
+                case updateSign:
+                    String sign = (String) msg.obj;
+                    PersonInfo personInfoSign = BmobUser.getCurrentUser(PersonInfo.class);
+                    personInfoSign.setUserSign(sign);
+                    personInfoSign.update(personInfoSign.getObjectId(),new UpdateListener() {
+                        @Override
+                        public void done(BmobException e) {
+                            if(e == null){
+                                PersonInfo piInfo = DataBaseHandler.getCurrPesonInfo();
+                                if(null != piInfo){
+                                    piInfo.setUserSign(sign);
+                                }
+                                DataBaseHandler.updatePesonInfo(piInfo);
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        mEditText2.setText(sign);
+                                    }
+                                });
+                                RxToast.success("个性签名信息更新成功");
+                            }else {
+                                if(e.getErrorCode() == 206){
+                                    RxToast.error("您的账号在其他地方登录，请重新登录");
+                                    appcache.put("has_login", "no");
+                                    PersonInfo.logOut();
+                                    RxActivityTool.skipActivityAndFinish(MeActivity.this, LoginActivity.class);
+                                }else{
+                                    RxToast.error("个性签名信息更新失败");
+                                }
+                            }
+                        }
+                    });
+                    break;
+                case updateNick:
+                    String Nickname = (String) msg.obj;
+                    PersonInfo personInfoNick = BmobUser.getCurrentUser(PersonInfo.class);
+                    personInfoNick.setUserNickname(Nickname);
+                    personInfoNick.update(personInfoNick.getObjectId(),new UpdateListener() {
+                        @Override
+                        public void done(BmobException e) {
+                            if(e == null){
+                                PersonInfo piInfo = DataBaseHandler.getCurrPesonInfo();
+                                if(null != piInfo){
+                                    piInfo.setUserNickname(Nickname);
+                                }
+                                DataBaseHandler.updatePesonInfo(piInfo);
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        mTvName.setText(Nickname);
+                                    }
+                                });
+                                RxToast.success("昵称信息更新成功");
+                            }else {
+                                if(e.getErrorCode() == 206){
+                                    RxToast.error("您的账号在其他地方登录，请重新登录");
+                                    appcache.put("has_login", "no");
+                                    PersonInfo.logOut();
+                                    RxActivityTool.skipActivityAndFinish(MeActivity.this, LoginActivity.class);
+                                }else{
+                                    RxToast.error("昵称信息更新失败");
+                                }
+                            }
+                        }
+                    });
+                    break;
+            }
+        }
+    };
+
     protected void initView() {
         Resources r = mContext.getResources();
         resultUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://"
@@ -127,8 +517,11 @@ public class MeActivity extends AppCompatActivity {
             @Override
             public boolean onLongClick(View view) {
 //                RxImageTool.showBigImageView(mContext, resultUri);
+                String resUri = RxSPTool.getContent(mContext,"AVATAR");
+                Uri uri = Uri.parse(resUri);
+                Log.i("resUri----",resUri);
                 RxDialogScaleView rxDialogScaleView = new RxDialogScaleView(mContext);
-                rxDialogScaleView.setImageUri(resultUri);
+                rxDialogScaleView.setImageUri(uri);
                 rxDialogScaleView.show();
                 return false;
             }
@@ -175,6 +568,8 @@ public class MeActivity extends AppCompatActivity {
             case UCrop.REQUEST_CROP://UCrop裁剪之后的处理
                 if (resultCode == RESULT_OK) {
                     resultUri = UCrop.getOutput(data);
+                    //上传头像文件
+                    updatePersonInfoImage(updateImage,resultUri);
                     roadImageView(resultUri, mIvAvatar);
                     RxSPTool.putContent(mContext, "AVATAR", resultUri.toString());
                 } else if (resultCode == UCrop.RESULT_ERROR) {
@@ -190,6 +585,14 @@ public class MeActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+
+    private void updatePersonInfoImage(int type,Uri content){
+        Message msg = new Message();
+        msg.what = type;
+        msg.obj =  content;
+        mHandler.sendMessage(msg);
+    }
+
     //从Uri中加载图片 并将其转化成File文件返回
     private File roadImageView(Uri uri, ImageView imageView) {
         Glide.with(mContext).
@@ -203,6 +606,7 @@ public class MeActivity extends AppCompatActivity {
                 fallback(R.drawable.circle_elves_ball).
                 into(imageView);
 
+        Log.i("选中的照片",RxPhotoTool.getImageAbsolutePath(this, uri));
         return (new File(RxPhotoTool.getImageAbsolutePath(this, uri)));
     }
 
@@ -250,7 +654,7 @@ public class MeActivity extends AppCompatActivity {
                 .start(mContext);
     }
 
-    @OnClick({R.id.tv_birthday,R.id.tv_constellation,R.id.tv_address,
+    @OnClick({R.id.tv_email,R.id.tv_birthday,R.id.tv_constellation,R.id.tv_address,
             R.id.tv_name,R.id.editText2,R.id.tv_lables,R.id.tv_sex})
     public void onClick(View view){
         switch (view.getId()){
@@ -266,7 +670,7 @@ public class MeActivity extends AppCompatActivity {
                 picker.setOnDatePickListener(new DatePicker.OnYearMonthDayPickListener() {
                     @Override
                     public void onDatePicked(String year, String month, String day) {
-                        showToast(year + "-" + month + "-" + day);
+                        updatePersonInfoMsg(updateBirthday,year + "/" + month + "/" + day);
                     }
                 });
                 picker.setOnWheelListener(new DatePicker.OnWheelListener() {
@@ -286,6 +690,25 @@ public class MeActivity extends AppCompatActivity {
                     }
                 });
                 picker.show();
+                break;
+
+            case R.id.tv_email:
+                new MaterialDialog.Builder(this)
+                        .title("邮箱")
+                        .content("输入内容")
+                        .inputType(
+                                InputType.TYPE_CLASS_TEXT
+                                        | InputType.TYPE_TEXT_VARIATION_PERSON_NAME
+                                        | InputType.TYPE_TEXT_FLAG_CAP_WORDS)
+                        .inputRange(2, 30)
+                        .positiveText("提交")
+                        .negativeText("取消")
+                        .input(
+                                "*********@163.com",
+                                "*********@163.com",
+                                false,
+                                (dialog, input) -> updatePersonInfoMsg(updateEmail,input.toString()))
+                        .show();
                 break;
             case R.id.tv_constellation:
                 boolean isChinese = Locale.getDefault().getDisplayLanguage().contains("中文");
@@ -323,6 +746,7 @@ public class MeActivity extends AppCompatActivity {
                     @Override
                     public void onOptionPicked(int index, String item) {
                         Toast.makeText(mContext,"index=" + index + ", item=" + item,Toast.LENGTH_LONG).show();
+                        updatePersonInfoMsg(updateCons,item);
                     }
                 });
                 optionPicker.show();
@@ -340,9 +764,9 @@ public class MeActivity extends AppCompatActivity {
                     @Override
                     public void onAddressPicked(Province province, City city, County county) {
                         if (county == null) {
-                            showToast(province.getAreaName() + city.getAreaName());
+                            updatePersonInfoMsg(updateLoc,province.getAreaName() + city.getAreaName());
                         } else {
-                            showToast(province.getAreaName() + city.getAreaName() + county.getAreaName());
+                            updatePersonInfoMsg(updateLoc,province.getAreaName() + city.getAreaName() + county.getAreaName());
                         }
                     }
                 });
@@ -363,7 +787,7 @@ public class MeActivity extends AppCompatActivity {
                                 "昵称",
                                 "昵称",
                                 false,
-                                (dialog, input) -> showToast("Hello, " + input.toString() + "!"))
+                                (dialog, input) -> updatePersonInfoMsg(updateNick,input.toString()))
                         .checkBoxPromptRes(R.string.extra20, true, null)
                         .show();
                 break;
@@ -382,7 +806,7 @@ public class MeActivity extends AppCompatActivity {
                                 "长按头像显示大图",
                                 "长按头像显示大图",
                                 false,
-                                (dialog, input) -> showToast("Hello, " + input.toString() + "!"))
+                                (dialog, input) -> updatePersonInfoMsg(updateSign,input.toString()))
                         .checkBoxPromptRes(R.string.extra20, true, null)
                         .show();
                 break;
@@ -401,7 +825,7 @@ public class MeActivity extends AppCompatActivity {
                                 "北京林业大学",
                                 "北京林业大学",
                                 false,
-                                (dialog, input) -> showToast("Hello, " + input.toString() + "!"))
+                                (dialog, input) -> updatePersonInfoMsg(updateTag,input.toString()))
                         .show();
                 break;
             case R.id.tv_sex:
@@ -424,7 +848,8 @@ public class MeActivity extends AppCompatActivity {
                 sexpicker.setOnOptionPickListener(new OptionPicker.OnOptionPickListener() {
                     @Override
                     public void onOptionPicked(int index, String item) {
-                        showToast("index=" + index + ", item=" + item);
+                        //showToast("index=" + index + ", item=" + item);
+                        updatePersonInfoMsg(updateSex,item);
                     }
                 });
                 sexpicker.show();
@@ -432,6 +857,13 @@ public class MeActivity extends AppCompatActivity {
             default:
                 break;
         }
+    }
+
+    private void updatePersonInfoMsg(int type,String content){
+        Message msg = new Message();
+        msg.what = type;
+        msg.obj =  content;
+        mHandler.sendMessage(msg);
     }
 
     public void updatepersoninfo(){
