@@ -97,17 +97,17 @@ public class MCSApplication extends Application {
         //.build();
         //Bmob.initialize(config);
         // 使用推送服务时的初始化操作,保存设备信息，用于推送功能
-//        BmobInstallationManager.getInstance().initialize(new InstallationListener<BmobInstallation>() {
-//            @Override
-//            public void done(BmobInstallation bmobInstallation, BmobException e) {
-//                if (e == null) {
-//
-//                    Log.i("MCSApplication",bmobInstallation.getObjectId() + "-" + bmobInstallation.getInstallationId());
-//                } else {
-//                    Log.e("MCSApplication",e.getMessage());
-//                }
-//            }
-//        });
+        BmobInstallationManager.getInstance().initialize(new InstallationListener<BmobInstallation>() {
+            @Override
+            public void done(BmobInstallation bmobInstallation, BmobException e) {
+                if (e == null) {
+
+                    Log.i("MCSApplication",bmobInstallation.getObjectId() + "-" + bmobInstallation.getInstallationId());
+                } else {
+                    Log.e("MCSApplication",e.getMessage());
+                }
+            }
+        });
         // 启动推送服务
         //BmobPush.startWork(application);
         //Bmob短信初始化

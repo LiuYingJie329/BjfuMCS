@@ -3,6 +3,7 @@ package com.bjfu.mcs.activity;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Handler;
@@ -12,6 +13,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -53,11 +55,19 @@ import com.bjfu.mcs.R2;
 import com.bjfu.mcs.application.MCSApplication;
 import com.bjfu.mcs.base.BaseActivity;
 import com.bjfu.mcs.base.CheckPermissionsActivity;
+import com.bjfu.mcs.bean.PersonInfo;
+import com.bjfu.mcs.greendao.DataBaseHandler;
+import com.bjfu.mcs.loginSign.LoginActivity;
 import com.bjfu.mcs.map.MyOrientationListener;
 import com.bjfu.mcs.map.util.LocationManager;
 import com.bjfu.mcs.utils.Constants;
 import com.bjfu.mcs.utils.Rx.RxActivityTool;
+import com.bjfu.mcs.utils.Rx.RxDataTool;
+import com.bjfu.mcs.utils.Rx.RxDeviceTool;
+import com.bjfu.mcs.utils.Rx.RxSPTool;
 import com.bjfu.mcs.utils.Rx.RxToast;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.Target;
 import com.mikepenz.crossfadedrawerlayout.view.CrossfadeDrawerLayout;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
@@ -80,11 +90,16 @@ import com.mikepenz.materialdrawer.util.DrawerUIUtils;
 import com.mikepenz.materialize.util.UIUtils;
 
 import java.util.Random;
+import java.util.concurrent.ExecutionException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.UpdateListener;
 
+import static com.bjfu.mcs.application.MCSApplication.appcache;
 import static com.bjfu.mcs.utils.Rx.RxToast.showToast;
 
 
@@ -103,6 +118,7 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
     @BindView(R.id.confirm_cancel_layout)
     LinearLayout confirm_cancel_layout;
 
+    private static final String TAG = MainActivity.class.getSimpleName();
     private Context mContext;
     private double currentLatitude, currentLongitude, changeLatitude, changeLongitude;
     public static TextView current_addr;
@@ -123,6 +139,15 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
     private boolean hasPlanRoute = false;
     LatLng currentLL;
     PlanNode startNodeStr, endNodeStr;
+    IProfile profile,profile2;
+    //当前用户信息
+    private String userName = null;
+    private String userEmail = null;
+    private String userImage = null;
+    private String userImageUrl = null;
+    Bitmap bitmap = null;
+    private static final int updateIMEI =2;
+    private static final int updateImageUrl = 3;
 
     @SuppressLint("HandlerLeak")
     @Override
@@ -139,6 +164,43 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
                         RxToast.success("定位成功");
                         Toast.makeText(mContext,"定位成功",Toast.LENGTH_LONG).show();
                         break;
+                    case updateIMEI:
+                        String Imei = (String) msg.obj;
+                        PersonInfo personInfoIMEI = BmobUser.getCurrentUser(PersonInfo.class);
+                        personInfoIMEI.setDeviceIMEI(Imei);
+                        personInfoIMEI.update(personInfoIMEI.getObjectId(),new UpdateListener() {
+                            @Override
+                            public void done(BmobException e) {
+                                if(e == null){
+                                    PersonInfo piInfo = DataBaseHandler.getCurrPesonInfo();
+                                    if(null != piInfo){
+                                        piInfo.setDeviceIMEI(Imei);
+                                    }
+                                    DataBaseHandler.updatePesonInfo(piInfo);
+                                    Log.i(TAG,"IMEI信息更新成功");
+                                    RxToast.success("IMEI信息更新成功");
+                                }else {
+                                    if(e.getErrorCode() == 206){
+                                        RxToast.error("您的账号在其他地方登录，请重新登录");
+                                        appcache.put("has_login", "no");
+                                        PersonInfo.logOut();
+                                        RxActivityTool.skipActivityAndFinish(MainActivity.this, LoginActivity.class);
+                                    }else{
+                                        Log.i(TAG,"IMEI信息更新失败");
+                                        RxToast.error("IMEI信息更新失败");
+                                    }
+                                }
+                            }
+                        });
+                        break;
+                    case updateImageUrl:
+                        String content= (String)msg.obj;
+                        try {
+                            bitmap = Glide.with(mContext).load(content).asBitmap().into(200, 200).get();
+                        } catch (InterruptedException | ExecutionException e) {
+                            e.printStackTrace();
+                        }
+                        break;
                     default:
                         break;
                 }
@@ -152,9 +214,18 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("首页");
 
+        inituserdata();
         // Create a few sample profile
-        final IProfile profile = new ProfileDrawerItem().withName("刘英杰").withEmail("13120101465@163.com").withIcon(R.drawable.profile);
-        final IProfile profile2 = new ProfileDrawerItem().withName("MCS").withEmail("2236746458@qq.com").withIcon(R.drawable.profile2);
+        if(!RxDataTool.isNullString(userImage)){
+
+            profile = new ProfileDrawerItem().withName(userName).withEmail(userEmail).withIcon(Uri.parse(userImage));
+
+        }else{
+
+            profile = new ProfileDrawerItem().withName(userName).withEmail(userEmail).withIcon(R.drawable.profile);
+        }
+
+        profile2 = new ProfileDrawerItem().withName("MCS").withEmail("2236746458@qq.com").withIcon(R.drawable.profile2);
 
         // Create the AccountHeader
         headerResult = new AccountHeaderBuilder()
@@ -189,9 +260,9 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
                         new SecondaryDrawerItem().withName("设置").withIcon(FontAwesome.Icon.faw_info).withIdentifier(7),
                         new SecondaryDrawerItem().withName("关于").withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withTag("Bullhorn").withIdentifier(8),
                         new SecondaryDrawerItem().withName("系统设置").withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withTag("Bullhorn").withIdentifier(9),
-                        new SecondaryDrawerItem().withName("系统设置").withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withTag("Bullhorn").withIdentifier(10),
-                        new SecondaryDrawerItem().withName("系统设置").withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withTag("Bullhorn").withIdentifier(11),
-                        new SecondaryDrawerItem().withName("系统设置").withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withTag("Bullhorn").withIdentifier(12)
+                        new SecondaryDrawerItem().withName("反馈").withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withTag("Bullhorn").withIdentifier(10),
+                        new SecondaryDrawerItem().withName("活动添加").withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withTag("Bullhorn").withIdentifier(11),
+                        new SecondaryDrawerItem().withName("位置详情").withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withTag("Bullhorn").withIdentifier(12)
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
@@ -277,6 +348,38 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
         initMap();
 
         initDialogs();
+    }
+
+    private void inituserdata() {
+        PersonInfo personInfo = DataBaseHandler.getCurrPesonInfo();
+        if(null != personInfo){
+            if(!RxDataTool.isNullString(personInfo.getSqlemail())){
+                userEmail = personInfo.getSqlemail();
+            }
+            if(!RxDataTool.isNullString(personInfo.getUserNickname())){
+                userName = personInfo.getUserNickname();
+            }
+//            if(!RxDataTool.isNullString(personInfo.getUserAvatar())){
+//                updatePersonInfoMsg(updateImageUrl,personInfo.getUserAvatar());
+//            }
+            if(!RxDataTool.isNullString(RxSPTool.getContent(mContext,"AVATAR"))){
+                userImage = RxSPTool.getContent(mContext,"AVATAR");
+            }
+
+            String imei = RxDeviceTool.getIMEI(mContext);
+            if(!RxDataTool.isNullString(imei)){
+                updatePersonInfoMsg(updateIMEI,imei);
+            }
+        }
+
+    }
+
+
+    private void updatePersonInfoMsg(int type,String content){
+        Message msg = new Message();
+        msg.what = type;
+        msg.obj =  content;
+        mHandler.sendMessage(msg);
     }
 
     private void initDialogs() {

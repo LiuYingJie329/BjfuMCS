@@ -34,4 +34,9 @@
     <string name="appname">移动群智感知系统</string>
     <string name="nextpage">下一页</string>
     <string name="prepages">上一页</string>
+    <string name="downloadmap">下载离线地图</string>
+    <string name="cleancache">确定清除缓存吗</string>
+    <string name="agree">同意</string>
+    <string name="disagree">不同意</string>
+    <string name="ignore">忽略</string>
 </resources>

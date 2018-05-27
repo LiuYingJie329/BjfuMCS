@@ -35,17 +35,19 @@ public class PersonInfo extends BmobUser {
     private String userConstellation;
     private String userHome;
     private String userSchool;
+    private String userCompany;
     private String usersex;
     private String userSign;
     private String deviceIMEI;
-    @Generated(hash = 798615171)
+    @Generated(hash = 551911186)
     public PersonInfo(Long id, String sqlusername, String sqlpassword,
             Boolean sqlmobilePhoneNumberVerified, String sqlmobilePhoneNumber,
             Boolean sqlemailVerified, String sqlemail, String userNickname,
             String userTag, String loginType, String userActs, String userAddress,
             String userAvatar, String userBirthday, String userChannels,
             String userConstellation, String userHome, String userSchool,
-            String usersex, String userSign, String deviceIMEI) {
+            String userCompany, String usersex, String userSign,
+            String deviceIMEI) {
         this.id = id;
         this.sqlusername = sqlusername;
         this.sqlpassword = sqlpassword;
@@ -64,6 +66,7 @@ public class PersonInfo extends BmobUser {
         this.userConstellation = userConstellation;
         this.userHome = userHome;
         this.userSchool = userSchool;
+        this.userCompany = userCompany;
         this.usersex = usersex;
         this.userSign = userSign;
         this.deviceIMEI = deviceIMEI;
@@ -180,6 +183,12 @@ public class PersonInfo extends BmobUser {
     public void setUserSchool(String userSchool) {
         this.userSchool = userSchool;
     }
+    public String getUserCompany() {
+        return this.userCompany;
+    }
+    public void setUserCompany(String userCompany) {
+        this.userCompany = userCompany;
+    }
     public String getUsersex() {
         return this.usersex;
     }
@@ -198,5 +207,6 @@ public class PersonInfo extends BmobUser {
     public void setDeviceIMEI(String deviceIMEI) {
         this.deviceIMEI = deviceIMEI;
     }
+
    
 }

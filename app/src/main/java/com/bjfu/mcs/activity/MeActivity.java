@@ -495,6 +495,8 @@ public class MeActivity extends AppCompatActivity {
                         }
                     });
                     break;
+                default:
+                    break;
             }
         }
     };
