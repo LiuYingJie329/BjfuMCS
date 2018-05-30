@@ -3,6 +3,7 @@ package com.bjfu.mcs.application;
 import android.app.Application;
 import android.app.Service;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Environment;
 import android.os.Vibrator;
 import android.util.Log;
 
@@ -26,6 +27,8 @@ import com.tencent.bugly.crashreport.CrashReport;
 import com.xdandroid.hellodaemon.DaemonEnv;
 
 //import cn.bmob.push.BmobPush;
+import java.io.File;
+
 import cn.bmob.sms.BmobSMS;
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobInstallation;
@@ -52,6 +55,10 @@ public class MCSApplication extends Application {
 
     public NetworkUtils.NetworkType mNetType;
     private NetStateReceiver netStateReceiver;
+
+    public static String mSDCardPath;
+    public static final String APP_FOLDER_NAME = "BjfuMCS";
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -115,6 +122,7 @@ public class MCSApplication extends Application {
 
 
         initNetChangeReceiver();
+        initDirs();
     }
 
     private void setupDatabase(String str) {
@@ -204,6 +212,30 @@ public class MCSApplication extends Application {
         // 程序终止的时候执行
         super.onTerminate();
         destroyReceiver();
+    }
+
+    private boolean initDirs() {
+        mSDCardPath = getSdcardDir();
+        if (mSDCardPath == null) {
+            return false;
+        }
+        File f = new File(mSDCardPath, APP_FOLDER_NAME);
+        if (!f.exists()) {
+            try {
+                f.mkdirs();
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private String getSdcardDir() {
+        if (Environment.getExternalStorageState().equalsIgnoreCase(Environment.MEDIA_MOUNTED)) {
+            return Environment.getExternalStorageDirectory().toString();
+        }
+        return null;
     }
 
 }

@@ -11,6 +11,7 @@
     </style>
 
     <color name="color_747474">#747474</color>
+    <color name="color_ededed">#ededed</color>
     <!--分割线-->
     <style name="Divider">
         <item name="android:layout_width">0dp</item>

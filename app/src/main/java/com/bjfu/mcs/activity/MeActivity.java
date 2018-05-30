@@ -291,6 +291,7 @@ public class MeActivity extends AppCompatActivity {
                                     PersonInfo.logOut();
                                     RxActivityTool.skipActivityAndFinish(MeActivity.this, LoginActivity.class);
                                 }else{
+                                    Log.i("生日信息更新失败",e.getMessage());
                                     RxToast.error("生日信息更新失败");
                                 }
                             }

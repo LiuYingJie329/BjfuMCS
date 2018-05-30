@@ -29,4 +29,17 @@
     <color name="arc_text">#999999</color>
     <color name="arc_temp">#333333</color>
     <color name="arc23">#079df9</color>
+    <color name="color_f2f2f2">#f2f2f2</color>
+    <color name="color_303030">#303030</color>
+    <color name="color_989898">#989898</color>
+    <color name="black_cc">#cc000000</color>
+    <color name="color_cc858585">#cc858585</color>
+    <color name="color_c8cacc">#c8cacc</color>
+    <color name="white_dd">#ddffffff</color>
+    <color name="color_858585">#858585</color>
+    <color name="white_bb">#bbffffff</color>
+    <color name="color_dcdcdc">#dcdcdc</color>
+    <color name="color_999999">#999999</color>
+    <color name="color_cc2c6edf">#cc2c6edf</color>
+    <color name="color_2c6edf">#2c6edf</color>
 </resources>

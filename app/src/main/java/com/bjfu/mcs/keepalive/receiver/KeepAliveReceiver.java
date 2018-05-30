@@ -10,6 +10,7 @@ import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Parcelable;
 import android.provider.SyncStateContract;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.bjfu.mcs.activity.MainActivity;
@@ -37,7 +38,8 @@ public class KeepAliveReceiver extends BroadcastReceiver {
 //            Intent intentAlive = new Intent(context, MainActivity.class);
 //            intentAlive.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //            context.startActivity(intentAlive);
-            Toast.makeText(context,"启动MainActivity!!!!!!",Toast.LENGTH_SHORT).show();
+            Log.i("启动MainActivity!!!!!!","启动MainActivity!!!!!!");
+            //Toast.makeText(context,"启动MainActivity!!!!!!",Toast.LENGTH_SHORT).show();
             //Log.i(TAG,"KeepAliveReceiver-->复活进程APP");
         }
 

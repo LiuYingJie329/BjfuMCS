@@ -3,6 +3,8 @@ package com.bjfu.mcs.map;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -27,12 +29,13 @@ import com.bjfu.mcs.activity.MainActivity;
 
 import java.util.ArrayList;
 
+import butterknife.ButterKnife;
+
 
 /* 此Demo用来演示离线地图的下载和显示 */
-public class OfflineDemo extends Activity implements MKOfflineMapListener {
+public class OfflineDemo extends AppCompatActivity implements MKOfflineMapListener {
 
     private static final String TAG = "OfflineDemo";
-
     private MKOfflineMap mOffline = null;
     private TextView cidView;
     private TextView stateView;
@@ -43,9 +46,25 @@ public class OfflineDemo extends Activity implements MKOfflineMapListener {
     private ArrayList<MKOLUpdateElement> localMapList = null;
     private LocalMapAdapter lAdapter = null;
 
+    private OfflineDemo mContext;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_offline);
+        ButterKnife.bind(this);
+        mContext = this;
+        final Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        //set the back arrow in the toolbar
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("离线地图");
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+
+            }
+        });
         mOffline = new MKOfflineMap();
         mOffline.init(this);
         initView();
