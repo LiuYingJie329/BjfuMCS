@@ -34,7 +34,7 @@ android {
         vectorDrawables.useSupportLibrary = true
         ndk {
             // 设置支持的SO库架构
-            abiFilters 'armeabi', 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+            abiFilters 'armeabi', 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a','mips','mips64'
             //abiFilters 'armeabi'
         }
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -174,7 +174,7 @@ dependencies {
     compile 'cn.bmob.android:bmob-sms:1.0.1'
 
     //如果你想应用能够兼容Android6.0，请添加此依赖(org.apache.http.legacy.jar)
-    compile 'cn.bmob.android:http-legacy:1.0'
+    //compile 'cn.bmob.android:http-legacy:1.0'
 
     //头像显示
     compile 'com.github.bumptech.glide:glide:3.7.0'
@@ -195,12 +195,14 @@ dependencies {
 
     //友盟系列
 
-    //必备
-
-    //compile 'com.umeng.sdk:common:latest.integration'
-
-    //compile 'com.umeng.sdk:analytics:latest.integration'
-
+    //PushSDK必须依赖基础组件库，所以需要加入对应依赖
+    compile 'com.umeng.sdk:common:1.5.3'
+    //PushSDK必须依赖utdid库，所以需要加入对应依赖
+    compile 'com.umeng.sdk:utdid:1.1.5.3'
+    //PushSDK
+    compile 'com.umeng.sdk:push:4.2.0'
+    //UAPP SDK
+    compile 'com.umeng.sdk:analytics:7.5.0'
     //XRecyclerView
     compile 'com.jcodecraeer:xrecyclerview:1.5.9'
     compile 'com.github.huangyanbin:SmartTable:2.0'

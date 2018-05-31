@@ -248,7 +248,9 @@
         </receiver>-->
 
         <service android:name=".keepalive.daemon.TraceServiceImpl" />
-
+        <service android:name=".upush.MyNotificationService" />
+        <service android:name=".upush.UmengNotificationService" />
+        <receiver android:name=".upush.NotificationBroadcast" />
         <activity
             android:name=".keepalive.daemon.GenOpsActivity"
             android:theme="@android:style/Theme.NoDisplay" />
@@ -400,6 +402,25 @@
             android:screenOrientation="portrait"
             android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar">
         </activity>
+        <activity android:name=".upush.MipushTestActivity"
+            android:launchMode="singleTask"
+            android:exported="true"/>
+        <activity android:name=".upush.SplashTestActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme_Umeng_Push_Splash"/>
+        <activity android:name=".upush.UpushActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar"/>
+
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="5b0faa348f4a9d2fa2000036"/>
+        <meta-data
+            android:name="UMENG_MESSAGE_SECRET"
+            android:value="bb7f2101bffada52d2fa623a88f10537" />
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="Umeng" />
 
         <provider
             android:name="com.bjfu.mcs.map.util.PoiProvider"

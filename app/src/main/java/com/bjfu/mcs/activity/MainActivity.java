@@ -63,6 +63,8 @@ import com.bjfu.mcs.map.MyOrientationListener;
 import com.bjfu.mcs.map.NavigationActivity;
 import com.bjfu.mcs.map.RoutePlanDemo;
 import com.bjfu.mcs.map.util.LocationManager;
+import com.bjfu.mcs.upush.SplashTestActivity;
+import com.bjfu.mcs.upush.UpushActivity;
 import com.bjfu.mcs.utils.Constants;
 import com.bjfu.mcs.utils.Rx.RxActivityTool;
 import com.bjfu.mcs.utils.Rx.RxDataTool;
@@ -268,7 +270,8 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
                         new SecondaryDrawerItem().withName("位置详情").withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withTag("Bullhorn").withIdentifier(12),
                         new SecondaryDrawerItem().withName("轨迹路线").withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withTag("Bullhorn").withIdentifier(13),
                         new SecondaryDrawerItem().withName("路径导航").withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withTag("Bullhorn").withIdentifier(14),
-                        new SecondaryDrawerItem().withName("路线规划").withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withTag("Bullhorn").withIdentifier(15)
+                        new SecondaryDrawerItem().withName("路线规划").withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withTag("Bullhorn").withIdentifier(15),
+                        new SecondaryDrawerItem().withName("推送系统").withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withTag("Bullhorn").withIdentifier(16)
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
@@ -328,6 +331,11 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
                                 RxToast.normal(drawerItem.getIdentifier() + "");
                                 RxActivityTool.skipActivity(MainActivity.this, RoutePlanDemo.class);
                             }
+                            else if (drawerItem.getIdentifier() == 16) {
+                                RxToast.normal(drawerItem.getIdentifier() + "");
+                                RxActivityTool.skipActivity(MainActivity.this, SplashTestActivity.class);
+                            }
+
                             if (intent != null) {
                                 MainActivity.this.startActivity(intent);
                             }
