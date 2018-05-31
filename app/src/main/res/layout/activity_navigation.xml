@@ -99,23 +99,44 @@
         </LinearLayout>
     </RelativeLayout>
 
-
     <TextView
         android:id="@+id/book_bt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/charge_layout"
-        android:layout_margin="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:background="@drawable/bt_book_selector"
         android:clickable="true"
         android:onClick="startNavigation"
         android:gravity="center"
-        android:padding="12dp"
+        android:padding="5dp"
         android:paddingBottom="1dp"
         android:paddingTop="1dp"
-        android:text="@string/begin_navigation"
+        android:text="出行导航"
         android:textColor="@color/white"
         android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/mass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/book_bt"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/bt_book_selector"
+        android:clickable="true"
+        android:onClick="searchButtonProcess"
+        android:gravity="center"
+        android:padding="5dp"
+        android:paddingBottom="1dp"
+        android:paddingTop="1dp"
+        android:text="路线规划"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+
 
     <LinearLayout
         android:id="@+id/place_search_layout"

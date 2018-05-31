@@ -13,6 +13,7 @@ import com.baidu.navisdk.adapter.BNRouteGuideManager.CustomizedLayerItem;
 import com.baidu.navisdk.adapter.BNRouteGuideManager.OnNavigationListener;
 import com.baidu.navisdk.adapter.BNRoutePlanNode;
 import com.baidu.navisdk.adapter.BNRoutePlanNode.CoordinateType;
+import com.baidu.navisdk.adapter.BNaviBaseCallback;
 import com.baidu.navisdk.adapter.BNaviBaseCallbackModel;
 import com.baidu.navisdk.adapter.BaiduNaviCommonModule;
 import com.baidu.navisdk.adapter.NaviModuleFactory;
@@ -57,7 +58,7 @@ public class BDInnerNaviActivity extends Activity {
 			//使用通用接口
 			mBaiduNaviCommonModule = NaviModuleFactory.getNaviModuleManager().getNaviCommonModule(
 					NaviModuleImpl.BNaviCommonModuleConstants.ROUTE_GUIDE_MODULE, this,
-					BNaviBaseCallbackModel.BNaviBaseCallbackConstants.CALLBACK_ROUTEGUIDE_TYPE, mOnNavigationListener);
+					BNaviBaseCallbackModel.BNaviBaseCallbackConstants.CALLBACK_ROUTEGUIDE_TYPE, (BNaviBaseCallback) mOnNavigationListener);
 			if(mBaiduNaviCommonModule != null) {
 				mBaiduNaviCommonModule.onCreate();
 				view = mBaiduNaviCommonModule.getView();

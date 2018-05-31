@@ -8,13 +8,11 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/NaviTts" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/chartlibs" />
             <option value="$PROJECT_DIR$/formlibs" />
             <option value="$PROJECT_DIR$/hellodaemon" />
             <option value="$PROJECT_DIR$/material-intro-screen" />
-            <option value="$PROJECT_DIR$/onsdk_all" />
             <option value="$PROJECT_DIR$/todaystepcounterlib" />
           </set>
         </option>

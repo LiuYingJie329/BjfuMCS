@@ -1,6 +1,7 @@
 package com.bjfu.mcs.map;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +24,7 @@ import com.baidu.mapapi.search.sug.OnGetSuggestionResultListener;
 import com.baidu.mapapi.search.sug.SuggestionResult;
 import com.baidu.mapapi.search.sug.SuggestionSearch;
 import com.baidu.mapapi.search.sug.SuggestionSearchOption;
+import com.baidu.navisdk.adapter.BNRoutePlanNode;
 import com.bjfu.mcs.R;
 import com.bjfu.mcs.adapter.PoiHostoryAdapter;
 import com.bjfu.mcs.adapter.PoiSuggestionAdapter;
@@ -32,6 +34,7 @@ import com.bjfu.mcs.map.util.LocationManager;
 import com.bjfu.mcs.map.util.MapUtils;
 import com.bjfu.mcs.map.util.NavUtil;
 import com.bjfu.mcs.map.util.ProviderUtil;
+import com.bjfu.mcs.utils.Rx.RxActivityTool;
 
 import java.util.List;
 
@@ -79,7 +82,6 @@ public class NavigationActivity extends AppCompatActivity implements
 
             }
         });
-
 
         providerUtil = new ProviderUtil(this);
         //想使用内置导航，必须初始化导航， NavUtil.initNavi(this);
@@ -238,7 +240,33 @@ public class NavigationActivity extends AppCompatActivity implements
             String start = startAddr.equals(getString(R.string.my_position)) ? currentAddress : startAddr;
             String endAddr = destination_edit.getText().toString();
             String end = endAddr.equals(getString(R.string.my_position)) ? currentAddress : endAddr;
+            Log.i("跳转位置","start-->"+start+"--->end-->"+end+"-->startLL-->"+startLL+"-->endLL-->"+endLL);
             NavUtil.showChoiceNaviWayDialog(this, startLL, endLL, start, end);
+        }
+    }
+
+    public void searchButtonProcess(View view){
+        if (start_place_edit.getText().toString().equals(getString(R.string.my_position)))
+            startLL = LocationManager.getInstance().getCurrentLL();
+        if (startLL == null) {
+            Toast.makeText(this, getString(R.string.please_input_start_place), Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (endLL == null) {
+            Toast.makeText(this, getString(R.string.please_input_destination), Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (startLL != null && endLL != null) {
+            String startAddr = start_place_edit.getText().toString();
+            String start = startAddr.equals(getString(R.string.my_position)) ? currentAddress : startAddr;
+            String endAddr = destination_edit.getText().toString();
+            String end = endAddr.equals(getString(R.string.my_position)) ? currentAddress : endAddr;
+            Log.i("跳转位置","start-->"+start+"--->end-->"+end);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("startdistance", start.replace("中国",""));
+            bundle.putSerializable("enddistance",end);
+            RxActivityTool.skipActivity(NavigationActivity.this,RoutePlanDemo.class,bundle);
+
         }
     }
 

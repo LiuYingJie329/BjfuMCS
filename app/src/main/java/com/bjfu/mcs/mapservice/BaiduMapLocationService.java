@@ -2,7 +2,7 @@ package com.bjfu.mcs.mapservice;
 
 import android.content.Context;
 
-import com.baidu.location.BDAbstractLocationListener;
+import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 
@@ -34,7 +34,7 @@ public class BaiduMapLocationService {
      * @return
      */
 
-    public boolean registerListener(BDAbstractLocationListener listener){
+    public boolean registerListener(BDLocationListener listener){
         boolean isSuccess = false;
         if(listener != null){
             client.registerLocationListener(listener);
@@ -43,7 +43,7 @@ public class BaiduMapLocationService {
         return  isSuccess;
     }
 
-    public void unregisterListener(BDAbstractLocationListener listener){
+    public void unregisterListener(BDLocationListener listener){
         if(listener != null){
             client.unRegisterLocationListener(listener);
         }
@@ -91,7 +91,7 @@ public class BaiduMapLocationService {
             mOption.SetIgnoreCacheException(false);//可选，默认false，设置是否收集CRASH信息，默认收集
             mOption.setOpenGps(true);//可选，设置是否使用gps，默认false 使用高精度和仅用设备两种定位模式的，参数必须设置为true
             //mOption.setOpenAutoNotifyMode();//设置打开自动回调位置模式，该开关打开后，期间只要定位SDK检测到位置变化就会主动回调给开发者，该模式下开发者无需再关心定位间隔是多少，定位SDK本身发现位置变化就会及时回调给开发者
-            mOption.setIsNeedAltitude(false);//可选，默认false，设置定位时是否需要海拔信息，默认不需要，除基础定位版本都可用
+            //mOption.setIsNeedAltitude(false);//可选，默认false，设置定位时是否需要海拔信息，默认不需要，除基础定位版本都可用
         }
         return mOption;
     }
@@ -111,9 +111,4 @@ public class BaiduMapLocationService {
         }
     }
 
-    public boolean requestHotSpotState(){
-
-        return client.requestHotSpotState();
-
-    }
 }

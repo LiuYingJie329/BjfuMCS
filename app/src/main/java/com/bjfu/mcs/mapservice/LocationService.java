@@ -6,8 +6,8 @@ import android.os.IBinder;
 import android.os.Message;
 import android.support.annotation.Nullable;
 
-import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
 import com.baidu.location.Poi;
 import com.bjfu.mcs.activity.MainActivity;
 import com.bjfu.mcs.application.MCSApplication;
@@ -80,7 +80,7 @@ public class LocationService extends Service {
         startService(intent);
     }
 
-    private BDAbstractLocationListener mListener = new BDAbstractLocationListener() {
+    private BDLocationListener mListener = new BDLocationListener() {
         @Override
         public void onReceiveLocation(BDLocation location) {
             long secondTime = System.currentTimeMillis();
@@ -108,7 +108,7 @@ public class LocationService extends Service {
                     //1----#USER_INDDOR_TRUE,
                     //0--- #USER_INDOOR_FALSE,
                     //-1--- #USER_INDOOR_UNKNOW
-                    mapdetail.setUserIndoorState(location.getUserIndoorState());
+                    //mapdetail.setUserIndoorState(location.getUserIndoorState());
                     mapdetail.setLocationDescribe(location.getLocationDescribe());// 位置语义化信息
                     if (location.getPoiList() != null && !location.getPoiList().isEmpty()) {
                         for (int i = 0; i < location.getPoiList().size(); i++) {
@@ -121,21 +121,21 @@ public class LocationService extends Service {
                     //返回是否支持室内定位
                     //2--#INDOOR_LOCATION_NEARBY_SURPPORT_TRUE,
                     //0--#INDOOR_LOCATION_SURPPORT_FALSE,#INDOOR_LOCATION_SURPPORT_UNKNOWN
-                    mapdetail.setIndoorLocationSurpport(location.getIndoorLocationSurpport());
+                    //mapdetail.setIndoorLocationSurpport(location.getIndoorLocationSurpport());
                     //返回支持的室内定位类型
                     //1---#INDOOR_LOCATION_SOURCE_WIFI,
                     //4---#INDOOR_LOCATION_SOURCE_BLUETOOTH,
                     //2--#INDOOR_LOCATION_SOURCE_MAGNETIC,
                     //8--#INDOOR_LOCATION_SOURCE_SMALLCELLSTATION,
                     //0--#INDOOR_LOCATION_SOURCE_UNKNOWN
-                    mapdetail.setIndoorLocationSource(location.getIndoorLocationSource());
+                    //mapdetail.setIndoorLocationSource(location.getIndoorLocationSource());
                     //返回室内定位网络状态
                     //2--#INDOOR_NETWORK_STATE_HIGH,
                     //0--#INDOOR_NETWORK_STATE_LOW,
                     //1--#INDOOR_NETWORK_STATE_MIDDLE
-                    mapdetail.setIndoorNetworkState(location.getIndoorNetworkState());
+                    //mapdetail.setIndoorNetworkState(location.getIndoorNetworkState());
                     //返回支持室内定位的building名称
-                    mapdetail.setIndoorLocationSurpportBuidlingName(location.getIndoorLocationSurpportBuidlingName());
+                    //mapdetail.setIndoorLocationSurpportBuidlingName(location.getIndoorLocationSurpportBuidlingName());
                     //是否处于室内定位模式
                     mapdetail.setIndoorLocMode(location.isIndoorLocMode()+"");
                     //获取buildingname信息，目前只在百度支持室内定位的地方有返回，默认null
@@ -149,7 +149,7 @@ public class LocationService extends Service {
                         //2---#GPS_ACCURACY_MID,
                         //3-- #GPS_ACCURACY_BAD
                         //0--#GPS_ACCURACY_UNKNOWN
-                        mapdetail.setGpsAccuracyStatus(location.getGpsAccuracyStatus());
+                        //mapdetail.setGpsAccuracyStatus(location.getGpsAccuracyStatus());
                         // GPS定位结果
                         mapdetail.setDescribe("gps定位成功");
                     } else if (location.getLocType() == BDLocation.TypeNetWorkLocation) {
@@ -165,7 +165,7 @@ public class LocationService extends Service {
                         String networktype = location.getNetworkLocationType();
                         mapdetail.setNetworktype(location.getNetworkLocationType());
                         //获取定位类型相关描述信息
-                        location.getLocTypeDescription();
+                        //location.getLocTypeDescription();
 
                         mapdetail.setDescribe("网络定位成功");
                     } else if (location.getLocType() == BDLocation.TypeOffLineLocation) {

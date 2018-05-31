@@ -61,6 +61,7 @@ import com.bjfu.mcs.loginSign.LoginActivity;
 import com.bjfu.mcs.map.DynamicDemo;
 import com.bjfu.mcs.map.MyOrientationListener;
 import com.bjfu.mcs.map.NavigationActivity;
+import com.bjfu.mcs.map.RoutePlanDemo;
 import com.bjfu.mcs.map.util.LocationManager;
 import com.bjfu.mcs.utils.Constants;
 import com.bjfu.mcs.utils.Rx.RxActivityTool;
@@ -266,7 +267,8 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
                         new SecondaryDrawerItem().withName("活动添加").withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withTag("Bullhorn").withIdentifier(11),
                         new SecondaryDrawerItem().withName("位置详情").withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withTag("Bullhorn").withIdentifier(12),
                         new SecondaryDrawerItem().withName("轨迹路线").withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withTag("Bullhorn").withIdentifier(13),
-                        new SecondaryDrawerItem().withName("路径规划").withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withTag("Bullhorn").withIdentifier(14)
+                        new SecondaryDrawerItem().withName("路径导航").withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withTag("Bullhorn").withIdentifier(14),
+                        new SecondaryDrawerItem().withName("路线规划").withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withTag("Bullhorn").withIdentifier(15)
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
@@ -321,6 +323,10 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
                             else if (drawerItem.getIdentifier() == 14) {
                                 RxToast.normal(drawerItem.getIdentifier() + "");
                                 RxActivityTool.skipActivity(MainActivity.this, NavigationActivity.class);
+                            }
+                            else if (drawerItem.getIdentifier() == 15) {
+                                RxToast.normal(drawerItem.getIdentifier() + "");
+                                RxActivityTool.skipActivity(MainActivity.this, RoutePlanDemo.class);
                             }
                             if (intent != null) {
                                 MainActivity.this.startActivity(intent);

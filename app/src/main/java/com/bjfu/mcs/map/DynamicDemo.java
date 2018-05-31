@@ -75,6 +75,7 @@ public class DynamicDemo extends AppCompatActivity implements SensorEventListene
 	MapStatus.Builder builder;
 
 	private DynamicDemo mContext;
+	private MyLocationConfiguration.LocationMode mCurrentMode;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -103,9 +104,10 @@ public class DynamicDemo extends AppCompatActivity implements SensorEventListene
 		mBaiduMap = mMapView.getMap();
 		// 开启定位图层
 		mBaiduMap.setMyLocationEnabled(true);
+		mCurrentMode = MyLocationConfiguration.LocationMode.FOLLOWING;
 
-		mBaiduMap.setMyLocationConfiguration(new MyLocationConfiguration(
-				com.baidu.mapapi.map.MyLocationConfiguration.LocationMode.FOLLOWING, true, null));
+		mBaiduMap.setMyLocationConfigeration(new MyLocationConfiguration(
+				MyLocationConfiguration.LocationMode.FOLLOWING, true, null));
 
 		/**
 		 * 添加地图缩放状态变化监听，当手动放大或缩小地图时，拿到缩放后的比例，然后获取到下次定位，
@@ -116,11 +118,6 @@ public class DynamicDemo extends AppCompatActivity implements SensorEventListene
 			@Override
 			public void onMapStatusChangeStart(MapStatus arg0) {
 				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void onMapStatusChangeStart(MapStatus mapStatus, int i) {
 
 			}
 

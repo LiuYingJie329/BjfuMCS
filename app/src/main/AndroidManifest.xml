@@ -396,6 +396,10 @@
         <activity android:name=".map.NavigationActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar"/>
+        <activity android:name=".map.RoutePlanDemo"
+            android:screenOrientation="portrait"
+            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar">
+        </activity>
 
         <provider
             android:name="com.bjfu.mcs.map.util.PoiProvider"

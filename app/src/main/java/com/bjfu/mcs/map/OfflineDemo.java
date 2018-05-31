@@ -86,7 +86,7 @@ public class OfflineDemo extends AppCompatActivity implements MKOfflineMapListen
             for (MKOLSearchRecord r : records1) {
                 //V4.5.0起，保证数据不溢出，使用long型保存数据包大小结果
                 hotCities.add(r.cityName + "(" + r.cityID + ")" + "   --"
-                        + this.formatDataSize(r.dataSize));
+                        + this.formatDataSize(r.size));
                 hotCityNames.add(r.cityName);
             }
         }
@@ -108,7 +108,7 @@ public class OfflineDemo extends AppCompatActivity implements MKOfflineMapListen
             for (MKOLSearchRecord r : records2) {
                 //V4.5.0起，保证数据不溢出，使用long型保存数据包大小结果
                 allCities.add(r.cityName + "(" + r.cityID + ")" + "   --"
-                        + this.formatDataSize(r.dataSize));
+                        + this.formatDataSize(r.size));
                 allCityNames.add(r.cityName);
             }
         }
