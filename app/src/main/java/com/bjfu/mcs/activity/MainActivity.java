@@ -93,6 +93,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialdrawer.util.DrawerUIUtils;
 import com.mikepenz.materialize.util.UIUtils;
+import com.umeng.message.inapp.InAppMessageManager;
 
 import java.util.Random;
 import java.util.concurrent.ExecutionException;
@@ -332,8 +333,11 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
                                 RxActivityTool.skipActivity(MainActivity.this, RoutePlanDemo.class);
                             }
                             else if (drawerItem.getIdentifier() == 16) {
+                                InAppMessageManager mInAppMessageManager = InAppMessageManager.getInstance(mContext);
+                                mInAppMessageManager.setInAppMsgDebugMode(true);
+                                mInAppMessageManager.setMainActivityPath("com.bjfu.mcs.upush.UpushActivity");
                                 RxToast.normal(drawerItem.getIdentifier() + "");
-                                RxActivityTool.skipActivity(MainActivity.this, SplashTestActivity.class);
+                                RxActivityTool.skipActivity(MainActivity.this, UpushActivity.class);
                             }
 
                             if (intent != null) {

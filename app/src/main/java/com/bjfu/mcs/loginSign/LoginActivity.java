@@ -1,8 +1,10 @@
 package com.bjfu.mcs.loginSign;
 
 import android.app.ActivityOptions;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -105,7 +107,18 @@ public class LoginActivity extends BaseActivity {
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this, fab, fab.getTransitionName());
                 startActivity(new Intent(LoginActivity.this, RegisterActivity.class), options.toBundle());
                 break;
+
+            case R.id.tirdway:
+                Intent intent = new Intent();
+                ComponentName comp = new ComponentName("com.umeng.soexample","com.umeng.soexample.share.AuthActivity");
+                intent.setComponent(comp);
+                intent.setAction("android.intent.action.MAIN");
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+
+                break;
             default:
+
                 break;
         }
     }

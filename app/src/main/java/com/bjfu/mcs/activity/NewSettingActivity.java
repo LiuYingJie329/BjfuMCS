@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -415,6 +416,8 @@ public class NewSettingActivity extends AppCompatActivity {
             case R.id.tv_appversion:
                 break;
             case R.id.ll_switch:
+                PersonInfo.logOut();
+                RxActivityTool.skipActivityAndFinishAll(this, LoginActivity.class);
                 break;
             case R.id.ll_exit:
                 OptionPicker picker4 = new OptionPicker(this, new String[]{

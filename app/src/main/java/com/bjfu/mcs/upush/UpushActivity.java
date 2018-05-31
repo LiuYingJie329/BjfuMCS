@@ -20,6 +20,7 @@ import com.bjfu.mcs.R;
 import com.bjfu.mcs.application.MCSApplication;
 import com.bjfu.mcs.upush.notification.DebugNotification;
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.commonsdk.debug.UMLog;
 import com.umeng.message.MsgConstant;
 import com.umeng.message.PushAgent;
 import com.umeng.message.UTrack;
@@ -423,6 +424,11 @@ public class UpushActivity extends AppCompatActivity implements View.OnClickList
         }, tag);
     }
 
+/*  每条插屏的消息格式
+  {"success":"ok","data":{"t":1527768462305,"check_num":"","sduration":1,"pduration":1000,"card":
+        {"msg_info":{"plain_text":{"action_type":"none","button_text":"确定","title":"123123","content":"123123123"},"display_button":false},
+            "msg_id":"uaetrws152776828140600","msg_type":5,"policy":
+            {"show_type":0,"show_times":0,"start_time":"2018-05-31 17:13:35","expire_time":"2018-06-07 17:13:35"}}}}*/
     private void showCardMessage() {
 
         InAppMessageManager.getInstance(this).showCardMessage(this, "bjfumain", new IUmengInAppMsgCloseCallback() {
