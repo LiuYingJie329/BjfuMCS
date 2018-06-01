@@ -1,6 +1,5 @@
-include ':app', ':splashlib', ':keepalivelib', ':steplib', ':chartlib', ':formlib'
+include ':app', ':splashlib', ':keepalivelib', ':chartlib', ':formlib'
 project(':splashlib').projectDir = new File('material-intro-screen')
 project(':keepalivelib').projectDir = new File('hellodaemon')
-project(':steplib').projectDir = new File('todaystepcounterlib')
 project(':chartlib').projectDir = new File('chartlibs')
 project(':formlib').projectDir = new File('formlibs')

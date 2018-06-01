@@ -21,6 +21,7 @@ import com.bjfu.mcs.greendao.helper.DaoMasterOpenHelper;
 import com.bjfu.mcs.keepalive.daemon.TraceServiceImpl;
 import com.bjfu.mcs.keepalive.service.DaemonService;
 import com.bjfu.mcs.keepalive.service.PlayerMusicService;
+import com.bjfu.mcs.keepalive.service.UploadLocationService;
 import com.bjfu.mcs.mapservice.BaiduMapLocationService;
 import com.bjfu.mcs.utils.Rx.RxDataTool;
 import com.bjfu.mcs.utils.Rx.RxToast;
@@ -62,6 +63,8 @@ public class MCSApplication extends Application {
 
     private static final String TAG = MCSApplication.class.getName();
 
+    public static Context context;
+
     private static MCSApplication application = null;
     public BaiduMapLocationService locationService;
     public Vibrator mVibrator;
@@ -83,7 +86,7 @@ public class MCSApplication extends Application {
     public void onCreate() {
         super.onCreate();
         application = this;
-
+        context = getApplicationContext();
         appcache = ApplicationCache.get(this);
         //工具类 初始化
         RxTool.init(application);
@@ -91,7 +94,9 @@ public class MCSApplication extends Application {
         Utils.init(application);
         //保活工具类初始化，需要在 Application 的 onCreate() 中调用一次 DaemonEnv.initialize()
         DaemonEnv.initialize(this, TraceServiceImpl.class, DaemonEnv.DEFAULT_WAKE_UP_INTERVAL);
-        TraceServiceImpl.sShouldStopService = false;
+//        TraceServiceImpl.sShouldStopService = false;
+//        UploadLocationService.sShouldStopService = false;
+        DaemonEnv.startServiceMayBind(UploadLocationService.class);
         DaemonEnv.startServiceMayBind(TraceServiceImpl.class);
         DaemonEnv.startServiceMayBind(DaemonService.class);
         DaemonEnv.startServiceMayBind(PlayerMusicService.class);

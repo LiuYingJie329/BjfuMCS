@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.bjfu.mcs.R;
+import com.bjfu.mcs.fragment.MainBaseFrag;
 import com.bjfu.mcs.loginSign.LoginActivity;
 import com.bjfu.mcs.utils.Rx.RxActivityTool;
 import com.xdandroid.hellodaemon.IntentWrapper;
@@ -64,7 +65,31 @@ public class IntroActivity extends MaterialIntroActivity {
                         .buttonsColor(R.color.third_slide_buttons)
                         //.possiblePermissions(new String[]{Manifest.permission.CALL_PHONE, Manifest.permission.READ_SMS})
                         //.neededPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION})
-                        .neededPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION})
+                        .neededPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+                                Manifest.permission.ACCESS_COARSE_LOCATION,
+                                Manifest.permission.ACCESS_NETWORK_STATE,
+                                Manifest.permission.ACCESS_WIFI_STATE,
+                                Manifest.permission.CHANGE_WIFI_STATE,
+                                Manifest.permission.CHANGE_CONFIGURATION,
+                                Manifest.permission.INTERNET,
+                                Manifest.permission.WAKE_LOCK,
+                                Manifest.permission.ACCESS_LOCATION_EXTRA_COMMANDS,
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                                Manifest.permission.READ_EXTERNAL_STORAGE,
+                                Manifest.permission.WRITE_SETTINGS,
+                                Manifest.permission.BLUETOOTH_ADMIN,
+                                Manifest.permission.BLUETOOTH,
+                                Manifest.permission.SYSTEM_ALERT_WINDOW,
+                                Manifest.permission.RECEIVE_BOOT_COMPLETED,
+                                Manifest.permission.SYSTEM_ALERT_WINDOW,
+                                Manifest.permission.READ_LOGS,
+                                Manifest.permission.BROADCAST_STICKY,
+                                Manifest.permission.MOUNT_UNMOUNT_FILESYSTEMS,
+                                Manifest.permission.PROCESS_OUTGOING_CALLS,
+                                Manifest.permission.READ_PHONE_STATE,
+                                Manifest.permission.MODIFY_AUDIO_SETTINGS,
+                                Manifest.permission.RECORD_AUDIO,
+                                Manifest.permission.CAMERA,})
                         .image(R.drawable.img_equipment)
                         .title("App提供最好用的功能")
                         .build(),

@@ -1,20 +1,24 @@
 package com.bjfu.mcs.greendao;
 
+import com.bjfu.mcs.bean.PersonInfo;
+
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Generated;
+
+import cn.bmob.v3.BmobObject;
 
 /**
  * Created by ly on 2018/1/23.
  */
 @Entity
-public class MapDetails {
+public class MapDetails extends BmobObject {
     @Id
     private Long id;
 
     //定位是否成功+用户是否想主动退出。Success Fail Quit
     private String Success;
-    //手机设备名称
+    //设备名称
     private String PhoneName;
     //手机号码
     private String PhoneNumber;
@@ -314,4 +318,6 @@ public class MapDetails {
     public void setNetworktype(String networktype) {
         this.networktype = networktype;
     }
+
+
 }

@@ -67,6 +67,7 @@ public class AddressPickTask extends AsyncTask<String, Void, ArrayList<Province>
         }
         ArrayList<Province> data = new ArrayList<>();
         try {
+
             String json = ConvertUtils.toString(activity.getAssets().open("city.json"));
             data.addAll(JSON.parseArray(json, Province.class));
         } catch (java.io.IOException e) {

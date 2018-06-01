@@ -48,3 +48,38 @@ KeyIdentifier [
 0010: BD 1E FE 93                                        ....
 ]
 ]
+
+
+微信type：
+unionid : ofVYruI3pRUCnuOqj__pIi6eOUPo
+                                                                   
+screen_name : 板栗鸡球
+                                                                   
+city : 
+                                                                   
+accessToken : 10_rQEIIkY04dkomVQvX4LEngq-duN-UJ1l1-SfiaAvOk9TGJpVlGRMMJLMRTCFdBmgJvhElFxhdhA1OQ1MHw1q2vsl1gOMN8SR7xkmewT2XXU
+                                                                  
+ refreshToken : 10_NEoNhIY-wOge_0vJJKe0DLJa8hQUqMvykOY4qC-yEFZBzITL8c3bwq2-Db5MBaXSRq-tLKA1tY3N2XRMNzGropjshQGZRo-S4Q0pxIv6XaY
+                                                                  
+gender : 男
+                                                                   
+province : 
+                                                                   
+openid : oG1Jlv3Pg-ZsmxpiB8dwGOv9YCg8
+                                                                   profile_image_url : http://thirdwx.qlogo.cn/mmopen/vi_32/SIic7icr9BUHx1TepJvKsjeve7T8G816OhE4wZe1ibFwGOLQneTFNoic851dWPdxfjgSto7E3PQfpLhwkwQhuvFxCA/132
+                                                                  
+ country : 中国
+                                                                   
+access_token : 10_rQEIIkY04dkomVQvX4LEngq-duN-UJ1l1-SfiaAvOk9TGJpVlGRMMJLMRTCFdBmgJvhElFxhdhA1OQ1MHw1q2vsl1gOMN8SR7xkmewT2XXU
+                                                                   
+iconurl : http://thirdwx.qlogo.cn/mmopen/vi_32/SIic7icr9BUHx1TepJvKsjeve7T8G816OhE4wZe1ibFwGOLQneTFNoic851dWPdxfjgSto7E3PQfpLhwkwQhuvFxCA/132
+                                                                  
+name : 板栗鸡球
+                                                                   
+uid : ofVYruI3pRUCnuOqj__pIi6eOUPo
+                                                                   
+expiration : 1527784860597
+                                                                   
+language : zh_CN
+                                                                   
+expires_in : 1527784860597

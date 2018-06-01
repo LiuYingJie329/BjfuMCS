@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bjfu.mcs.R;
+import com.bjfu.mcs.activity.ExcelActivity;
 import com.bjfu.mcs.activity.MainActivity;
 import com.bjfu.mcs.application.MCSApplication;
 import com.bjfu.mcs.base.BaseActivity;
@@ -29,6 +30,7 @@ import com.bjfu.mcs.utils.ConfigKey;
 import com.bjfu.mcs.utils.Rx.RxActivityTool;
 import com.bjfu.mcs.utils.Rx.RxDataTool;
 import com.bjfu.mcs.utils.Rx.RxToast;
+import com.bjfu.mcs.utils.SerializableMap;
 import com.bjfu.mcs.utils.security.SecuritySharedPreference;
 
 import butterknife.BindView;
@@ -59,6 +61,23 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.i("--->onCreate","onCreate");
+        try{
+            Bundle bundle = getIntent().getExtras();
+            if (bundle != null) {
+                SerializableMap serializableMap = (SerializableMap) bundle.get("mediamap");
+
+                StringBuilder sb = new StringBuilder();
+                for (String key : serializableMap.getMap().keySet()) {
+                    sb.append(key).append(" : ").append(serializableMap.getMap().get(key)).append("\n");
+                }
+
+                Log.i("第三方获取授权数据-->","data---->"+sb.toString());
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
     @Override
@@ -69,7 +88,19 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        Log.i("--->onStart","onStart");
+    }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.i("--->onPause","onPause");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.i("--->onStop","onStop");
     }
 
 
@@ -176,13 +207,17 @@ public class LoginActivity extends BaseActivity {
     protected void onRestart() {
         super.onRestart();
         fab.setVisibility(View.GONE);
+        Log.i("--->onRestart","onRestart");
+        //getMediaData();
     }
+
 
     @Override
     protected void onResume() {
         super.onResume();
         fab.setVisibility(View.VISIBLE);
-
+        Log.i("--->onResume","onResume");
+        getMediaData();
         try {
             SecuritySharedPreference security = new SecuritySharedPreference(MCSApplication.getApplication(), "spf_loginInfo", Context.MODE_PRIVATE);
             pwfromShare = security.getString("password", null);
@@ -209,5 +244,34 @@ public class LoginActivity extends BaseActivity {
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.i("--->onSaveInstanceState","onSaveInstanceState");
+    }
+
+    private void getMediaData(){
+        try{
+            Intent intent = getIntent();
+            if(intent != null){
+                Bundle bundle = intent.getExtras();
+                if (bundle != null) {
+                    SerializableMap serializableMap = (SerializableMap) bundle.get("mediamap");
+
+                    StringBuilder sb = new StringBuilder();
+                    for (String key : serializableMap.getMap().keySet()) {
+                        sb.append(key).append(" : ").append(serializableMap.getMap().get(key)).append("\n");
+                    }
+
+                    Log.i("第三方获取授权数据-->","data---->"+sb.toString());
+                }
+            }
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

@@ -18,6 +18,7 @@ import static com.bjfu.mcs.application.MCSApplication.appcache;
 public class DataBaseHandler {
 
     private static PersonInfoDao personInfoDao = MCSApplication.daoSession.getPersonInfoDao();
+    private static LocationInfoDao locationInfoDao = MCSApplication.daoSession.getLocationInfoDao();
 
 
     public static void insertPesonInfo(PersonInfo personInfo) {
@@ -39,6 +40,13 @@ public class DataBaseHandler {
 
     public static void updatePesonInfo(PersonInfo personInfo) {
         personInfoDao.insertOrReplace(personInfo);
+    }
+
+    public static void insertLocationInfo(LocationInfo locationInfo) {
+        locationInfoDao.insertOrReplace(locationInfo);
+    }
+    public static List<LocationInfo> getAllLocationInfo() {
+        return  locationInfoDao.loadAll();
     }
 
 }

@@ -46,6 +46,7 @@ public class PersonInfoDao extends AbstractDao<PersonInfo, Long> {
         public final static Property Usersex = new Property(19, String.class, "usersex", false, "USERSEX");
         public final static Property UserSign = new Property(20, String.class, "userSign", false, "USER_SIGN");
         public final static Property DeviceIMEI = new Property(21, String.class, "deviceIMEI", false, "DEVICE_IMEI");
+        public final static Property UserId = new Property(22, String.class, "userId", false, "USER_ID");
     }
 
 
@@ -82,7 +83,8 @@ public class PersonInfoDao extends AbstractDao<PersonInfo, Long> {
                 "\"USER_COMPANY\" TEXT," + // 18: userCompany
                 "\"USERSEX\" TEXT," + // 19: usersex
                 "\"USER_SIGN\" TEXT," + // 20: userSign
-                "\"DEVICE_IMEI\" TEXT);"); // 21: deviceIMEI
+                "\"DEVICE_IMEI\" TEXT," + // 21: deviceIMEI
+                "\"USER_ID\" TEXT);"); // 22: userId
     }
 
     /** Drops the underlying database table. */
@@ -204,6 +206,11 @@ public class PersonInfoDao extends AbstractDao<PersonInfo, Long> {
         if (deviceIMEI != null) {
             stmt.bindString(22, deviceIMEI);
         }
+ 
+        String userId = entity.getUserId();
+        if (userId != null) {
+            stmt.bindString(23, userId);
+        }
     }
 
     @Override
@@ -319,6 +326,11 @@ public class PersonInfoDao extends AbstractDao<PersonInfo, Long> {
         if (deviceIMEI != null) {
             stmt.bindString(22, deviceIMEI);
         }
+ 
+        String userId = entity.getUserId();
+        if (userId != null) {
+            stmt.bindString(23, userId);
+        }
     }
 
     @Override
@@ -350,7 +362,8 @@ public class PersonInfoDao extends AbstractDao<PersonInfo, Long> {
             cursor.isNull(offset + 18) ? null : cursor.getString(offset + 18), // userCompany
             cursor.isNull(offset + 19) ? null : cursor.getString(offset + 19), // usersex
             cursor.isNull(offset + 20) ? null : cursor.getString(offset + 20), // userSign
-            cursor.isNull(offset + 21) ? null : cursor.getString(offset + 21) // deviceIMEI
+            cursor.isNull(offset + 21) ? null : cursor.getString(offset + 21), // deviceIMEI
+            cursor.isNull(offset + 22) ? null : cursor.getString(offset + 22) // userId
         );
         return entity;
     }
@@ -379,6 +392,7 @@ public class PersonInfoDao extends AbstractDao<PersonInfo, Long> {
         entity.setUsersex(cursor.isNull(offset + 19) ? null : cursor.getString(offset + 19));
         entity.setUserSign(cursor.isNull(offset + 20) ? null : cursor.getString(offset + 20));
         entity.setDeviceIMEI(cursor.isNull(offset + 21) ? null : cursor.getString(offset + 21));
+        entity.setUserId(cursor.isNull(offset + 22) ? null : cursor.getString(offset + 22));
      }
     
     @Override

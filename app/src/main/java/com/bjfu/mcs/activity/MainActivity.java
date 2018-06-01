@@ -272,7 +272,8 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
                         new SecondaryDrawerItem().withName("轨迹路线").withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withTag("Bullhorn").withIdentifier(13),
                         new SecondaryDrawerItem().withName("路径导航").withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withTag("Bullhorn").withIdentifier(14),
                         new SecondaryDrawerItem().withName("路线规划").withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withTag("Bullhorn").withIdentifier(15),
-                        new SecondaryDrawerItem().withName("推送系统").withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withTag("Bullhorn").withIdentifier(16)
+                        new SecondaryDrawerItem().withName("推送系统").withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withTag("Bullhorn").withIdentifier(16),
+                        new SecondaryDrawerItem().withName("足迹记录").withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withTag("Bullhorn").withIdentifier(17)
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
@@ -339,6 +340,10 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
                                 RxToast.normal(drawerItem.getIdentifier() + "");
                                 RxActivityTool.skipActivity(MainActivity.this, UpushActivity.class);
                             }
+                            else if (drawerItem.getIdentifier() == 17) {
+                                RxToast.normal(drawerItem.getIdentifier() + "");
+                                RxActivityTool.skipActivity(MainActivity.this, ZuJiActivity.class);
+                            }
 
                             if (intent != null) {
                                 MainActivity.this.startActivity(intent);
@@ -396,7 +401,7 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
                 userImage = RxSPTool.getContent(mContext,"AVATAR");
             }
 
-            String imei = RxDeviceTool.getIMEI(mContext);
+            String imei = RxDeviceTool.getUniqueSerialNumber();
             if(!RxDataTool.isNullString(imei)){
                 updatePersonInfoMsg(updateIMEI,imei);
             }
