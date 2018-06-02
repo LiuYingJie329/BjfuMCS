@@ -460,6 +460,7 @@ public class UpushActivity extends AppCompatActivity implements View.OnClickList
         }
 
         String cpu = UmengMessageDeviceConfig.getCPU();
+
         String osVersion = android.os.Build.VERSION.RELEASE;
         String info = getString(R.string.push_os_version) + osVersion + "\n" + getString(R.string.push_cpu_info) + cpu
             + "\n" + getString(R.string.push_system_notification_switch) + status;

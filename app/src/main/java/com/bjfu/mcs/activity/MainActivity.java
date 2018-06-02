@@ -57,6 +57,7 @@ import com.bjfu.mcs.base.BaseActivity;
 import com.bjfu.mcs.base.CheckPermissionsActivity;
 import com.bjfu.mcs.bean.PersonInfo;
 import com.bjfu.mcs.greendao.DataBaseHandler;
+import com.bjfu.mcs.greendao.Installation;
 import com.bjfu.mcs.loginSign.LoginActivity;
 import com.bjfu.mcs.map.DynamicDemo;
 import com.bjfu.mcs.map.MyOrientationListener;
@@ -93,17 +94,23 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialdrawer.util.DrawerUIUtils;
 import com.mikepenz.materialize.util.UIUtils;
+import com.umeng.message.PushAgent;
 import com.umeng.message.inapp.InAppMessageManager;
 
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ExecutionException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.bmob.v3.BmobInstallationManager;
+import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
+import rx.functions.Action1;
 
 import static com.bjfu.mcs.application.MCSApplication.appcache;
 import static com.bjfu.mcs.utils.Rx.RxToast.showToast;
@@ -154,6 +161,8 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
     Bitmap bitmap = null;
     private static final int updateIMEI =2;
     private static final int updateImageUrl = 3;
+    private static final int updateinstallation = 4;
+    private PushAgent mPushAgent;
 
     @SuppressLint("HandlerLeak")
     @Override
@@ -207,6 +216,65 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
                             e.printStackTrace();
                         }
                         break;
+                    case updateinstallation:
+                        String pushtoken = (String) msg.obj;
+//                        PersonInfo personInfo = BmobUser.getCurrentUser(PersonInfo.class);
+//                        Installation installation = new Installation();
+//                        installation.personInfo = personInfo;
+//                        installation.setPushToken(pushtoken);
+//                        installation.setDeviceIMEI(RxDeviceTool.getUniqueSerialNumber()+"");
+//                        installation.save(new SaveListener<String>() {
+//                            @Override
+//                            public void done(String s, BmobException e) {
+//                                if(e == null){
+//                                    RxToast.success("设备信息更新成功");
+//                                }else{
+//                                    RxToast.error("设备信息更新失败");
+//                                    Log.i(TAG,"设备信息更新失败"+e.getMessage());
+//                                }
+//                            }
+//                        });
+
+                        PersonInfo user = BmobUser.getCurrentUser(PersonInfo.class);
+                        BmobQuery<Installation> bmobQuery = new BmobQuery<>();
+                        final String id = BmobInstallationManager.getInstallationId();
+                        bmobQuery.addWhereEqualTo("installationId", id);
+                        bmobQuery.findObjectsObservable(Installation.class)
+                                .subscribe(new Action1<List<Installation>>() {
+                                    @Override
+                                    public void call(List<Installation> installations) {
+
+                                        if (installations.size() > 0) {
+                                            Installation installation = installations.get(0);
+                                            installation.personInfo = user;
+                                            installation.setPushToken(pushtoken);
+                                            installation.setDeviceIMEI(RxDeviceTool.getUniqueSerialNumber()+"");
+                                            installation.updateObservable()
+                                                    .subscribe(new Action1<Void>() {
+                                                        @Override
+                                                        public void call(Void aVoid) {
+                                                            RxToast.success("更新设备用户信息成功！");
+                                                        }
+                                                    }, new Action1<Throwable>() {
+                                                        @Override
+                                                        public void call(Throwable throwable) {
+                                                            RxToast.success("更新设备用户信息失败：" + throwable.getMessage());
+                                                        }
+                                                    });
+
+                                        } else {
+                                            RxToast.error("后台不存在此设备Id的数据，请确认此设备Id是否正确！\n" + id);
+                                        }
+
+                                    }
+                                }, new Action1<Throwable>() {
+                                    @Override
+                                    public void call(Throwable throwable) {
+                                        RxToast.error("查询设备数据失败：" + throwable.getMessage());
+                                    }
+                                });
+
+                        break;
                     default:
                         break;
                 }
@@ -220,6 +288,7 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("首页");
 
+        mPushAgent = PushAgent.getInstance(this);
         inituserdata();
         // Create a few sample profile
         if(!RxDataTool.isNullString(userImage)){
@@ -382,8 +451,49 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
         initMap();
 
         initDialogs();
+
+        //modifyInstallationUser();
     }
 
+    private void modifyInstallationUser(){
+        PersonInfo user = BmobUser.getCurrentUser(PersonInfo.class);
+        BmobQuery<Installation> bmobQuery = new BmobQuery<>();
+        final String id = BmobInstallationManager.getInstallationId();
+        bmobQuery.addWhereEqualTo("installationId", id);
+        bmobQuery.findObjectsObservable(Installation.class)
+                .subscribe(new Action1<List<Installation>>() {
+                    @Override
+                    public void call(List<Installation> installations) {
+
+                        if (installations.size() > 0) {
+                            Installation installation = installations.get(0);
+                            installation.personInfo = user;
+                            installation.updateObservable()
+                                    .subscribe(new Action1<Void>() {
+                                        @Override
+                                        public void call(Void aVoid) {
+                                            RxToast.success("更新设备用户信息成功！");
+                                        }
+                                    }, new Action1<Throwable>() {
+                                        @Override
+                                        public void call(Throwable throwable) {
+                                            RxToast.success("更新设备用户信息失败：" + throwable.getMessage());
+                                        }
+                                    });
+
+                        } else {
+                            RxToast.error("后台不存在此设备Id的数据，请确认此设备Id是否正确！\n" + id);
+                        }
+
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        RxToast.error("查询设备数据失败：" + throwable.getMessage());
+                    }
+                });
+
+    }
     private void inituserdata() {
         PersonInfo personInfo = DataBaseHandler.getCurrPesonInfo();
         if(null != personInfo){
@@ -403,6 +513,11 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
             String imei = RxDeviceTool.getUniqueSerialNumber();
             if(!RxDataTool.isNullString(imei)){
                 updatePersonInfoMsg(updateIMEI,imei);
+            }
+
+            if(!RxDataTool.isNullString(mPushAgent.getRegistrationId())){
+                Log.i("mPushAgent------->",mPushAgent.getRegistrationId());
+                updatePersonInfoMsg(updateinstallation,mPushAgent.getRegistrationId());
             }
         }
 
