@@ -1,7 +1,10 @@
 package com.bjfu.mcs.keepalive.service;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Message;
 import android.util.Log;
 
 import com.bjfu.mcs.mapservice.LocationUtil;
@@ -23,6 +26,7 @@ public class UploadLocationService extends AbsWorkService {
     //是否 任务完成, 不再需要服务运行?
     public static boolean sShouldStopService;
     public static Disposable sDisposable;
+    private static final int startservice = 1;
 
     public static void stopService() {
         //我们现在不再需要服务运行了, 将标志位置为 true
@@ -33,6 +37,20 @@ public class UploadLocationService extends AbsWorkService {
         cancelJobAlarmSub();
     }
 
+    @SuppressLint("HandlerLeak")
+    private Handler mHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case startservice:
+                    LocationUtil.getInstance().startGetLocation();
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
     /**
      * 是否 任务完成, 不再需要服务运行?
      * @return 应当停止服务, true; 应当启动服务, false; 无法判断, 什么也不做, null.
@@ -52,13 +70,11 @@ public class UploadLocationService extends AbsWorkService {
                     cancelJobAlarmSub();
                 })
                 .subscribe(count -> {
-                    Date date = new Date();
-                    SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-                    String dateStr = sf.format(date);
 
-                    Log.i("request_location",dateStr);
+                    Message msg = new Message();
+                    msg.what = startservice;
+                    mHandler.sendMessage(msg);
 
-                    LocationUtil.getInstance().startGetLocation();
                 });
     }
 

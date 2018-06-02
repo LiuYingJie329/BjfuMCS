@@ -96,7 +96,7 @@ public class MCSApplication extends Application {
         DaemonEnv.initialize(this, TraceServiceImpl.class, DaemonEnv.DEFAULT_WAKE_UP_INTERVAL);
 //        TraceServiceImpl.sShouldStopService = false;
 //        UploadLocationService.sShouldStopService = false;
-        DaemonEnv.startServiceMayBind(UploadLocationService.class);
+//        DaemonEnv.startServiceMayBind(UploadLocationService.class);
         DaemonEnv.startServiceMayBind(TraceServiceImpl.class);
         DaemonEnv.startServiceMayBind(DaemonService.class);
         DaemonEnv.startServiceMayBind(PlayerMusicService.class);

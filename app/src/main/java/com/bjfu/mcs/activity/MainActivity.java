@@ -507,6 +507,8 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
         option.setCoorType("bd09ll"); // 设置坐标类型
         option.setScanSpan(2000);//设置onReceiveLocation()获取位置的频率
         option.setIsNeedAddress(true);//如想获得具体位置就需要设置为true
+        option.setIsNeedLocationDescribe(true);//可选，默认false，设置是否需要位置语义化结果，可以在BDLocation.getLocationDescribe里得到，结果类似于“在北京天安门附近”
+        option.setIsNeedLocationPoiList(true);
         mlocationClient.setLocOption(option);
         mlocationClient.start();
         mCurrentMode = MyLocationConfiguration.LocationMode.FOLLOWING;
@@ -615,6 +617,8 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
                 mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
                 changeLatitude = bdLocation.getLatitude();
                 changeLongitude = bdLocation.getLongitude();
+
+                Log.i("MAINACTIVITY--->","语义化信息-->"+bdLocation.getLocationDescribe()+"--->兴趣点语义化信息-->"+bdLocation.getPoiList());
             }
         }
     }

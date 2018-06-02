@@ -120,11 +120,9 @@
             android:enabled="true"
             android:process=":remote">
 
-            <!--
             <intent-filter>
                 <action android:name="com.baidu.location.service_v2.2" />
             </intent-filter>
-            -->
         </service>
 
         <meta-data
@@ -451,6 +449,14 @@
             android:name="cn.bmob.v3.update.UpdateDialogActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" >
         </activity>
+        <activity android:name=".activity.MapActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/DialogActivity.Transparent"/>
+        <activity android:name=".activity.ZuJiMapActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar"/>
+        <activity android:name=".activity.SwitchMapTypeActivity" />
         <!-- 解决 Android N 7.0 上 报错：android.os.FileUriExposedException-->
         <!--<provider
             android:authorities="cn.bmob.update.fileprovider"

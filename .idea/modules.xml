@@ -8,7 +8,6 @@
       <module fileurl="file://$PROJECT_DIR$/formlibs/formlib.iml" filepath="$PROJECT_DIR$/formlibs/formlib.iml" />
       <module fileurl="file://$PROJECT_DIR$/hellodaemon/keepalivelib.iml" filepath="$PROJECT_DIR$/hellodaemon/keepalivelib.iml" />
       <module fileurl="file://$PROJECT_DIR$/material-intro-screen/splashlib.iml" filepath="$PROJECT_DIR$/material-intro-screen/splashlib.iml" />
-      <module fileurl="file://$PROJECT_DIR$/todaystepcounterlib/steplib.iml" filepath="$PROJECT_DIR$/todaystepcounterlib/steplib.iml" />
     </modules>
   </component>
 </project>

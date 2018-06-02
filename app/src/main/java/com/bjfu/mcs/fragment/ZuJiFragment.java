@@ -24,12 +24,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bjfu.mcs.R;
+import com.bjfu.mcs.activity.MapActivity;
+import com.bjfu.mcs.activity.ZuJiMapActivity;
 import com.bjfu.mcs.adapter.LocationAdapter;
 import com.bjfu.mcs.bean.PersonInfo;
 import com.bjfu.mcs.greendao.LocationInfo;
 import com.bjfu.mcs.keepalive.service.ScreenService;
 import com.bjfu.mcs.keepalive.service.UploadLocationService;
 import com.bjfu.mcs.mapservice.LocationUtil;
+import com.bjfu.mcs.utils.Rx.RxActivityTool;
 import com.bjfu.mcs.utils.Rx.RxToast;
 import com.bjfu.mcs.utils.widget.AnimArcButtons;
 import com.jude.easyrecyclerview.EasyRecyclerView;
@@ -151,11 +154,11 @@ public class ZuJiFragment extends MainBaseFrag {
                 LocationInfo location = locationInfoList.get(position);
                 if(null != location){
 
-//                    Intent intent = new Intent(mContext,MapActivity.class);
-//                    intent.putExtra(MapActivity.INTENT_KEY_LATITUDE,location.getLatitude());
-//                    intent.putExtra(MapActivity.INTENT_KEY_LONTITUDE,location.getLontitude());
-//                    startActivity(intent);
-                    RxToast.info("功能正在开发中");
+                    Intent intent = new Intent(mContext,MapActivity.class);
+                    intent.putExtra(MapActivity.INTENT_KEY_LATITUDE,location.getLatitude());
+                    intent.putExtra(MapActivity.INTENT_KEY_LONTITUDE,location.getLongTitude());
+                    startActivity(intent);
+
                 }
             }
         });
@@ -176,7 +179,7 @@ public class ZuJiFragment extends MainBaseFrag {
         menuBtns.setOnButtonClickListener((v, id) -> {
             switch (id){
                 case 0:
-                    RxToast.info("功能正在开发中");
+                    RxActivityTool.skipActivity(mContext, ZuJiMapActivity.class);
                     break;
                 case 1:
                     RxToast.info("功能正在开发中");
