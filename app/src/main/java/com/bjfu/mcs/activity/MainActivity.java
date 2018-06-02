@@ -284,7 +284,6 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
                                 RxToast.normal(drawerItem.getIdentifier() + "");
 
                             } else if (drawerItem.getIdentifier() == 2) {
-                                RxToast.normal(drawerItem.getIdentifier() + "");
                                 RxActivityTool.skipActivity(MainActivity.this, ExcelActivity.class);
                             } else if (drawerItem.getIdentifier() == 3) {
                                 RxToast.normal(drawerItem.getIdentifier() + "");

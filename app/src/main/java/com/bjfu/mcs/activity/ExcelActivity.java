@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.Window;
 import android.widget.Toast;
 
 import com.bin.david.form.core.SmartTable;
@@ -70,7 +71,7 @@ public class ExcelActivity extends AppCompatActivity implements View.OnClickList
         setSupportActionBar(toolbar);
         //set the back arrow in the toolbar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("基本设置");
+        getSupportActionBar().setTitle("EXCEL展示");
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,20 +101,17 @@ public class ExcelActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void initdatas() {
-
         final List<UserInfo> testData = new ArrayList<>();
         Random random = new Random();
         for(int i = 0;i <500; i++) {
-            testData.add(new UserInfo("用户"+i, random.nextInt(70), System.currentTimeMillis()
-                    - random.nextInt(70)*3600*1000*24,true,new ChildData("测试"+i)));
+            testData.add(new UserInfo("用户行为"+(i+1), random.nextInt(70), System.currentTimeMillis()
+                    - random.nextInt(70)*3600*1000*24,true,new ChildData("分钟数："+i)));
         }
 
-        final Column<String> nameColumn = new Column<>("姓名", "name");
+        final Column<String> nameColumn = new Column<>("用户行为", "name");
         nameColumn.setAutoCount(true);
-        final Column<Integer> ageColumn = new Column<>("年龄", "age");
+        final Column<Integer> ageColumn = new Column<>("时长", "age");
         ageColumn.setAutoCount(true);
-        Column<String> column4 = new Column<>("测试多重查询", "childData.child");
-        column4.setAutoCount(true);
         final IFormat<Long> format =  new IFormat<Long>() {
             @Override
             public String format(Long aLong) {
@@ -148,7 +146,7 @@ public class ExcelActivity extends AppCompatActivity implements View.OnClickList
             }
         });
         int size = DensityUtils.dp2px(this,15);
-        Column<Boolean> column5 = new Column<>("勾选1", "isCheck", new ImageResDrawFormat<Boolean>(size,size) {
+        Column<Boolean> column5 = new Column<>("是否参与", "isCheck", new ImageResDrawFormat<Boolean>(size,size) {
             @Override
             protected Context getContext() {
                 return ExcelActivity.this;
@@ -162,7 +160,9 @@ public class ExcelActivity extends AppCompatActivity implements View.OnClickList
                 return 0;
             }
         });
-        Column<Boolean> column6 = new Column<>("勾选2", "isCheck", new TextImageDrawFormat<Boolean>(size,size, TextImageDrawFormat.LEFT,10) {
+        Column<String> column4 = new Column<>("停留时长", "childData.child");
+        column4.setAutoCount(true);
+        Column<Boolean> column6 = new Column<>("停留开始时间", "isCheck", new TextImageDrawFormat<Boolean>(size,size, TextImageDrawFormat.LEFT,10) {
             @Override
             protected Context getContext() {
                 return ExcelActivity.this;
@@ -176,6 +176,7 @@ public class ExcelActivity extends AppCompatActivity implements View.OnClickList
                 return 0;
             }
         });
+
         Column<Boolean> column7 = new Column<>("勾选3", "isCheck", new TextImageDrawFormat<Boolean>(size,size, TextImageDrawFormat.RIGHT,10) {
             @Override
             protected Context getContext() {
@@ -222,7 +223,7 @@ public class ExcelActivity extends AppCompatActivity implements View.OnClickList
         Column totalColumn2 = new Column("总项2",nameColumn,ageColumn,timeColumn);
         Column totalColumn = new Column("总项",nameColumn,totalColumn1,totalColumn2,timeColumn);
 
-        tableData = new PageTableData<>("测试",testData,nameColumn,column4,column5,column6,column7,column8,column9,totalColumn,totalColumn1,totalColumn2,timeColumn);
+        tableData = new PageTableData<>("详细数据展示",testData,nameColumn,column4,column5,column6,column7,column8,column9,totalColumn,totalColumn1,totalColumn2,timeColumn);
 
 
         tableData.setTitleDrawFormat(new TitleImageDrawFormat(size,size, TitleImageDrawFormat.RIGHT,10) {
@@ -324,7 +325,7 @@ public class ExcelActivity extends AppCompatActivity implements View.OnClickList
             }
         });
 
-        tableData.setPageSize(9);
+        tableData.setPageSize(10);
         table.setTableData(tableData);
     }
 
