@@ -43,7 +43,7 @@ public class OfflineDemo extends AppCompatActivity implements MKOfflineMapListen
     /**
      * 已下载的离线地图信息列表
      */
-    private ArrayList<MKOLUpdateElement> localMapList = null;
+    public  ArrayList<MKOLUpdateElement> localMapList = null;
     private LocalMapAdapter lAdapter = null;
 
     private OfflineDemo mContext;

@@ -47,7 +47,10 @@ android {
     }
     buildTypes {
         release {
+
             minifyEnabled false
+            shrinkResources false
+            zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
@@ -227,4 +230,8 @@ dependencies {
     implementation files('libs/baidumapapi_search_v4_1_1.jar')
     implementation files('libs/baidumapapi_util_v4_1_1.jar')
     implementation files('libs/locSDK_6.13.jar')
+
+    //compile 'org.xclcharts:lib:2.4'
+    //compile 'com.xdandroid:hellodaemon:+'
+    //compile 'agency.tango.android:material-intro-screen:{latest_release}'
 }

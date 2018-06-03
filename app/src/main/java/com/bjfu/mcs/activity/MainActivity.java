@@ -1,5 +1,6 @@
 package com.bjfu.mcs.activity;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +14,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,10 +60,12 @@ import com.bjfu.mcs.base.CheckPermissionsActivity;
 import com.bjfu.mcs.bean.PersonInfo;
 import com.bjfu.mcs.greendao.DataBaseHandler;
 import com.bjfu.mcs.greendao.Installation;
+import com.bjfu.mcs.greendao.PersonPushSet;
 import com.bjfu.mcs.loginSign.LoginActivity;
 import com.bjfu.mcs.map.DynamicDemo;
 import com.bjfu.mcs.map.MyOrientationListener;
 import com.bjfu.mcs.map.NavigationActivity;
+import com.bjfu.mcs.map.PoiSearchDemo;
 import com.bjfu.mcs.map.RoutePlanDemo;
 import com.bjfu.mcs.map.util.LocationManager;
 import com.bjfu.mcs.upush.SplashTestActivity;
@@ -72,6 +76,7 @@ import com.bjfu.mcs.utils.Rx.RxDataTool;
 import com.bjfu.mcs.utils.Rx.RxDeviceTool;
 import com.bjfu.mcs.utils.Rx.RxSPTool;
 import com.bjfu.mcs.utils.Rx.RxToast;
+import com.bjfu.mcs.utils.other.AppUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.Target;
 import com.mikepenz.crossfadedrawerlayout.view.CrossfadeDrawerLayout;
@@ -96,6 +101,8 @@ import com.mikepenz.materialdrawer.util.DrawerUIUtils;
 import com.mikepenz.materialize.util.UIUtils;
 import com.umeng.message.PushAgent;
 import com.umeng.message.inapp.InAppMessageManager;
+import com.yanzhenjie.permission.AndPermission;
+import com.yanzhenjie.permission.PermissionListener;
 
 import java.util.List;
 import java.util.Random;
@@ -108,8 +115,10 @@ import cn.bmob.v3.BmobInstallationManager;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
+import cn.bmob.v3.update.BmobUpdateAgent;
 import rx.functions.Action1;
 
 import static com.bjfu.mcs.application.MCSApplication.appcache;
@@ -163,6 +172,7 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
     private static final int updateImageUrl = 3;
     private static final int updateinstallation = 4;
     private PushAgent mPushAgent;
+    public static final String TAG_EXIT = "exit";
 
     @SuppressLint("HandlerLeak")
     @Override
@@ -329,20 +339,17 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
                         new PrimaryDrawerItem().withName("excel展示").withIcon(FontAwesome.Icon.faw_home).withBadge("22").withBadgeStyle(new BadgeStyle(Color.RED, Color.RED)).withIdentifier(2).withSelectable(false),
                         new PrimaryDrawerItem().withName("图表展示").withIcon(FontAwesome.Icon.faw_gamepad).withIdentifier(3),
                         new PrimaryDrawerItem().withName("推送服务").withIcon(FontAwesome.Icon.faw_eye).withIdentifier(4),
-                        new PrimaryDrawerItem().withDescription("经度\n纬度").withName("定位").withIcon(GoogleMaterial.Icon.gmd_adb).withIdentifier(5),
+                        new PrimaryDrawerItem().withName("地图参与").withIcon(GoogleMaterial.Icon.gmd_adb).withIdentifier(5),
                         new PrimaryDrawerItem().withName("我的主页").withIcon(FontAwesome.Icon.faw_user).withIdentifier(6),
                         new SectionDrawerItem().withName("其他"),
-                        new SecondaryDrawerItem().withName("设置").withIcon(FontAwesome.Icon.faw_info).withIdentifier(7),
+                        new SecondaryDrawerItem().withName("任务情况").withIcon(FontAwesome.Icon.faw_info).withIdentifier(7),
                         new SecondaryDrawerItem().withName("关于").withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withTag("Bullhorn").withIdentifier(8),
                         new SecondaryDrawerItem().withName("系统设置").withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withTag("Bullhorn").withIdentifier(9),
                         new SecondaryDrawerItem().withName("反馈").withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withTag("Bullhorn").withIdentifier(10),
                         new SecondaryDrawerItem().withName("活动添加").withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withTag("Bullhorn").withIdentifier(11),
-                        new SecondaryDrawerItem().withName("位置详情").withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withTag("Bullhorn").withIdentifier(12),
-                        new SecondaryDrawerItem().withName("轨迹路线").withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withTag("Bullhorn").withIdentifier(13),
-                        new SecondaryDrawerItem().withName("路径导航").withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withTag("Bullhorn").withIdentifier(14),
-                        new SecondaryDrawerItem().withName("路线规划").withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withTag("Bullhorn").withIdentifier(15),
-                        new SecondaryDrawerItem().withName("推送系统").withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withTag("Bullhorn").withIdentifier(16),
-                        new SecondaryDrawerItem().withName("足迹记录").withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withTag("Bullhorn").withIdentifier(17)
+                        new SecondaryDrawerItem().withName("轨迹路线").withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withTag("Bullhorn").withIdentifier(12),
+                        new SecondaryDrawerItem().withName("路径导航").withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withTag("Bullhorn").withIdentifier(13),
+                        new SecondaryDrawerItem().withName("足迹记录").withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withTag("Bullhorn").withIdentifier(14)
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
@@ -350,66 +357,41 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
                         if (drawerItem != null) {
                             Intent intent = null;
                             if (drawerItem.getIdentifier() == 1) {
-                                RxToast.normal(drawerItem.getIdentifier() + "");
 
                             } else if (drawerItem.getIdentifier() == 2) {
                                 RxActivityTool.skipActivity(MainActivity.this, ExcelActivity.class);
                             } else if (drawerItem.getIdentifier() == 3) {
-                                RxToast.normal(drawerItem.getIdentifier() + "");
                                 RxActivityTool.skipActivity(MainActivity.this, ChartMainActivity.class);
                             } else if (drawerItem.getIdentifier() == 4) {
-                                RxToast.normal(drawerItem.getIdentifier() + "");
-                                RxActivityTool.skipActivity(MainActivity.this, SetPushActivity.class);
-                            } else if (drawerItem.getIdentifier() == 5) {
-                                RxToast.normal(drawerItem.getIdentifier() + "");
-                                RxActivityTool.skipActivity(MainActivity.this, LocationActivity.class);
-                            } else if(drawerItem.getIdentifier() == 6){
-                                RxToast.normal(drawerItem.getIdentifier() + "");
-                                RxActivityTool.skipActivity(MainActivity.this, MeActivity.class);
-                            } else if (drawerItem.getIdentifier() == 7) {
-                                RxToast.normal(drawerItem.getIdentifier() + "");
-                                RxActivityTool.skipActivity(MainActivity.this, SettingActivity.class);
-                            } else if (drawerItem.getIdentifier() == 8) {
-                                RxToast.normal(drawerItem.getIdentifier() + "");
-                                RxActivityTool.skipActivity(MainActivity.this, NewAboutActivity.class);
-                            }
-                            else if (drawerItem.getIdentifier() == 9) {
-                                RxToast.normal(drawerItem.getIdentifier() + "");
-                                RxActivityTool.skipActivity(MainActivity.this, NewSettingActivity.class);
-                            }
-                            else if (drawerItem.getIdentifier() == 10) {
-                                RxToast.normal(drawerItem.getIdentifier() + "");
-                                RxActivityTool.skipActivity(MainActivity.this, FeedBackActivity.class);
-                            }
-                            else if (drawerItem.getIdentifier() == 11) {
-                                RxToast.normal(drawerItem.getIdentifier() + "");
-                                RxActivityTool.skipActivity(MainActivity.this, Selectctivity.class);
-                            }
-                            else if (drawerItem.getIdentifier() == 12) {
-                                RxToast.normal(drawerItem.getIdentifier() + "");
-                                RxActivityTool.skipActivity(MainActivity.this, SetPlaceActivity.class);
-                            }
-                            else if (drawerItem.getIdentifier() == 13) {
-                                RxToast.normal(drawerItem.getIdentifier() + "");
-                                RxActivityTool.skipActivity(MainActivity.this, DynamicDemo.class);
-                            }
-                            else if (drawerItem.getIdentifier() == 14) {
-                                RxToast.normal(drawerItem.getIdentifier() + "");
-                                RxActivityTool.skipActivity(MainActivity.this, NavigationActivity.class);
-                            }
-                            else if (drawerItem.getIdentifier() == 15) {
-                                RxToast.normal(drawerItem.getIdentifier() + "");
-                                RxActivityTool.skipActivity(MainActivity.this, RoutePlanDemo.class);
-                            }
-                            else if (drawerItem.getIdentifier() == 16) {
                                 InAppMessageManager mInAppMessageManager = InAppMessageManager.getInstance(mContext);
                                 mInAppMessageManager.setInAppMsgDebugMode(true);
                                 mInAppMessageManager.setMainActivityPath("com.bjfu.mcs.upush.UpushActivity");
-                                RxToast.normal(drawerItem.getIdentifier() + "");
                                 RxActivityTool.skipActivity(MainActivity.this, UpushActivity.class);
+                            } else if (drawerItem.getIdentifier() == 5) {
+                                RxActivityTool.skipActivity(MainActivity.this, PoiSearchDemo.class);
+                            } else if(drawerItem.getIdentifier() == 6){
+                                RxActivityTool.skipActivity(MainActivity.this, MeActivity.class);
+                            } else if (drawerItem.getIdentifier() == 7) {
+                                RxActivityTool.skipActivity(MainActivity.this, SettingActivity.class);
+                            } else if (drawerItem.getIdentifier() == 8) {
+                                RxActivityTool.skipActivity(MainActivity.this, NewAboutActivity.class);
                             }
-                            else if (drawerItem.getIdentifier() == 17) {
-                                RxToast.normal(drawerItem.getIdentifier() + "");
+                            else if (drawerItem.getIdentifier() == 9) {
+                                RxActivityTool.skipActivity(MainActivity.this, NewSettingActivity.class);
+                            }
+                            else if (drawerItem.getIdentifier() == 10) {
+                                RxActivityTool.skipActivity(MainActivity.this, FeedBackActivity.class);
+                            }
+                            else if (drawerItem.getIdentifier() == 11) {
+                                RxActivityTool.skipActivity(MainActivity.this, AdditionActivity.class);
+                            }
+                            else if (drawerItem.getIdentifier() == 12) {
+                                RxActivityTool.skipActivity(MainActivity.this, DynamicDemo.class);
+                            }
+                            else if (drawerItem.getIdentifier() == 13) {
+                                RxActivityTool.skipActivity(MainActivity.this, NavigationActivity.class);
+                            }
+                            else if (drawerItem.getIdentifier() == 14) {
                                 RxActivityTool.skipActivity(MainActivity.this, ZuJiActivity.class);
                             }
 
@@ -452,48 +434,48 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
 
         initDialogs();
 
-        //modifyInstallationUser();
-    }
-
-    private void modifyInstallationUser(){
-        PersonInfo user = BmobUser.getCurrentUser(PersonInfo.class);
-        BmobQuery<Installation> bmobQuery = new BmobQuery<>();
-        final String id = BmobInstallationManager.getInstallationId();
-        bmobQuery.addWhereEqualTo("installationId", id);
-        bmobQuery.findObjectsObservable(Installation.class)
-                .subscribe(new Action1<List<Installation>>() {
-                    @Override
-                    public void call(List<Installation> installations) {
-
-                        if (installations.size() > 0) {
-                            Installation installation = installations.get(0);
-                            installation.personInfo = user;
-                            installation.updateObservable()
-                                    .subscribe(new Action1<Void>() {
-                                        @Override
-                                        public void call(Void aVoid) {
-                                            RxToast.success("更新设备用户信息成功！");
-                                        }
-                                    }, new Action1<Throwable>() {
-                                        @Override
-                                        public void call(Throwable throwable) {
-                                            RxToast.success("更新设备用户信息失败：" + throwable.getMessage());
-                                        }
-                                    });
-
-                        } else {
-                            RxToast.error("后台不存在此设备Id的数据，请确认此设备Id是否正确！\n" + id);
-                        }
-
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        RxToast.error("查询设备数据失败：" + throwable.getMessage());
-                    }
-                });
+        initpushdata();
 
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        long lastCheckUpdateTime = 0L;
+        try {
+            String timeStr = appcache.getAsString(Constants.KEY_LAST_CHECK_UPDATE_TIME);
+            if(!TextUtils.isEmpty(timeStr)){
+                lastCheckUpdateTime = Long.parseLong(timeStr);
+            }
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+        long interal = System.currentTimeMillis() - lastCheckUpdateTime;
+        if(interal > Constants.CHECK_UPDATE_INTERVAL){
+            //wifi情况下自动更新
+            BmobUpdateAgent.setUpdateOnlyWifi(true);
+            checkUpdate();
+            appcache.put(Constants.KEY_LAST_CHECK_UPDATE_TIME,String.valueOf(System.currentTimeMillis()));
+        }
+    }
+
+    private void checkUpdate(){
+        AndPermission.with(this)
+                .permission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .callback(new PermissionListener() {
+                    @Override
+                    public void onSucceed(int requestCode, List<String> grantedPermissions) {
+                        BmobUpdateAgent.update(MainActivity.this);
+                    }
+                    @Override
+                    public void onFailed(int requestCode, List<String> deniedPermissions) {
+                        if(AndPermission.hasAlwaysDeniedPermission(MainActivity.this,deniedPermissions))
+                            AndPermission.defaultSettingDialog(MainActivity.this).show();
+                    }
+                })
+                .start();
+    }
+
     private void inituserdata() {
         PersonInfo personInfo = DataBaseHandler.getCurrPesonInfo();
         if(null != personInfo){
@@ -523,6 +505,42 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
 
     }
 
+    private void initpushdata(){
+        PersonInfo user = BmobUser.getCurrentUser(PersonInfo.class);
+        PersonPushSet pushSet = new PersonPushSet();
+        BmobQuery<PersonPushSet> bmobQuery = new BmobQuery<PersonPushSet>();
+        bmobQuery.addWhereEqualTo("personid",user.getUserId());
+        bmobQuery.order("createdAt");
+        bmobQuery.findObjects(new FindListener<PersonPushSet>() {
+            @Override
+            public void done(List<PersonPushSet> list, BmobException e) {
+                if(e == null && list.size()!=0){
+                    //查询到数据
+                    RxToast.success("查询到个人推送情况");
+                    Log.i("--------------->","查询到个人推送情况");
+                }else{
+                    pushSet.personInfo = user;
+                    pushSet.setPersonid(user.getUserId());
+                    pushSet.setIsopen_notifi(true);
+                    pushSet.setOpenstarttime("23:00");
+                    pushSet.setOpenendtime("07:00");
+                    pushSet.setOpencool("1分钟");
+                    pushSet.save(new SaveListener<String>() {
+                        @Override
+                        public void done(String s, BmobException e) {
+                            if(e == null){
+                                RxToast.success("添加个人推送信息成功");
+                                Log.i("--------------->","个人推送情况成功");
+                            }else{
+                                RxToast.success("添加个人推送信息失败");
+                                Log.i("--------------->","个人推送情况失败");
+                            }
+                        }
+                    });
+                }
+            }
+        });
+    }
 
     private void updatePersonInfoMsg(int type,String content){
         Message msg = new Message();
@@ -764,6 +782,7 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
     protected void onResume() {
         mMapView.onResume();
         super.onResume();
+
     }
 
     @Override
@@ -775,6 +794,18 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
         mMapView.onDestroy();
         mMapView = null;
         super.onDestroy();
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        if (intent != null) {
+            boolean isExit = intent.getBooleanExtra(TAG_EXIT, false);
+            if (isExit) {
+                this.finish();
+            }
+        }
+        //Runtime.getRuntime().gc();
+        //android.os.Process.killProcess(android.os.Process.myPid());
     }
 
 }

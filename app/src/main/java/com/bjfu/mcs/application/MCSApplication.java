@@ -51,6 +51,7 @@ import cn.bmob.v3.BmobInstallation;
 import cn.bmob.v3.BmobInstallationManager;
 import cn.bmob.v3.InstallationListener;
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.update.BmobUpdateAgent;
 import common.Logger;
 
 /**
@@ -64,7 +65,7 @@ public class MCSApplication extends Application {
     private static final String TAG = MCSApplication.class.getName();
 
     public static Context context;
-
+    public static PushAgent mPushAgent;
     private static MCSApplication application = null;
     public BaiduMapLocationService locationService;
     public Vibrator mVibrator;
@@ -168,6 +169,9 @@ public class MCSApplication extends Application {
 
         initNetChangeReceiver();
         initDirs();
+
+        //nitAppVersion方法适合开发者调试自动更新功能时使用，一旦AppVersion表在后台创建成功，建议屏蔽或删除此方法，否则会生成多行记录。
+        //BmobUpdateAgent.initAppVersion();
     }
 
     private void setupDatabase(String str) {
@@ -284,7 +288,7 @@ public class MCSApplication extends Application {
     }
 
     private void initUpush() {
-        PushAgent mPushAgent = PushAgent.getInstance(this);
+        mPushAgent = PushAgent.getInstance(this);
         handler = new Handler(getMainLooper());
 
         //sdk开启通知声音

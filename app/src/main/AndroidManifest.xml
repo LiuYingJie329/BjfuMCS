@@ -98,7 +98,7 @@
         <activity
             android:name=".activity.MainActivity"
             android:launchMode="singleTask"
-            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar"></activity>
+            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar" />
 
         <!-- 引导页开始 -->
         <activity
@@ -112,14 +112,13 @@
         </activity>
         <activity
             android:name=".splash.IntroActivity"
-            android:theme="@style/Theme.Intro"></activity>
+            android:theme="@style/Theme.Intro" />
         <!-- 引导页结束 -->
         <!-- 百度地图定位Start -->
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
             android:process=":remote">
-
             <intent-filter>
                 <action android:name="com.baidu.location.service_v2.2" />
             </intent-filter>
@@ -385,7 +384,7 @@
         <activity
             android:name=".activity.SetPlaceActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar"></activity>
+            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar" />
         <activity
             android:name=".map.OfflineDemo"
             android:screenOrientation="portrait"
@@ -411,7 +410,7 @@
         <activity
             android:name=".map.RoutePlanDemo"
             android:screenOrientation="portrait"
-            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar"></activity>
+            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar" />
         <activity
             android:name=".upush.MipushTestActivity"
             android:exported="true"
@@ -440,25 +439,34 @@
             android:authorities="com.bjfu.mcs.map.util.poiprovider"
             android:exported="true" />
 
-        <activity android:name=".activity.ZuJiActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar">
-        </activity>
-
         <activity
-            android:name="cn.bmob.v3.update.UpdateDialogActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
-        </activity>
-        <activity android:name=".activity.MapActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"
-            android:theme="@style/DialogActivity.Transparent"/>
-        <activity android:name=".activity.ZuJiMapActivity"
+            android:name=".activity.ZuJiActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar"/>
-        <activity android:name=".activity.SwitchMapTypeActivity" />
-        <!-- 解决 Android N 7.0 上 报错：android.os.FileUriExposedException-->
-        <!--<provider
+        <activity
+            android:name="cn.bmob.v3.update.UpdateDialogActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+        <activity
+            android:name=".activity.MapActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/DialogActivity.Transparent" />
+        <activity
+            android:name=".activity.ZuJiMapActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar" />
+        <activity
+            android:name=".activity.SwitchMapTypeActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/DialogActivity.Transparent" />
+        <activity
+            android:name=".map.PoiSearchDemo"
+            android:screenOrientation="portrait"
+            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar" />
+        <!-- 解决 Android N 7.0 上 报错：android.os.FileUriExposedException -->
+        <!--
+        <provider
             android:authorities="cn.bmob.update.fileprovider"
             android:name="android.support.v4.content.FileProvider"
             android:grantUriPermissions="true"
@@ -466,9 +474,12 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
-        </provider>-->
+        </provider>
+        -->
 
-
+        <activity android:name=".activity.AdditionActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar"/>
     </application>
 
 </manifest>

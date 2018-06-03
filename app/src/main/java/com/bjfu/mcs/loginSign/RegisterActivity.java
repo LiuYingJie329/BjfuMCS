@@ -219,7 +219,9 @@ public class RegisterActivity extends BaseActivity {
                 if(e==null){
                     RxToast.normal(getString(R.string.toast_register_success));
                     saveRegisterData(mobile, pwd);
-                    RxActivityTool.skipActivity(RegisterActivity.this,LoginActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("zhucechenggong","zhuceback");
+                    RxActivityTool.skipActivity(RegisterActivity.this,LoginActivity.class,bundle);
                 }else{
                     RxToast.normal("注册失败");
                     Log.e("注册失败",e.getMessage());
