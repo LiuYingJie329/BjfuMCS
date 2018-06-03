@@ -17,7 +17,6 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -62,19 +61,21 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:layout_marginLeft="20dp"
             android:layout_weight="1"
+            android:gravity="center_vertical"
             android:text="原因"
             android:textColor="@color/brown1"/>
 
         <TextView
             android:id="@+id/tv_cause"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
+            android:gravity="center_vertical"
             android:layout_marginRight="20dp"
-            android:text="停电关机"
-            android:textColor="@color/brown1"/>
+            android:text="暂无"
+            android:textColor="@color/brown1" />
     </LinearLayout>
 
 
@@ -89,7 +90,8 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
+            android:gravity="center_vertical"
             android:layout_marginLeft="20dp"
             android:layout_weight="1"
             android:text="活动类型"
@@ -98,9 +100,10 @@
         <TextView
             android:id="@+id/tv_type"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
+            android:gravity="center_vertical"
             android:layout_marginRight="20dp"
-            android:text="吃饭"
+            android:text="暂无"
             android:textColor="@color/brown1"/>
     </LinearLayout>
 
@@ -115,7 +118,8 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
+            android:gravity="center_vertical"
             android:layout_marginLeft="20dp"
             android:layout_weight="1"
             android:text="活动类型补充"
@@ -124,9 +128,10 @@
         <TextView
             android:id="@+id/tv_type_other"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
+            android:gravity="center_vertical"
             android:layout_marginRight="20dp"
-            android:text="吃饭"
+            android:text="暂无"
             android:textColor="@color/brown1"/>
     </LinearLayout>
 
@@ -141,7 +146,8 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
+            android:gravity="center_vertical"
             android:layout_marginLeft="20dp"
             android:layout_weight="1"
             android:text="活动地点"
@@ -150,9 +156,10 @@
         <TextView
             android:id="@+id/tv_address"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
+            android:gravity="center_vertical"
             android:layout_marginRight="20dp"
-            android:text="一食堂"
+            android:text="暂无"
             android:textColor="@color/brown1"/>
     </LinearLayout>
 
@@ -167,7 +174,8 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
+            android:gravity="center_vertical"
             android:layout_marginLeft="20dp"
             android:layout_weight="1"
             android:text="活动地点补充"
@@ -176,9 +184,10 @@
         <TextView
             android:id="@+id/tv_address_other"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
+            android:gravity="center_vertical"
             android:layout_marginRight="20dp"
-            android:text="一食堂"
+            android:text="暂无"
             android:textColor="@color/brown1"/>
     </LinearLayout>
 
@@ -193,7 +202,8 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
+            android:gravity="center_vertical"
             android:layout_marginLeft="20dp"
             android:layout_weight="1"
             android:text="开始时间"
@@ -202,9 +212,10 @@
         <TextView
             android:id="@+id/tv_starttime"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
+            android:gravity="center_vertical"
             android:layout_marginRight="20dp"
-            android:text="2018/03/01/15:40"
+            android:text="暂无"
             android:textColor="@color/brown1"/>
 
 
@@ -221,7 +232,8 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
+            android:gravity="center_vertical"
             android:layout_marginLeft="20dp"
             android:layout_weight="1"
             android:text="停止时间"
@@ -230,9 +242,10 @@
         <TextView
             android:id="@+id/tv_endtime"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
+            android:gravity="center_vertical"
             android:layout_marginRight="20dp"
-            android:text="2018/03/01/16:20"
+            android:text="暂无"
             android:textColor="@color/brown1"/>
 
 
@@ -249,7 +262,8 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
+            android:gravity="center_vertical"
             android:layout_marginLeft="20dp"
             android:layout_weight="1"
             android:text="共计时间"
@@ -258,9 +272,10 @@
         <TextView
             android:id="@+id/tv_alltime"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
+            android:gravity="center_vertical"
             android:layout_marginRight="20dp"
-            android:text="20min"
+            android:text="暂无"
             android:textColor="@color/brown1"/>
 
 
@@ -296,4 +311,21 @@
             android:textColor="#939393"/>
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/submit"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/dialog_btn_bg"
+            android:clickable="true"
+            android:text="提交"
+            android:textColor="#fff"
+            />
+    </LinearLayout>
 </LinearLayout>

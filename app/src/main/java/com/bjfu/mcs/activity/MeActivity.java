@@ -666,8 +666,8 @@ public class MeActivity extends AppCompatActivity {
                 picker.setCanceledOnTouchOutside(true);
                 picker.setUseWeight(true);
                 picker.setTopPadding(ConvertUtils.toPx(this, 10));
-                picker.setRangeEnd(2111, 1, 11);
-                picker.setRangeStart(2016, 8, 29);
+                picker.setRangeEnd(1990, 1, 11);
+                picker.setRangeStart(2000, 8, 29);
                 picker.setSelectedItem(2050, 10, 14);
                 picker.setResetWhileWheel(false);
                 picker.setOnDatePickListener(new DatePicker.OnYearMonthDayPickListener() {

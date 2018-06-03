@@ -58,6 +58,7 @@ import com.bjfu.mcs.application.MCSApplication;
 import com.bjfu.mcs.base.BaseActivity;
 import com.bjfu.mcs.base.CheckPermissionsActivity;
 import com.bjfu.mcs.bean.PersonInfo;
+import com.bjfu.mcs.greendao.AdditionInfo;
 import com.bjfu.mcs.greendao.DataBaseHandler;
 import com.bjfu.mcs.greendao.Installation;
 import com.bjfu.mcs.greendao.PersonPushSet;
@@ -436,6 +437,7 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
 
         initpushdata();
 
+        //initAdditiondata();
     }
 
     @Override
@@ -505,6 +507,48 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
 
     }
 
+    private void initAdditiondata(){
+        PersonInfo personInfo = BmobUser.getCurrentUser(PersonInfo.class);
+        AdditionInfo additionInfo = new AdditionInfo();
+        BmobQuery<AdditionInfo> bmobQuery = new BmobQuery<AdditionInfo>();
+        bmobQuery.addWhereEqualTo("personid",personInfo.getUserId());
+        bmobQuery.order("createdAt");
+        bmobQuery.findObjects(new FindListener<AdditionInfo>() {
+            @Override
+            public void done(List<AdditionInfo> list, BmobException e) {
+                if(e == null && list.size()!=0){
+                    //查询到数据
+                    RxToast.success("查询到个人补充活动情况");
+                    Log.i("--------------->","查询到个人补充活动情况");
+                }else{
+                    additionInfo.personInfo = personInfo;
+                    additionInfo.setPersonid(personInfo.getUserId());
+                    additionInfo.setAddcause("");
+                    additionInfo.setAddtype("");
+                    additionInfo.setAddtypeother("");
+                    additionInfo.setAddaddress("");
+                    additionInfo.setAddaddressother("");
+                    additionInfo.setAddstarttime("");
+                    additionInfo.setAddendtime("");
+                    additionInfo.setAddalltime("");
+                    additionInfo.setAddother("");
+                    additionInfo.save(new SaveListener<String>() {
+                        @Override
+                        public void done(String s, BmobException e) {
+                            if(e == null){
+                                RxToast.success("添加个人补充活动信息成功");
+                                Log.i("--------------->","添加个人补充活动信息成功");
+                            }else{
+                                RxToast.success("添加个人补充活动信息失败");
+                                Log.i("--------------->","添加个人补充活动信息失败"+e.getMessage());
+                            }
+                        }
+                    });
+
+                }
+            }
+        });
+    }
     private void initpushdata(){
         PersonInfo user = BmobUser.getCurrentUser(PersonInfo.class);
         PersonPushSet pushSet = new PersonPushSet();
