@@ -43,9 +43,6 @@ import butterknife.ButterKnife;
 import static com.bjfu.mcs.map.util.NavUtil.activityList;
 
 
-/**
- * Created by gaolei on 17/3/29.
- */
 
 public class NavigationActivity extends AppCompatActivity implements
         OnGetSuggestionResultListener, PoiSuggestionAdapter.OnItemClickListener

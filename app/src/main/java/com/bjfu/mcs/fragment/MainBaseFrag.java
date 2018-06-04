@@ -2,8 +2,6 @@ package com.bjfu.mcs.fragment;
 
 
 /**
- * Created by fengxiaogang on 2016/10/17 0017.
- *
  * 主界面中fragment的通用回调
  */
 

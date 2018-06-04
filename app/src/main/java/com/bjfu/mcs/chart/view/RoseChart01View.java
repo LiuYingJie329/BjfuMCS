@@ -37,7 +37,6 @@ import java.util.LinkedList;
 /**
  * @ClassName RoseChart01View
  * @Description  南丁格尔玫瑰图 的例子
- * @author XiongChuanLiang<br/>(xcl_168@aliyun.com)
  */
 public class RoseChart01View extends DemoView {
 

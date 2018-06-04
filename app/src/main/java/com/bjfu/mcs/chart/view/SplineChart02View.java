@@ -48,7 +48,6 @@ import java.util.List;
 /**
  * @ClassName SplineChart02View
  * @Description  三角函数曲线图 的例子
- * @author XiongChuanLiang<br/>(xcl_168@aliyun.com)
  */
 public class SplineChart02View extends DemoView {
 

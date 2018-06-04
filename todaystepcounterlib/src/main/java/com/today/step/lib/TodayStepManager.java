@@ -9,10 +9,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 
-/**
- * 计步SDK初始化方法
- * Created by jiahongfei on 2017/10/9.
- */
+
 
 public class TodayStepManager {
 

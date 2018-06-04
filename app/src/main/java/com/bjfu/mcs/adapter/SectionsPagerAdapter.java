@@ -10,10 +10,6 @@ import com.bjfu.mcs.fragment.PlaceHolderFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Mumu
- * on 2015/11/20.
- */
 public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
     private List<PlaceHolderFragment> fragmentList = new ArrayList<>();
 

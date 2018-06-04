@@ -8,9 +8,7 @@ import com.bin.david.form.data.column.Column;
 import com.bin.david.form.core.TableConfig;
 import com.bin.david.form.exception.TableException;
 
-/**
- * Created by huang on 2017/10/30.
- */
+
 
 public abstract class TextImageDrawFormat<T> extends ImageResDrawFormat<T> {
 

@@ -12,7 +12,6 @@ import com.bjfu.mcs.utils.Rx.RxPhotoTool;
 
 
 /**
- * Created by vondear on 2017/3/20.
  * 封装了从相册/相机 获取 图片 的Dialog.
  */
 public class RxDialogChooseImage extends RxDialog {

@@ -40,7 +40,6 @@ import java.util.Map;
 /**
  * @ClassName RadarChart03View
  * @Description  玫瑰风向图(wind rose)的例子
- * @author XiongChuanLiang<br/>(xcl_168@aliyun.com)
  */
 
 public class RadarChart03View extends DemoView {

@@ -42,7 +42,6 @@ import java.util.List;
 /**
  * @ClassName DialChart例子
  * @Description  仪表盘例子
- * @author XiongChuanLiang<br/>(xcl_168@aliyun.com)
  *  
  */
 public class DialChart02View extends GraphicalView {

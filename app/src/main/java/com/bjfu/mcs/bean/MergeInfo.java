@@ -4,9 +4,7 @@ import com.bin.david.form.annotation.ColumnType;
 import com.bin.david.form.annotation.SmartColumn;
 import com.bin.david.form.annotation.SmartTable;
 
-/**
- * Created by huang on 2017/11/1.
- */
+
 @SmartTable(name="合并信息列表",count = true)
 public class MergeInfo {
     @SmartColumn(id =1,name = "姓名",autoCount = true,autoMerge = true)

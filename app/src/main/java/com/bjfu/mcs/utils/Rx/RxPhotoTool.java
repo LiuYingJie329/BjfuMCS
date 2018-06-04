@@ -29,9 +29,6 @@ import static com.bjfu.mcs.utils.Rx.RxFileTool.isExternalStorageDocument;
 import static com.bjfu.mcs.utils.Rx.RxFileTool.isGooglePhotosUri;
 import static com.bjfu.mcs.utils.Rx.RxFileTool.isMediaDocument;
 
-/**
- * Created by vondear on 2016/1/24.
- */
 
 public class RxPhotoTool {
     public static final int GET_IMAGE_BY_CAMERA = 5001;

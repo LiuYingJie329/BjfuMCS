@@ -17,10 +17,6 @@ import java.util.concurrent.TimeUnit;
 import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
 
-/**
- * Created by wulee on 2017/3/24 09:55
- */
-
 public class UploadLocationService extends AbsWorkService {
 
     //是否 任务完成, 不再需要服务运行?

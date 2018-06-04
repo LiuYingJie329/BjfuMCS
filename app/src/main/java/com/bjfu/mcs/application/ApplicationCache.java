@@ -31,10 +31,6 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
-/**
- * Name NewSkyHospital
- * Created by wulee on 2016/6/22.
- */
 public class ApplicationCache {
 
     public static final int TIME_HOUR = 60 * 60;

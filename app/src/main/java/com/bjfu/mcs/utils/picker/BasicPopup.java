@@ -22,10 +22,6 @@ import com.bjfu.mcs.utils.other.ScreenUtils;
 
 /**
  * 弹窗基类
- *
- * @param <V> 弹窗的内容视图类型
- * @author 李玉江[QQ:1023694760]
- * @since 2015/7/19
  */
 public abstract class BasicPopup<V extends View> implements DialogInterface.OnKeyListener,
         DialogInterface.OnDismissListener {

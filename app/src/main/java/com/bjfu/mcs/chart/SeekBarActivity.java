@@ -39,7 +39,6 @@ import com.bjfu.mcs.chart.view.GaugeChart01View;
 /**
  * @ClassName SeekBarActivity
  * @Description  有使用SeekBar,通过滑动来动态展示图形和仪表盘
- * @author XiongChuanLiang<br/>(xcl_168@aliyun.com)
  */
 
 public class SeekBarActivity extends Activity {

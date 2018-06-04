@@ -100,4 +100,15 @@
     <string name="push_cpu_info">CPU：</string>
     <string name="push_system_notification_switch">系统通知开关是否打开：</string>
     <string name="push_device_check">系统检查</string>
+    <string name="social_oauth">社交平台</string>
+    <string name="social_oauth_weibo">微博登录</string>
+    <string name="social_oauth_weixin">微信登录</string>
+    <string name="social_oauth_qq">QQ登录</string>
+    <string name="social_share_to">分享到</string>
+    <string name="social_share_weibo">新浪微博</string>
+    <string name="social_share_wechat">微信</string>
+    <string name="social_share_wechat_timeline">朋友圈</string>
+    <string name="social_share_qq">QQ好友</string>
+    <string name="social_share_qzone">QQ空间</string>
+    <string name="social_share_more">更多</string>
 </resources>

@@ -17,10 +17,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Created by huang on 2017/10/30.
- */
-
 public class TableData<T> {
 
     private String tableName;

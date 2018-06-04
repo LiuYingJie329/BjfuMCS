@@ -38,7 +38,6 @@ import java.util.List;
 /**
  * @ClassName GaugeChart01View
  * @Description  仪表盘例子
- * @author XiongChuanLiang<br/>(xcl_168@aliyun.com)
  */
 public class GaugeChart01View  extends GraphicalView {
 

@@ -49,7 +49,6 @@ import java.util.List;
 /**
  * @ClassName SplineChart01View
  * @Description  曲线图 的例子
- * @author XiongChuanLiang<br/>(xcl_168@aliyun.com)
  */
 public class SplineChart01View extends DemoView {
 

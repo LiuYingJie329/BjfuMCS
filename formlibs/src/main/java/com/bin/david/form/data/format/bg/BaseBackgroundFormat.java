@@ -7,7 +7,6 @@ import android.graphics.Rect;
 import com.bin.david.form.core.TableConfig;
 
 /**
- * Created by huang on 2017/11/14.
  * 通用绘制背景绘制
  */
 

@@ -45,8 +45,7 @@ import org.xclcharts.common.DensityUtil;
 
 /**
  * @ClassName SpinnerActivity
- * @Description 通过下拉来切换同数据源，不同显示风格的图表	
- * @author XiongChuanLiang<br/>(xcl_168@aliyun.com)
+ * @Description 通过下拉来切换同数据源，不同显示风格的图表
  */
 
 public class SpinnerActivity extends Activity {

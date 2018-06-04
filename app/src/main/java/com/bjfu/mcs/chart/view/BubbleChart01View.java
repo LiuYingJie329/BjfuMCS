@@ -47,7 +47,6 @@ import java.util.List;
 /**
  * @ClassName BubbleChart01View
  * @Description  气泡图例子
- * @author XiongChuanLiang<br/>(xcl_168@aliyun.com)
  *  
  */
 public class BubbleChart01View extends DemoView {

@@ -37,10 +37,7 @@ import static com.bjfu.mcs.application.MCSApplication.mSDCardPath;
 
 
 /**
- * Created by GaoLei on 17/3/31.
- * 这个工具类实现了调用内置导航和打开第三方App导航
- * 1.assets中的文件必须拷贝到项目
- * 2.想使用内置导航，必须初始化导航， NavUtil.initNavi(this);
+ * 调用内置导航和打开第三方App导航
  */
 public class NavUtil {
     public static final int BaiduNavi = 1, GaodeNavi = 2, InnerNavi = 0;

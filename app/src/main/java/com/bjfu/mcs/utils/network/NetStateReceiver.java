@@ -9,7 +9,6 @@ import java.util.ArrayList;
 
 /**
  * 描述:
- * Created by mjd on 2017/1/17.
  */
 
 public class NetStateReceiver extends BroadcastReceiver {

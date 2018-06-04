@@ -4,11 +4,6 @@ import com.bjfu.mcs.utils.picker.WheelItem;
 
 /**
  * 用于联动选择器展示的条目
- * <br />
- * Author:李玉江[QQ:1032694760]
- * DateTime:2017/04/17 00:31
- * Builder:Android Studio
-
  */
 interface LinkageItem extends WheelItem {
 

@@ -14,9 +14,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-/**
- * Created by wulee on 2017/5/25 15:11
- */
+
 
 public class SwitchMapTypeActivity extends AppCompatActivity {
 

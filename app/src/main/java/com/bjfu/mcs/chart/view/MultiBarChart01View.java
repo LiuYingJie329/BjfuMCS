@@ -44,7 +44,6 @@ import java.util.List;
 /**
  * @ClassName MultiBarChart01View
  * @Description  展示柱形图的定制性
- * @author XiongChuanLiang<br/>(xcl_168@aliyun.com)
  */
 
 public class MultiBarChart01View extends DemoView {

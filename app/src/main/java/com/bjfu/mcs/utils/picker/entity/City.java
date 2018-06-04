@@ -5,10 +5,6 @@ import java.util.List;
 
 /**
  * 地市
- * <br/>
- * Author:李玉江[QQ:1032694760]
- * DateTime:2016-10-15 19:07
- * Builder:Android Studio
  */
 public class City extends Area implements LinkageSecond<County> {
     private String provinceId;

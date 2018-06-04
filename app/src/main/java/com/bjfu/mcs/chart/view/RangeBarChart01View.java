@@ -46,7 +46,6 @@ import java.util.List;
 /**
  * @ClassName RangeBarChart01View
  * @Description  范围条形图例子
- * @author XiongChuanLiang<br/>(xcl_168@aliyun.com)
  */
 public class RangeBarChart01View extends DemoView {
 	

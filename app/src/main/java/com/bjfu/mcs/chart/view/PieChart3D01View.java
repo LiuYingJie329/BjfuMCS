@@ -39,10 +39,6 @@ import java.util.LinkedList;
 /**
  * @ClassName Pie3DChart01View
  * @Description  3D饼图的例子
- * 问动画效果的人太多了，其实图表库就应当只管绘图，动画效果就交给View或SurfaceView吧,
- * 	看看我弄的效果有多靓. ~_~ 
- *  依这个例子发挥发挥，可以让图从屏幕各个方向出现.
- * @author XiongChuanLiang<br/>(xcl_168@aliyun.com)
  */
 public class PieChart3D01View extends DemoView implements Runnable {
 

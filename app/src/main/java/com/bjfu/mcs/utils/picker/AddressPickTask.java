@@ -12,9 +12,6 @@ import com.alibaba.fastjson.JSON;
 
 /**
  * 获取地址数据并显示地址选择器
- *
- * @author 李玉江[QQ:1032694760]
- * @since 2015/12/15
  */
 public class AddressPickTask extends AsyncTask<String, Void, ArrayList<Province>> {
     private Activity activity;

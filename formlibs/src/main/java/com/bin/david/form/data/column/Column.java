@@ -20,9 +20,6 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
-/**
- * Created by huang on 2017/10/31.
- */
 
 public class Column<T> implements Comparable<Column> {
 

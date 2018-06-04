@@ -13,10 +13,6 @@ import com.bjfu.mcs.utils.Rx.scaleimage.ImageSource;
 import com.bjfu.mcs.utils.Rx.scaleimage.RxScaleImageView;
 
 
-/**
- * Created by vondear on 2016/7/19.
- * Mainly used for confirmation and cancel.
- */
 public class RxDialogScaleView extends RxDialog {
 
     private RxScaleImageView mRxScaleImageView;

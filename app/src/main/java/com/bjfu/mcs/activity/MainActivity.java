@@ -16,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -174,6 +175,7 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
     private static final int updateinstallation = 4;
     private PushAgent mPushAgent;
     public static final String TAG_EXIT = "exit";
+    private long mLastClickReturnTime = 0l; // 记录上一次点击返回按钮的时间
 
     @SuppressLint("HandlerLeak")
     @Override
@@ -852,4 +854,17 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
         //android.os.Process.killProcess(android.os.Process.myPid());
     }
 
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+            if (event.getAction() == KeyEvent.ACTION_DOWN && event.getRepeatCount() == 0) {
+                if(System.currentTimeMillis() - mLastClickReturnTime > 1000L) {
+                    mLastClickReturnTime = System.currentTimeMillis();
+                    RxToast.info("再按一次退出程序");
+                    return true;
+                }
+            }
+        }
+        return super.dispatchKeyEvent(event);
+    }
 }

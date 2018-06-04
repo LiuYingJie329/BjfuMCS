@@ -1,8 +1,6 @@
 package com.bjfu.mcs.bean;
 
-/**
- * Created by huang on 2017/11/1.
- */
+
 public class UserInfo {
     private String name;
     private int age;

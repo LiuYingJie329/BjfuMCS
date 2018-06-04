@@ -15,14 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 地址选择器（包括省级、地级、县级），地址数据见demo项目assets目录下。
- * “assets/city.json”转换自国家统计局（http://www.stats.gov.cn/tjsj/tjbz/xzqhdm）
- *
- * @author 李玉江[QQ:1032694760]
- * @see Province
- * @see City
- * @see County
- * @since 2015/12/15, 2016/12/18
+ * 地址选择器（包括省级、地级、县级）
+
  */
 public class AddressPicker extends LinkagePicker<Province, City, County> {
     private OnAddressPickListener onAddressPickListener;

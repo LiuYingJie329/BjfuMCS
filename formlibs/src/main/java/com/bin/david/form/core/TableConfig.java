@@ -14,7 +14,6 @@ import com.bin.david.form.data.style.FontStyle;
 import com.bin.david.form.data.style.LineStyle;
 
 /**
- * Created by huang on 2017/11/1.
  * 表格配置
  * 表格90%配置都在这里
  */

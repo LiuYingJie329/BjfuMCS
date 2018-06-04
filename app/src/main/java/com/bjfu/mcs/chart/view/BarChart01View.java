@@ -53,9 +53,7 @@ import java.util.List;
 
 /**
  * @ClassName BarChart01View
- * @Description  柱形图例子(竖向) 
- *  
- * @author XiongChuanLiang<br/>(xcl_168@aliyun.com)
+ * @Description  柱形图例子(竖向)
  */
 
 public class BarChart01View extends DemoView implements Runnable { //DemoView

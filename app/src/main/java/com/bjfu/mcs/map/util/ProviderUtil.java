@@ -12,9 +12,6 @@ import com.bjfu.mcs.bean.PoiObject;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by gaolei on 17/4/19.
- */
 
 public class ProviderUtil {
     private ContentResolver cr;

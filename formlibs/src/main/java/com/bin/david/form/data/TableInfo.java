@@ -6,10 +6,6 @@ import com.bin.david.form.data.column.ArrayColumn;
 import com.bin.david.form.data.column.Column;
 import com.bin.david.form.data.column.ColumnNode;
 
-/**
- * Created by huang on 2017/11/1.
- */
-
 public class TableInfo {
 
     private int topHeight;

@@ -1,8 +1,5 @@
 package com.today.step.lib;
 
-/**
- * Created by jiahongfei on 2017/6/30.
- */
 
 interface OnStepCounterListener {
 

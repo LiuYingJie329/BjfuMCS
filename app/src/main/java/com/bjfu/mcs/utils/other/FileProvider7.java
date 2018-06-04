@@ -8,9 +8,6 @@ import android.support.v4.content.FileProvider;
 
 import java.io.File;
 
-/**
- * Created by wulee on 2017/8/21 10:46
- */
 
 public class FileProvider7 {
     public static Uri getUriForFile(Context context, File file) {

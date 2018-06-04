@@ -10,9 +10,7 @@ import java.util.Calendar;
 
 import static android.content.Context.ALARM_SERVICE;
 
-/**
- * Created by jiahongfei on 2017/6/18.
- */
+
 class StepAlertManagerUtils {
 
     private static final String TAG = "StepAlertManagerUtils";

@@ -40,9 +40,6 @@ import java.util.Locale;
 
 /**
  * 数据类型转换、单位转换
- *
- * @author 李玉江[QQ:1023694760]
- * @since 2014-4-18
  */
 public class ConvertUtils {
     public static final long GB = 1073741824;

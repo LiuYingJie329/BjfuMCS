@@ -11,10 +11,6 @@ import java.util.List;
 import static com.bjfu.mcs.application.MCSApplication.appcache;
 
 
-/**
- * Created by wulee on 2016/10/17 10:13
- */
-
 public class DataBaseHandler {
 
     private static PersonInfoDao personInfoDao = MCSApplication.daoSession.getPersonInfoDao();

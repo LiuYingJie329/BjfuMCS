@@ -33,9 +33,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Created by gaolei on 16/12/30.
- */
 
 public class MapUtils {
     private static PowerManager.WakeLock mWakeLock;

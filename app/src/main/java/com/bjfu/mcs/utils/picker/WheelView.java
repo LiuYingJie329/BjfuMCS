@@ -32,17 +32,7 @@ import java.util.concurrent.TimeUnit;
 
 
 /**
- * 3D滚轮控件，参阅：http://blog.csdn.net/qq_22393017/article/details/59488906
- * <p/>
- * Author:李玉江[QQ:1032694760]
- * DateTime:2015/12/15 09:45 基于ScrollView，参见https://github.com/wangjiegulu/WheelView
- * DateTime:2017/01/07 21:37 基于ListView，参见https://github.com/venshine/WheelView
- * DateTime:2017/04/28 21:10 基于View，参见https://github.com/weidongjian/androidWheelView
- * Builder:Android Studio
- *
- * @see WheelItem
- * @see DividerConfig
- * @see OnItemSelectListener
+ * 3D滚轮控件
  */
 public class WheelView extends View {
     public static final float LINE_SPACE_MULTIPLIER = 2.0F;

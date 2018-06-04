@@ -53,6 +53,17 @@
     <string name="helpurl">http://blog.csdn.net/xcl168/article/details/29675613</string>
     <string name="spinner_label">换一换:</string>
     <string name="seekbar_label">-->滑动</string>
+    <string name="social_oauth">社交平台</string>
+    <string name="social_oauth_weibo">微博登录</string>
+    <string name="social_oauth_weixin">微信登录</string>
+    <string name="social_oauth_qq">QQ登录</string>
+    <string name="social_share_to">分享到</string>
+    <string name="social_share_weibo">新浪微博</string>
+    <string name="social_share_wechat">微信</string>
+    <string name="social_share_wechat_timeline">朋友圈</string>
+    <string name="social_share_qq">QQ好友</string>
+    <string name="social_share_qzone">QQ空间</string>
+    <string name="social_share_more">更多</string>
     <string name="title_activity_multi_touch">MultiTouchActivity</string>
     <string name="title_activity_gradient">GradientActivity</string>
     <string name="title_activity_hbarscroll">HBARScrollActivity</string>

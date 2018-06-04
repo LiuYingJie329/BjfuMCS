@@ -39,10 +39,7 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 
-/**
- * 此demo实现时时动态画运动轨迹
- * author zhh
- */
+
 public class DynamicDemo extends AppCompatActivity implements SensorEventListener {
 
 	// 定位相关

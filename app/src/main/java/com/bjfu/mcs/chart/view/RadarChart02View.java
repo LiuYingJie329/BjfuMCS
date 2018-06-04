@@ -45,7 +45,6 @@ import java.util.List;
 /**
  * @ClassName RadarChart02View
  * @Description  圆形雷达图的例子
- * @author XiongChuanLiang<br/>(xcl_168@aliyun.com)
  */
 public class RadarChart02View extends DemoView {
 

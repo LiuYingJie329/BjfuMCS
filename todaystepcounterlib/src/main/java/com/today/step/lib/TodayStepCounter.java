@@ -17,7 +17,6 @@ import java.util.Date;
 /**
  * android4.4  Sensor.TYPE_STEP_COUNTER
  * 计步传感器计算当天步数，不需要后台Service
- * Created by jiahongfei on 2017/6/30.
  */
 
 class TodayStepCounter implements SensorEventListener {

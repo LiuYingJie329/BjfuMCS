@@ -42,7 +42,6 @@ import java.util.LinkedList;
 /**
  * @ClassName LineChart01View
  * @Description  折线图的例子
- * @author XiongChuanLiang<br/>(xcl_168@aliyun.com)
  */
 public class LineChart01View extends DemoView {
 	

@@ -30,7 +30,6 @@ import org.xclcharts.view.ChartView;
 /**
  * @ClassName DemoView
  * @Description  各个例子view的view基类
- * @author XiongChuanLiang<br/>(xcl_168@aliyun.com)
  */
 public class DemoView extends ChartView {
 

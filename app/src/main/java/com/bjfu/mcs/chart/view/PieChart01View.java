@@ -41,7 +41,6 @@ import java.util.ArrayList;
 /**
  * @ClassName PieChart01View
  * @Description  饼图的例子
- * @author XiongChuanLiang<br/>(xcl_168@aliyun.com)
  */
 public class PieChart01View extends DemoView implements Runnable {
 	

@@ -42,7 +42,6 @@ import java.util.LinkedList;
 /**
  * @ClassName DountChart01View
  * @Description  环形图例子
- * @author XiongChuanLiang<br/>(xcl_168@aliyun.com)
  */
 public class DountChart01View extends DemoView {
 

@@ -6,9 +6,6 @@ import java.util.List;
 
 /**
  * 单项文本选择器
- *
- * @author 李玉江[QQ:1032694760]
- * @since 2015/9/29
  */
 public class OptionPicker extends SinglePicker<String> {
 

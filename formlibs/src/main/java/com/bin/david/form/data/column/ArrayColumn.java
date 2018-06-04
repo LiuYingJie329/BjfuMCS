@@ -10,7 +10,6 @@ import java.lang.reflect.Field;
 import java.util.List;
 
 /**
- * Created by huang on 2018/2/1.
  * 用于解析数组Column
  */
 

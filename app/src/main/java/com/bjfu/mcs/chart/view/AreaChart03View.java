@@ -45,7 +45,6 @@ import java.util.List;
 /**
  * @ClassName AreaChart03View
  * @Description  面积图例子
- * @author XiongChuanLiang<br/>(xcl_168@aliyun.com)
  */
 
 public class AreaChart03View extends DemoView  {

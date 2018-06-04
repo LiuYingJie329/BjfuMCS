@@ -3,9 +3,6 @@ package com.bin.david.form.data.column;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by huang on 2018/2/1.
- * */
 
 public class ColumnNode {
 

@@ -4,9 +4,6 @@ import com.bjfu.mcs.utils.Rx.RxFileTool;
 
 import java.io.File;
 
-/**
- * Created by dingchao on 17-9-18.
- */
 
 public class Constants {
     public static final boolean DEBUG = false;
@@ -48,5 +45,13 @@ public class Constants {
     // 日志过期时间，默认为10天
     public static int LOG_EXPIRED_TIME = 10;
 
-
+    public static String LOGIN_WEIXIN_USER_NAME = "板栗鸡球";
+    public static String LOGIN_WEIXIN_USER_HEARDURL = "http://thirdwx.qlogo.cn/mmopen/vi_32/1mOvT5fApeicXppMP3zADGzWNs6IZiaYlB7EJVdtqYhLcsiciaUN6hQI5GtJChJcD7JKIExmPFtoiaibwQNP4oRv1iaicw/132";
+    public static String LOGIN_WEIXIN_USER_UID = "ofVYruI3pRUCnuOqj__pIi6eOUPo";
+    public static String LOGIN_QQ_USER_NAME = "长生二梦";
+    public static String LOGIN_QQ_USER_HEARDURL = "http://thirdqq.qlogo.cn/qqapp/100424468/A97B2AEF20465F885CBFDBD65B0FCD84/100";
+    public static String LOGIN_QQ_USER_UID = "A97B2AEF20465F885CBFDBD65B0FCD84";
+    public static String LOGIN_WEIBO_USER_NAME = "别看了_没昵称";
+    public static String LOGIN__WEIBO_HEARDURL = "http://tva4.sinaimg.cn/crop.0.0.1080.1080.180/bf92a90fjw8ewwigeyqoyj20u00u042h.jpg";
+    public static String LOGIN_WEIBO_USER_UID = "3214059791";
 }

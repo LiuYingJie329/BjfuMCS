@@ -43,9 +43,7 @@ import java.util.List;
 
 /**
  * @ClassName DySplineChart
- * @Description  双线图例子 
- *  
- * @author XiongChuanLiang<br/>(xcl_168@aliyun.com)
+ * @Description  双线图例子
  */
 
 public class DySplineChart extends ChartView {

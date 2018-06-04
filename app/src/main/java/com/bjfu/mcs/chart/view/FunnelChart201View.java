@@ -16,8 +16,7 @@ import java.util.List;
 /**
  * @ClassName FunnelChart201View
  * @Description  漏斗图例子 
- *  
- * @author XiongChuanLiang<br/>(xcl_168@aliyun.com)
+ *
  */
 public class FunnelChart201View extends DemoView {
 	

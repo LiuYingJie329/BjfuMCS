@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 用于显示换乘路线的Overlay，自3.4.0版本起可实例化多个添加在地图中显示
+ * 用于显示换乘路线的Overlay
  */
 public class TransitRouteOverlay extends OverlayManager {
 

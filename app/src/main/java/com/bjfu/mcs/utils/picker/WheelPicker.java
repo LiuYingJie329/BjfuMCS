@@ -13,9 +13,6 @@ import android.widget.TextView;
 
 /**
  * 滑轮选择器
- *
- * @author 李玉江[QQ:1032694760]
- * @since 2015/12/22
  */
 @SuppressWarnings("WeakerAccess")
 public abstract class WheelPicker extends ConfirmPopup<View> {

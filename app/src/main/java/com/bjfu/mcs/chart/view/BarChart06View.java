@@ -41,7 +41,6 @@ import java.util.Random;
 /**
  * @ClassName AnimationBar01View
  * @Description  柱形图柱形渐显动画例子,<br/>
- * @author XiongChuanLiang<br/>(xcl_168@aliyun.com)
  */
 
 

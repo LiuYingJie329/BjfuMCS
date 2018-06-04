@@ -48,7 +48,6 @@ import java.util.List;
 /**
  * @ClassName AreaChart01View
  * @Description  面积图例子
- * @author XiongChuanLiang<br/>(xcl_168@aliyun.com)
  */
 
 public class AreaChart01View extends DemoView implements Runnable {

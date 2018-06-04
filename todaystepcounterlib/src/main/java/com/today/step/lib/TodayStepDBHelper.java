@@ -15,7 +15,6 @@ import java.util.Set;
 
 /**
  * 用来记录当天步数列表，传感器回调30次记录一条数据
- * Created by jiahongfei on 2017/10/9.
  */
 
 class TodayStepDBHelper extends SQLiteOpenHelper implements ITodayStepDBHelper{

@@ -18,9 +18,6 @@ import java.util.List;
 
 /**
  * 单项选择器
- *
- * @author 李玉江[QQ:1032694760]
- * @since 2015/9/29
  */
 public class SinglePicker<T> extends WheelPicker {
     private static final int ITEM_WIDTH_UNKNOWN = -99;

@@ -40,12 +40,6 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
-/**
- * @ClassName DySpActivity
- * @Description  双线图Activity 
- *  
- * @author XiongChuanLiang<br/>(xcl_168@aliyun.com)
- */
 
 public class DySpActivity extends Activity {
 

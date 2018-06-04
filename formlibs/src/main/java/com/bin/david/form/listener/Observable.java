@@ -3,10 +3,6 @@ package com.bin.david.form.listener;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by huang on 2017/9/29.
- */
-
 public abstract  class Observable<T> {
 
     public final ArrayList<T> observables = new ArrayList<>();

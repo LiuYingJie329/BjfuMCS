@@ -46,7 +46,6 @@ import java.util.List;
 /**
  * @ClassName RadarChart01View
  * @Description  蜘蛛雷达图例子
- * @author XiongChuanLiang<br/>(xcl_168@aliyun.com)
  */
 public class RadarChart01View extends DemoView {
 

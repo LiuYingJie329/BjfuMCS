@@ -11,9 +11,6 @@ import android.widget.TextView;
 import com.bjfu.mcs.R;
 
 
-/**
- * Created by gaolei on 17/3/2.
- */
 public class SelectDialog extends Dialog implements View.OnClickListener {
     private TextView confirm;
     private IDialogOnclickInterface dialogOnclickInterface;

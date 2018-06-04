@@ -11,9 +11,6 @@ import java.util.List;
 
 import static android.content.Context.SENSOR_SERVICE;
 
-/**
- * Created by wulee on 2017/6/7 14:54
- */
 
 public class Pedometer implements SensorEventListener {
     private SensorManager mSensorManager;

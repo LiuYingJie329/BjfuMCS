@@ -1,8 +1,5 @@
 package com.bjfu.mcs.utils;
 
-/**
- * Created by wulee on 2016/12/13 17:23
- */
 
 public class ConfigKey {
     /**

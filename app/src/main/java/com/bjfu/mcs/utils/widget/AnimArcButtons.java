@@ -13,10 +13,6 @@ import android.widget.RelativeLayout;
 import com.bjfu.mcs.R;
 
 
-/**
- * Created by wulee on 2017/8/18 14:44
- */
-
 public class AnimArcButtons extends RelativeLayout {
 
     private Context context;

@@ -25,8 +25,6 @@ import java.util.List;
 /**
  * @ClassName BarChart11View
  * @Description  柱形图例子(横向)
- *    来自CSDN: http://www.csdn.net/article/2015-09-15/2825707
- * @author XiongChuanLiang<br/>(xcl_168@aliyun.com)
  */
 public class BarChart11View extends DemoView {
 	

@@ -6,7 +6,6 @@ import android.content.Intent;
 
 /**
  * 0点启动app处理步数
- * Created by jiahongfei on 2017/6/18.
  */
 
 public class TodayStepAlertReceive extends BroadcastReceiver {

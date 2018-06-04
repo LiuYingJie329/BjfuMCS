@@ -45,8 +45,7 @@ import java.util.List;
 
 /**
  * @ClassName MultiAxisChart01View
- * @Description 主要演示一个轴上显示多种图的坐标系	
- * @author XiongChuanLiang<br/>(xcl_168@aliyun.com)
+ * @Description 主要演示一个轴上显示多种图的坐标系
  */
 public class MultiAxisChart01View extends DemoView {
 	

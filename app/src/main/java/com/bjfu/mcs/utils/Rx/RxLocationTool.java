@@ -26,9 +26,7 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * @author ondear
- *         time  : 16/11/13
- *         desc  : 定位相关工具类
+ * 定位相关工具类
  */
 public class RxLocationTool {
 

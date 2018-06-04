@@ -7,10 +7,6 @@ import android.graphics.Paint;
 import com.bin.david.form.utils.DensityUtils;
 
 
-/**
- * Created by huang on 2017/9/27.
- */
-
 public class PointStyle implements IStyle {
 
     public static final int CIRCLE = 0;

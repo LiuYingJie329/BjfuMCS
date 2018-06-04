@@ -46,7 +46,6 @@ import java.util.List;
 /**
  * @ClassName MultiAxisChart02View
  * @Description  柱形图与折线图的结合例子,主要演示右轴
- * @author XiongChuanLiang<br/>(xcl_168@aliyun.com)
  */
 
 public class MultiAxisChart02View extends DemoView {

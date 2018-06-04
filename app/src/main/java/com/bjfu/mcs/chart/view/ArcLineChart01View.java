@@ -39,7 +39,6 @@ import java.util.LinkedList;
 /**
  * @ClassName ArcLineChart01View
  * @Description  弧线比较图的例子
- * @author XiongChuanLiang<br/>(xcl_168@aliyun.com)
  */
 public class ArcLineChart01View extends DemoView {
 	

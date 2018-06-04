@@ -16,7 +16,6 @@ import com.bin.david.form.utils.DrawUtils;
 import java.util.List;
 
 /**表格测量器
- * Created by huang on 2017/11/2.
  */
 
 public class TableMeasurer<T> {

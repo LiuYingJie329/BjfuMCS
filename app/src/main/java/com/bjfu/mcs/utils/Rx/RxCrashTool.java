@@ -19,9 +19,6 @@ import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-/**
- * Created by ly on
- */
 
 public class RxCrashTool {
 

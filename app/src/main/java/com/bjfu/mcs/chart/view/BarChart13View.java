@@ -42,9 +42,7 @@ import java.util.List;
 
 /**
  * @ClassName BarChart13View
- * @Description  圆角柱形图例子(横向) 
- *  
- * @author XiongChuanLiang<br/>(xcl_168@aliyun.com)
+ * @Description  圆角柱形图例子(横向)
  */
 
 public class BarChart13View  extends DemoView {

@@ -1,8 +1,6 @@
 package com.bin.david.form.data;
 
-/**
- * Created by huang on 2018/1/24.
- */
+
 
 public class Cell {
     public static final int INVALID = -1;

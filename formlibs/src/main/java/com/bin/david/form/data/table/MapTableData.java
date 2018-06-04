@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by huang on 2018/1/14.
  * Map表格数据
  * 可用于Json数据展示
  */

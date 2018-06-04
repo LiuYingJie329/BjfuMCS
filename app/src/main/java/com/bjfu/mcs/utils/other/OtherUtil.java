@@ -24,10 +24,6 @@ import java.util.regex.Pattern;
 import static com.bjfu.mcs.application.MCSApplication.appcache;
 
 
-/**
- * Created by wulee on 2017/4/25 10:40
- */
-
 public class OtherUtil {
     /**
      * 密码校验

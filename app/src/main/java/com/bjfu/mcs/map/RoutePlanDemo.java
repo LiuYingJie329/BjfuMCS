@@ -66,10 +66,6 @@ import java.util.List;
 import butterknife.ButterKnife;
 
 
-/**
- * 此demo用来展示如何进行驾车、步行、公交、骑行、跨城综合路线搜索并在地图使用RouteOverlay、TransitOverlay绘制
- * 同时展示如何进行节点浏览并弹出泡泡
- */
 public class RoutePlanDemo extends AppCompatActivity implements BaiduMap.OnMapClickListener,
         OnGetRoutePlanResultListener {
 

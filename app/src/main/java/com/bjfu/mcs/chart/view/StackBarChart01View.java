@@ -48,7 +48,6 @@ import java.util.List;
 /**
  * @ClassName StackBarChart01View
  * @Description  堆叠图 的例子
- * @author XiongChuanLiang<br/>(xcl_168@aliyun.com)
  */
 public class StackBarChart01View extends DemoView {
 	

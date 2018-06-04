@@ -3,9 +3,6 @@ package com.bjfu.mcs.bean;
 
 import com.bin.david.form.annotation.SmartColumn;
 
-/**
- * Created by huang on 2017/11/1.
- */
 
 public class ChildData {
 

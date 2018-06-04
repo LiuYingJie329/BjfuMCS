@@ -30,9 +30,7 @@ import com.bjfu.mcs.mapservice.LocationUtil;
 import static com.bjfu.mcs.application.MCSApplication.appcache;
 
 
-/**
- * Created by wulee on 2017/1/11 11:47
- */
+
 
 public class MapActivity extends AppCompatActivity {
 

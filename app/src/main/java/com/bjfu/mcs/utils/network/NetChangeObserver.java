@@ -2,7 +2,6 @@ package com.bjfu.mcs.utils.network;
 
 /**
  * 描述:
- * Created by mjd on 2017/1/16.
  */
 
 public interface NetChangeObserver {

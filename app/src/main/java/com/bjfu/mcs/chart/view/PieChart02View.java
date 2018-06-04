@@ -46,7 +46,6 @@ import java.util.LinkedList;
 /**
  * @ClassName PieChart02View
  * @Description  平面饼图的例子
- * @author XiongChuanLiang<br/>(xcl_168@aliyun.com)
  * 
  */
 

@@ -30,8 +30,6 @@ import static com.bjfu.mcs.map.util.NavUtil.activityList;
 /**
  * 诱导界面
  *
- * @author sunhao04
- *
  */
 public class BDInnerNaviActivity extends Activity {
 

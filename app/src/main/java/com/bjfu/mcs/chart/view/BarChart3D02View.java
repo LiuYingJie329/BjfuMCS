@@ -46,7 +46,6 @@ import java.util.List;
 /**
  * @ClassName Bar3DChart02View
  * @Description  3D柱形图例子(横向)
- * @author XiongChuanLiang<br/>(xcl_168@aliyun.com)
  */
 public class BarChart3D02View extends DemoView {
 	

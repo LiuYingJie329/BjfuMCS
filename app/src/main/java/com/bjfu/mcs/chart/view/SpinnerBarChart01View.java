@@ -43,7 +43,6 @@ import java.util.List;
 /**
  * @ClassName SpinnerBarChart01View
  * @Description  柱形图同数据源不同柱形图切换的例子
- * @author XiongChuanLiang<br/>(xcl_168@aliyun.com)
  */
 public class SpinnerBarChart01View extends DemoView {
 	

@@ -41,8 +41,6 @@ import java.util.List;
 /**
  * @ClassName BarChart03View
  * @Description 用于展示定制线与明细刻度线
- * @author XiongChuanLiang<br/>(xcl_168@aliyun.com)
- * MODIFIED    YYYY-MM-DD   REASON
  */
 public class BarChart12View extends DemoView{
 	

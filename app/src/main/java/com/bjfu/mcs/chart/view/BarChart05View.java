@@ -44,7 +44,6 @@ import java.util.List;
 /**
  * @ClassName BarChart05View
  * @Description  定制线横向柱形图例子
- * @author XiongChuanLiang<br/>(xcl_168@aliyun.com)
  */
 public class BarChart05View extends DemoView implements Runnable {
 	

@@ -47,7 +47,6 @@ import java.util.List;
 /**
  * @ClassName StackBarChart02View
  * @Description  堆叠图 的例子(横向)
- * @author XiongChuanLiang<br/>(xcl_168@aliyun.com)
  */
 public class StackBarChart02View extends DemoView {
 

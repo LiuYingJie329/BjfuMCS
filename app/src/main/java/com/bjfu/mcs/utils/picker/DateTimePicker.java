@@ -20,9 +20,6 @@ import java.util.Locale;
 
 /**
  * 日期时间选择器，可同时选中日期及时间
- * <p/>
- * Created by Dong on 2016/5/13.
- * Refactored by 李玉江 on 2016/12/31.
  */
 public class DateTimePicker extends WheelPicker {
     /**

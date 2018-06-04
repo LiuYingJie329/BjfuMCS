@@ -46,7 +46,6 @@ import java.util.List;
 /**
  * @ClassName ScatterChart01View
  * @Description  散点图例子
- * @author XiongChuanLiang<br/>(xcl_168@aliyun.com)
  */
 
 public class ScatterChart01View extends DemoView {

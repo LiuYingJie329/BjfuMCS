@@ -1,9 +1,6 @@
 package com.bjfu.mcs.utils.Rx;
 
-/**
- * Created by vondear on 2016/1/24.
- * 常量工具类
- */
+
 public class RxConstTool {
 
     /******************** 存储相关常量 ********************/

@@ -40,7 +40,6 @@ import java.util.List;
 /**
  * @ClassName CircleChart03View
  * @Description  图形图例子(半圆)
- * @author XiongChuanLiang<br/>(xcl_168@aliyun.com)
  */
 public class CircleChart03View extends GraphicalView {
 

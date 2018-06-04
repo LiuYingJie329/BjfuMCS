@@ -24,7 +24,6 @@ import com.bin.david.form.utils.DrawUtils;
 import java.util.List;
 
 /**
- * Created by huang on 2017/11/1.
  * 表格内容绘制
  */
 

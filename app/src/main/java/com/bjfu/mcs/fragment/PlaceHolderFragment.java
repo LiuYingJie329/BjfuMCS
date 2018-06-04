@@ -15,11 +15,6 @@ import com.bjfu.mcs.R;
 import com.bjfu.mcs.adapter.InfoEntity;
 
 
-/**
- * A placeholder fragment containing a simple view.
- * Created by Mumu
- * on 2015/11/20.
- */
 public class PlaceHolderFragment extends BaseFragment {
     Handler handler = new Handler();
     ProgressBar progressBar;

@@ -6,10 +6,6 @@ import android.app.Activity;
 import com.bjfu.mcs.utils.widget.BaseProgressDialog;
 
 
-/**
- * Created by wulee on 2016/12/15
- */
-
 public abstract class ZuJiBaseFragment extends android.support.v4.app.Fragment {
 
     private BaseProgressDialog mProgressDialog = null;

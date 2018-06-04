@@ -480,6 +480,11 @@
         <activity android:name=".activity.AdditionActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar"/>
+        <activity android:name=".loginSign.SocialOauthActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTop"
+            android:exported="true"
+            android:theme="@style/SocialOauthActivity"/>
     </application>
 
 </manifest>

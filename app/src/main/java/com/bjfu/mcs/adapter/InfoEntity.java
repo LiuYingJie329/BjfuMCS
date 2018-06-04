@@ -3,10 +3,6 @@ package com.bjfu.mcs.adapter;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-/**
- * Created by Mumu
- * on 2017/1/23.
- */
 
 public class InfoEntity implements Parcelable {
     private String title;

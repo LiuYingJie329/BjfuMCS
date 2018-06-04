@@ -9,9 +9,7 @@ import android.os.IBinder;
 
 import com.bjfu.mcs.utils.other.AppUtils;
 
-/**
- * Created by wulee on 2016/12/8 09:31
- */
+
 
 public class ScreenService extends Service {
 

@@ -37,7 +37,6 @@ import java.util.LinkedList;
 /**
  * @ClassName CircleChart02View
  * @Description  图形图例子
- * @author XiongChuanLiang<br/>(xcl_168@aliyun.com)
  */
 public class CircleChart02View extends GraphicalView {
 	

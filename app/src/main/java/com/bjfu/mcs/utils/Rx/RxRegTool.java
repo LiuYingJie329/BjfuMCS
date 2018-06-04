@@ -22,9 +22,6 @@ import static com.bjfu.mcs.utils.Rx.RxConstTool.REGEX_URL;
 import static com.bjfu.mcs.utils.Rx.RxConstTool.REGEX_USERNAME;
 import static com.bjfu.mcs.utils.Rx.RxDataTool.isNullString;
 
-/**
- * Created by Administrator on 2017/3/15.
- */
 
 public class RxRegTool {
     //--------------------------------------------正则表达式-----------------------------------------

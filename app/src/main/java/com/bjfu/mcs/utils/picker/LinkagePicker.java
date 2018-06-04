@@ -19,13 +19,6 @@ import java.util.List;
 
 /**
  * 两级、三级联动选择器。默认只初始化第一级数据，第二三级数据由联动获得。
- * <p/>
- * Author:李玉江[QQ:1032694760]
- * DateTime:2016/5/6 20:34
- * Builder:Android Studio
- *
- * @see Provider
- * @see DataProvider
  */
 public class LinkagePicker<Fst extends LinkageFirst<Snd>, Snd extends LinkageSecond<Trd>, Trd> extends WheelPicker {
     protected Fst selectedFirstItem;

@@ -1,5 +1,6 @@
 package com.bjfu.mcs.loginSign;
 
+import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.ComponentName;
 import android.content.Context;
@@ -33,6 +34,8 @@ import com.bjfu.mcs.utils.Rx.RxDataTool;
 import com.bjfu.mcs.utils.Rx.RxToast;
 import com.bjfu.mcs.utils.SerializableMap;
 import com.bjfu.mcs.utils.security.SecuritySharedPreference;
+
+import org.xclcharts.renderer.XEnum;
 
 import java.util.List;
 
@@ -131,13 +134,8 @@ public class LoginActivity extends BaseActivity {
                 break;
 
             case R.id.tirdway:
-                Intent intent = new Intent();
-                ComponentName comp = new ComponentName("com.umeng.soexample", "com.umeng.soexample.share.AuthActivity");
-                intent.setComponent(comp);
-                intent.setAction("android.intent.action.MAIN");
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-
+                RxActivityTool.skipActivity(LoginActivity.this,SocialOauthActivity.class);
+                this.overridePendingTransition(R.anim.jjdxm_social_snack_in, 0);
                 break;
             default:
 
@@ -295,6 +293,8 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void getMediaData() {
+        etUsername.setText("");
+        etPassword.setText("");
         try {
             Intent intent = getIntent();
             if (intent != null) {

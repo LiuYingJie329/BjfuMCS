@@ -87,54 +87,6 @@ import com.bjfu.mcs.chart.view.StackBarChart01View;
 import com.bjfu.mcs.chart.view.StackBarChart02View;
 
 
-/**
- * @ClassName ChartsActivity
- * @Description  展示各类图表
- * @author XiongChuanLiang<br/>(xcl_168@aliyun.com)
- */
-
-
-/**
- * 关于整个图表缩放的说明 :
- * 	Demo中提供了两种缩放模式:
- * 		1. 通过 ZoomControls控件调用DemoView中的Zoom相关函数来缩放图表.
- * 		  通过这种方式缩放后的点击事件。
- * 		禁用方式:
- * 			可通过直接继承GraphicalView或通过覆盖onTouchEvent事件来禁用
- * 		2. 通过chart.enableScale()来激活通过双指手势对图表进行缩放。
- * 		 
- *      禁用方式:
- *      	chart.disableScale();
- * 
- * 图表区的平移  :  
- *  激活图表区的平移     
- * 		chart.enablePanMode()
- * 
- *      如果数据量比较大，感觉平移不够 顺畅，可以禁用图库的高精度计算，函数: 
- *			chart.disableHighPrecision();
- *      即，忽略掉Java的Float/Double类型的计算误差，能显著提高性能。但饼图类慎用。
- *			
- *  禁用图表区的平移     
- *  	chart.disablePanMode()
- *  
- *   平移默认是打开的。如果出现图或标识在绘图区外显示不全，可以禁掉此模式即可。
- *  
- *  
- *  如果要展示的图表数据比较长或多，可以通过调整绘图区宽度chart.getPlotArea().extWidth(增加宽度);
- *  或整个图的大小，即chart.setChartRange()的值。
- *  然后用户可以通过平移图表区的方式来展示未显示出来的数据. 
- *  注意，此方式性能会有些损失，超大量的就不用尝试这种方式了， 
- *  对于这种超大量的可以通过ScrollView控件方式来处理,具体可参考"左右滑动折线图"的例子。
- *  
- *  
- *  如还有其它问题,可访问:
- *    http://blog.csdn.net/xcl168/article/details/42318669
- *  有一份简单的教程与常见问题解答。
- *    也可加群直接问.
- *  
- * @author XCL
- *
- */
 public class ChartsActivity extends Activity {
 	
 	//private ZoomControls mZoomControls;

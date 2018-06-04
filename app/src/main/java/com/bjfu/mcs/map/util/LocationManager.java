@@ -2,9 +2,7 @@ package com.bjfu.mcs.map.util;
 
 import com.baidu.mapapi.model.LatLng;
 
-/**
- * Created by gaolei on 17/3/
- */
+
 
 public class LocationManager {
 

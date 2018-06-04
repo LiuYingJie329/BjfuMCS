@@ -8,33 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-/**
- * <pre>
- * 若把初始化内容放到initData实现
- * 就是采用Lazy方式加载的Fragment
- * 若不需要Lazy加载则initData方法内留空,初始化内容放到initViews即可
- *
- * 注1:
- * 如果是与ViewPager一起使用，调用的是setUserVisibleHint。
- *
- * 注2:
- * 如果是通过FragmentTransaction的show和hide的方法来控制显示，调用的是onHiddenChanged.
- * 针对初始就show的Fragment 为了触发onHiddenChanged事件 达到lazy效果 需要先hide再show
- * eg:
- * transaction.hide(aFragment);
- * transaction.show(aFragment);
- *
- * update 2017/01/23
- * 忽略isFirstLoad的值，强制刷新数据，但仍要Visible & Prepared
- * 一般用于PagerAdapter需要同时刷新全部子Fragment的场景
- * 不要new 新的 PagerAdapter 而采取reset数据的方式
- * 所以要求Fragment重新走initData方法
- * 故使用 {@link BaseFragment#setForceLoad(boolean)}来让Fragment下次执行initData
- *
- * Created by Mumu
- * on 2015/11/2.
- * </pre>
- */
+
 public abstract class BaseFragment extends Fragment {
     /**
      * Fragment title

@@ -20,9 +20,6 @@ import com.bjfu.mcs.utils.other.ConvertUtils;
 
 /**
  * 带确定及取消按钮的弹窗
- *
- * @author 李玉江[QQ:1032694760]
- * @since 2015/10/21
  */
 @SuppressWarnings("WeakerAccess")
 public abstract class ConfirmPopup<V extends View> extends BasicPopup<View> {

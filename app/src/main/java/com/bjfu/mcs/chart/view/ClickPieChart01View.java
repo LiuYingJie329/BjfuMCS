@@ -44,7 +44,6 @@ import java.util.LinkedList;
 /**
  * @ClassName ClickPieChart01View
  * @Description  演示点击事件效果的例子
- * @author XiongChuanLiang<br/>(xcl_168@aliyun.com)
  */
 public class ClickPieChart01View extends GraphicalView {
 

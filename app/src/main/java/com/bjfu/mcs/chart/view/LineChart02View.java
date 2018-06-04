@@ -46,8 +46,6 @@ import java.util.List;
 /**
  * @ClassName LineChart01View
  * @Description  折线图的例子 <br/>
- *  * 	~_~
- * @author XiongChuanLiang<br/>(xcl_168@aliyun.com)
  */
 public class LineChart02View extends DemoView implements Runnable {
 	
