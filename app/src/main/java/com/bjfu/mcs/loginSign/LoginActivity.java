@@ -11,6 +11,8 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.transition.Explode;
 import android.util.Log;
 import android.view.View;
@@ -41,6 +43,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import butterknife.OnTextChanged;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
@@ -71,7 +74,22 @@ public class LoginActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.i("--->onCreate", "onCreate");
+        etUsername.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     @Override
@@ -97,7 +115,6 @@ public class LoginActivity extends BaseActivity {
         Log.i("--->onStop", "onStop");
     }
 
-
     @OnClick({R.id.bt_go, R.id.fab, R.id.tirdway})
     public void setListener(View v) {
         switch (v.getId()) {
@@ -110,7 +127,6 @@ public class LoginActivity extends BaseActivity {
                 getWindow().setExitTransition(explode);
                 getWindow().setEnterTransition(explode);
 
-
                 if (RxDataTool.isNullString(phone)) {
                     RxToast.error("用户名不能为空");
                     return;
@@ -119,7 +135,6 @@ public class LoginActivity extends BaseActivity {
                     RxToast.error("密码不能为空");
                     return;
                 }
-
 
                 if (!RxDataTool.isNullString(phone) && !RxDataTool.isNullString(password)) {
                     doLogin(phone, password);
