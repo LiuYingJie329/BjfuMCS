@@ -6,13 +6,18 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.bjfu.mcs.R;
 import com.bjfu.mcs.bean.PersonInfo;
 import com.bjfu.mcs.greendao.LocationInfo;
+import com.bjfu.mcs.greendao.UserPlaceTimeInfo;
+import com.bjfu.mcs.utils.Rx.RxToast;
+import com.bjfu.mcs.utils.picker.DateTimePicker;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -20,10 +25,12 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.SaveListener;
 
 public class SetPlaceActivity extends AppCompatActivity {
 
@@ -52,16 +59,16 @@ public class SetPlaceActivity extends AppCompatActivity {
     private String longitude = null;
     private String name = null;
     private String address = null;
-    private String time = null;
-    private String starttime = null;
-    private String lasttime = null;
-    private String alltime = null;
-    private String setdis = null;
+    private static final int time = 1;
+    private static final int starttime = 2;
+    private static final int lasttime = 3;
+    private static final int alltime = 4;
+    private static final int setdis = 5;
     private String search = null;
     private int counts = 0;
 
-    private static final int getlocationtimes = 1;
-
+    private static final int getlocationtimes = 6;
+    private String curr_obiectid = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -156,10 +163,148 @@ public class SetPlaceActivity extends AppCompatActivity {
                             tv_time.setText(counts+"");
                         }
                     });
+                    initSetPlace();
+                    break;
+                case time:
+                    String sub_time = (String)msg.obj;
+                    break;
+                case starttime:
+                    String sub_starttime = (String)msg.obj;
+                    break;
+                case lasttime:
+                    String sub_lasttime = (String)msg.obj;
+                    break;
+                case alltime:
+                    String sub_alltime = (String)msg.obj;
+                    break;
+                case setdis:
+                    String sub_setdis = (String)msg.obj;
                     break;
             }
         }
     };
+
+    @OnClick({R.id.tv_time,R.id.tv_starttime,R.id.tv_lasttime,R.id.tv_alltime,R.id.tv_setdis})
+    public void onClick(View view){
+        switch (view.getId()){
+            case R.id.tv_time:
+                new MaterialDialog.Builder(this)
+                    .title("次数")
+                    .content("请填写在此地的次数")
+                    .inputType(
+                            InputType.TYPE_CLASS_TEXT
+                                    | InputType.TYPE_TEXT_VARIATION_PERSON_NAME
+                                    | InputType.TYPE_TEXT_FLAG_CAP_WORDS)
+                    .inputRange(0, 3)
+                    .positiveText("提交")
+                    .negativeText("取消")
+                    .input(
+                            "0",
+                            "0",
+                            false,
+                            (dialog, input) -> updateAdditionInfoMsg(time, input.toString()))
+                    .checkBoxPromptRes(R.string.extra3, true, null)
+                    .show();
+                break;
+            case R.id.tv_starttime:
+                DateTimePicker startpicker = new DateTimePicker(this, DateTimePicker.HOUR_24);
+                startpicker.setDateRangeStart(2017, 1, 1);
+                startpicker.setDateRangeEnd(2018, 11, 11);
+                startpicker.setTimeRangeStart(9, 0);
+                startpicker.setTimeRangeEnd(20, 30);
+                startpicker.setTopLineColor(0x99FF0000);
+                startpicker.setLabelTextColor(0xFFFF0000);
+                startpicker.setDividerColor(0xFFFF0000);
+                startpicker.setOnDateTimePickListener(new DateTimePicker.OnYearMonthDayTimePickListener() {
+                    @Override
+                    public void onDateTimePicked(String year, String month, String day, String hour, String minute) {
+                        updateAdditionInfoMsg(starttime, year + "-" + month + "-" + day + " " + hour + ":" + minute);
+                    }
+                });
+                startpicker.show();
+                break;
+            case R.id.tv_lasttime:
+                DateTimePicker endpicker = new DateTimePicker(this, DateTimePicker.HOUR_24);
+                endpicker.setDateRangeStart(2017, 1, 1);
+                endpicker.setDateRangeEnd(2018, 11, 11);
+                endpicker.setTimeRangeStart(9, 0);
+                endpicker.setTimeRangeEnd(20, 30);
+                endpicker.setTopLineColor(0x99FF0000);
+                endpicker.setLabelTextColor(0xFFFF0000);
+                endpicker.setDividerColor(0xFFFF0000);
+                endpicker.setOnDateTimePickListener(new DateTimePicker.OnYearMonthDayTimePickListener() {
+                    @Override
+                    public void onDateTimePicked(String year, String month, String day, String hour, String minute) {
+                        //showToast(year + "-" + month + "-" + day + " " + hour + ":" + minute);
+                        updateAdditionInfoMsg(lasttime, year + "-" + month + "-" + day + " " + hour + ":" + minute);
+                    }
+                });
+                endpicker.show();
+                break;
+            case R.id.tv_alltime:
+                new MaterialDialog.Builder(this)
+                        .title("时间(单位:分钟)")
+                        .content("请填写在此地的总时间")
+                        .inputType(
+                                InputType.TYPE_CLASS_TEXT
+                                        | InputType.TYPE_TEXT_VARIATION_PERSON_NAME
+                                        | InputType.TYPE_TEXT_FLAG_CAP_WORDS)
+                        .inputRange(0, 5)
+                        .positiveText("提交")
+                        .negativeText("取消")
+                        .input(
+                                "0",
+                                "0",
+                                false,
+                                (dialog, input) -> updateAdditionInfoMsg(alltime, input.toString()))
+                        .checkBoxPromptRes(R.string.extra5, true, null)
+                        .show();
+                break;
+            case R.id.tv_setdis:
+                new MaterialDialog.Builder(this)
+                        .title("常去地")
+                        .content(R.string.oftenaddress, true)
+                        .positiveText(R.string.agree)
+                        .negativeText(R.string.disagree)
+                        .neutralText(R.string.ignore)
+                        .onAny((dialog, which) -> updateAdditionInfoMsg(setdis, which.name()))
+                        .show();
+                break;
+            default:
+                break;
+        }
+    }
+    private void initSetPlace(){
+        PersonInfo user = BmobUser.getCurrentUser(PersonInfo.class);
+        UserPlaceTimeInfo userPlaceTimeInfo = new UserPlaceTimeInfo();
+        userPlaceTimeInfo.personInfo = user;
+        userPlaceTimeInfo.setAddress(address);
+        userPlaceTimeInfo.setName(name);
+        userPlaceTimeInfo.setLatitude(latitude);
+        userPlaceTimeInfo.setLongitude(longitude);
+        userPlaceTimeInfo.setSearch(search);
+        userPlaceTimeInfo.setSearch(time+"");
+        userPlaceTimeInfo.setPersonid(user.getUserId());
+        userPlaceTimeInfo.save(new SaveListener<String>() {
+            @Override
+            public void done(String objectId, BmobException e) {
+                if(e == null){
+                    RxToast.success("添加个人地点设置信息成功");
+                    curr_obiectid = objectId;
+                    Log.i("--------------->","个人推送情况成功");
+                }else{
+                    RxToast.success("添加个人地点设置信息失败");
+                    Log.i("--------------->","个人推送情况失败");
+                }
+            }
+        });
+    }
+    private void updateAdditionInfoMsg(int type, String content) {
+        Message msg = new Message();
+        msg.what = type;
+        msg.obj = content;
+        mHandler.sendMessage(msg);
+    }
 
     public static class SortClass implements Comparator {
         public int compare(Object arg0,Object arg1){

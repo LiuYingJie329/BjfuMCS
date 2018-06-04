@@ -255,6 +255,8 @@
     <string name="bybike">开启步行</string>
     <string name="title_activity_about2">AboutActivity2</string>
     <string name="extra20">最多输入20字</string>
+    <string name="extra3">最多3位数</string>
+    <string name="extra5">最多5位数</string>
     <string name="showdata">Show Data : %1$s</string>
     <string name="update_content">最新版本:1.0.1 新版本大小:16.7M  更新内容:修复了已经BUG</string>
     <string name="donetask">已经完成的任务</string>
@@ -296,4 +298,5 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="oftenaddress">确定将此地设置为常去地吗</string>
 </resources>

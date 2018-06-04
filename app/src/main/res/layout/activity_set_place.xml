@@ -2,9 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_user"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/activity_user"
     android:orientation="vertical"
     tools:context="com.bjfu.mcs.activity.SetPlaceActivity">
 
@@ -20,9 +20,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:background="@color/white"
         android:gravity="center"
-        android:layout_marginTop="20dp"
         android:orientation="vertical">
 
         <LinearLayout
@@ -39,7 +39,7 @@
                 android:gravity="center"
                 android:text="北京林业大学图书馆"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="20dp"/>
+                android:textSize="20dp" />
 
         </LinearLayout>
 
@@ -59,7 +59,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="北京林业大学"
-            android:textColor="@color/brown1"/>
+            android:textColor="@color/brown1" />
     </LinearLayout>
 
     <LinearLayout
@@ -77,7 +77,7 @@
             android:layout_marginLeft="20dp"
             android:layout_weight="1"
             android:text="经度"
-            android:textColor="@color/brown1"/>
+            android:textColor="@color/brown1" />
 
         <TextView
             android:id="@+id/tv_longitude"
@@ -85,8 +85,9 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="20dp"
             android:text="116.353555"
-            android:textColor="@color/brown1"/>
+            android:textColor="@color/brown1" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -102,7 +103,7 @@
             android:layout_marginLeft="20dp"
             android:layout_weight="1"
             android:text="纬度"
-            android:textColor="@color/brown1"/>
+            android:textColor="@color/brown1" />
 
         <TextView
             android:id="@+id/tv_latitude"
@@ -110,8 +111,9 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="20dp"
             android:text="40.009405"
-            android:textColor="@color/brown1"/>
+            android:textColor="@color/brown1" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -127,7 +129,7 @@
             android:layout_marginLeft="20dp"
             android:layout_weight="1"
             android:text="一周内在图书馆次数"
-            android:textColor="@color/brown1"/>
+            android:textColor="@color/brown1" />
 
         <TextView
             android:id="@+id/tv_time"
@@ -135,7 +137,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="20dp"
             android:text="10次"
-            android:textColor="@color/brown1"/>
+            android:textColor="@color/brown1" />
     </LinearLayout>
 
     <LinearLayout
@@ -153,7 +155,7 @@
             android:layout_marginLeft="20dp"
             android:layout_weight="1"
             android:text="本周第一次在此时间"
-            android:textColor="@color/brown1"/>
+            android:textColor="@color/brown1" />
 
         <TextView
             android:id="@+id/tv_starttime"
@@ -161,7 +163,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="20dp"
             android:text="2018/03/05"
-            android:textColor="@color/brown1"/>
+            android:textColor="@color/brown1" />
 
 
     </LinearLayout>
@@ -181,7 +183,7 @@
             android:layout_marginLeft="20dp"
             android:layout_weight="1"
             android:text="本周最后一次在此时间"
-            android:textColor="@color/brown1"/>
+            android:textColor="@color/brown1" />
 
         <TextView
             android:id="@+id/tv_lasttime"
@@ -189,7 +191,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="20dp"
             android:text="2018/03/09"
-            android:textColor="@color/brown1"/>
+            android:textColor="@color/brown1" />
 
 
     </LinearLayout>
@@ -208,8 +210,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_weight="1"
-            android:text="总共时间"
-            android:textColor="@color/brown1"/>
+            android:text="预估停留总时间"
+            android:textColor="@color/brown1" />
 
         <TextView
             android:id="@+id/tv_alltime"
@@ -217,7 +219,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="20dp"
             android:text="15小时20分钟"
-            android:textColor="@color/brown1"/>
+            android:textColor="@color/brown1" />
 
 
     </LinearLayout>
@@ -230,7 +232,6 @@
         android:gravity="center"
         android:orientation="horizontal"
         android:padding="5dp">
-
 
         <TextView
             android:id="@+id/tv_setdis"
@@ -239,12 +240,27 @@
             android:layout_marginLeft="20dp"
             android:layout_weight="1"
             android:text="点击设为常去地点"
-            android:textColor="@color/brown1"/>
-
+            android:textColor="@color/brown1" />
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/white"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="5dp">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:text="若信息有误,请点击错误处修改"
+            android:textColor="@color/brown1" />
 
+    </LinearLayout>
 
 </LinearLayout>

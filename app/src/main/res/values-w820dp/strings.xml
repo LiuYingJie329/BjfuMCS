@@ -100,4 +100,5 @@
     <string name="push_cpu_info">CPU：</string>
     <string name="push_system_notification_switch">系统通知开关是否打开：</string>
     <string name="push_device_check">系统检查</string>
+    <string name="oftenaddress">确定将此地设置为常去地吗</string>
 </resources>

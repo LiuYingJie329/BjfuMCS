@@ -63,6 +63,7 @@ import com.bjfu.mcs.greendao.AdditionInfo;
 import com.bjfu.mcs.greendao.DataBaseHandler;
 import com.bjfu.mcs.greendao.Installation;
 import com.bjfu.mcs.greendao.PersonPushSet;
+import com.bjfu.mcs.greendao.UserPlaceTimeInfo;
 import com.bjfu.mcs.loginSign.LoginActivity;
 import com.bjfu.mcs.map.DynamicDemo;
 import com.bjfu.mcs.map.MyOrientationListener;
@@ -587,6 +588,7 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
             }
         });
     }
+
 
     private void updatePersonInfoMsg(int type,String content){
         Message msg = new Message();

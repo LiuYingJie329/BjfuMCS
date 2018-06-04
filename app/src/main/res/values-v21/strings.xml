@@ -111,4 +111,5 @@
     <string name="social_share_qq">QQ好友</string>
     <string name="social_share_qzone">QQ空间</string>
     <string name="social_share_more">更多</string>
+    <string name="oftenaddress">确定将此地设置为常去地吗</string>
 </resources>
