@@ -326,11 +326,6 @@ public class NewSettingActivity extends AppCompatActivity {
                 case updateexit:
                     String choice = (String) msg.obj;
                     if (choice.equals("关闭应用")) {
-                        appcache.put("has_login", "no");
-                        LocationUtil.getInstance().stopGetLocation();
-                        //AppUtils.AppExit(MCSApplication.context);
-                        PersonInfo.logOut();
-                        UploadLocationService.stopService();
                         Intent intent = new Intent(mContext,MainActivity.class);
                         intent.putExtra(MainActivity.TAG_EXIT, true);
                         startActivity(intent);

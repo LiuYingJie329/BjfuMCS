@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.widget.Toolbar;
@@ -26,6 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ZoomControls;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -63,7 +65,9 @@ import com.bjfu.mcs.greendao.AdditionInfo;
 import com.bjfu.mcs.greendao.DataBaseHandler;
 import com.bjfu.mcs.greendao.Installation;
 import com.bjfu.mcs.greendao.PersonPushSet;
+import com.bjfu.mcs.greendao.QuitReasonInfo;
 import com.bjfu.mcs.greendao.UserPlaceTimeInfo;
+import com.bjfu.mcs.keepalive.service.UploadLocationService;
 import com.bjfu.mcs.loginSign.LoginActivity;
 import com.bjfu.mcs.map.DynamicDemo;
 import com.bjfu.mcs.map.MyOrientationListener;
@@ -71,6 +75,7 @@ import com.bjfu.mcs.map.NavigationActivity;
 import com.bjfu.mcs.map.PoiSearchDemo;
 import com.bjfu.mcs.map.RoutePlanDemo;
 import com.bjfu.mcs.map.util.LocationManager;
+import com.bjfu.mcs.mapservice.LocationUtil;
 import com.bjfu.mcs.upush.SplashTestActivity;
 import com.bjfu.mcs.upush.UpushActivity;
 import com.bjfu.mcs.utils.Constants;
@@ -80,6 +85,7 @@ import com.bjfu.mcs.utils.Rx.RxDeviceTool;
 import com.bjfu.mcs.utils.Rx.RxSPTool;
 import com.bjfu.mcs.utils.Rx.RxToast;
 import com.bjfu.mcs.utils.other.AppUtils;
+import com.bjfu.mcs.utils.other.DateUtil;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.Target;
 import com.mikepenz.crossfadedrawerlayout.view.CrossfadeDrawerLayout;
@@ -164,19 +170,21 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
     private boolean hasPlanRoute = false;
     LatLng currentLL;
     PlanNode startNodeStr, endNodeStr;
-    IProfile profile,profile2;
+    IProfile profile, profile2;
     //当前用户信息
     private String userName = null;
     private String userEmail = null;
     private String userImage = null;
     private String userImageUrl = null;
     Bitmap bitmap = null;
-    private static final int updateIMEI =2;
+    private static final int updateIMEI = 2;
     private static final int updateImageUrl = 3;
     private static final int updateinstallation = 4;
+    private static final int quitreason = 5;
     private PushAgent mPushAgent;
     public static final String TAG_EXIT = "exit";
     private long mLastClickReturnTime = 0l; // 记录上一次点击返回按钮的时间
+    StringBuilder str = new StringBuilder();
 
     @SuppressLint("HandlerLeak")
     @Override
@@ -191,31 +199,31 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
                 switch (msg.what) {
                     case Constants.upLoad:
                         RxToast.success("定位成功");
-                        Toast.makeText(mContext,"定位成功",Toast.LENGTH_LONG).show();
+                        Toast.makeText(mContext, "定位成功", Toast.LENGTH_LONG).show();
                         break;
                     case updateIMEI:
                         String Imei = (String) msg.obj;
                         PersonInfo personInfoIMEI = BmobUser.getCurrentUser(PersonInfo.class);
                         personInfoIMEI.setDeviceIMEI(Imei);
-                        personInfoIMEI.update(personInfoIMEI.getObjectId(),new UpdateListener() {
+                        personInfoIMEI.update(personInfoIMEI.getObjectId(), new UpdateListener() {
                             @Override
                             public void done(BmobException e) {
-                                if(e == null){
+                                if (e == null) {
                                     PersonInfo piInfo = DataBaseHandler.getCurrPesonInfo();
-                                    if(null != piInfo){
+                                    if (null != piInfo) {
                                         piInfo.setDeviceIMEI(Imei);
                                     }
                                     DataBaseHandler.updatePesonInfo(piInfo);
-                                    Log.i(TAG,"IMEI信息更新成功");
+                                    Log.i(TAG, "IMEI信息更新成功");
                                     RxToast.success("IMEI信息更新成功");
-                                }else {
-                                    if(e.getErrorCode() == 206){
+                                } else {
+                                    if (e.getErrorCode() == 206) {
                                         RxToast.error("您的账号在其他地方登录，请重新登录");
                                         appcache.put("has_login", "no");
                                         PersonInfo.logOut();
                                         RxActivityTool.skipActivityAndFinish(MainActivity.this, LoginActivity.class);
-                                    }else{
-                                        Log.i(TAG,"IMEI信息更新失败");
+                                    } else {
+                                        Log.i(TAG, "IMEI信息更新失败");
                                         RxToast.error("IMEI信息更新失败");
                                     }
                                 }
@@ -223,7 +231,7 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
                         });
                         break;
                     case updateImageUrl:
-                        String content= (String)msg.obj;
+                        String content = (String) msg.obj;
                         try {
                             bitmap = Glide.with(mContext).load(content).asBitmap().into(200, 200).get();
                         } catch (InterruptedException | ExecutionException e) {
@@ -262,7 +270,7 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
                                             Installation installation = installations.get(0);
                                             installation.personInfo = user;
                                             installation.setPushToken(pushtoken);
-                                            installation.setDeviceIMEI(RxDeviceTool.getUniqueSerialNumber()+"");
+                                            installation.setDeviceIMEI(RxDeviceTool.getUniqueSerialNumber() + "");
                                             installation.updateObservable()
                                                     .subscribe(new Action1<Void>() {
                                                         @Override
@@ -289,6 +297,41 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
                                 });
 
                         break;
+                    case quitreason:
+                        String sub_reson = (String)msg.obj;
+                        if(RxDataTool.isNullString(sub_reson)){
+                            sub_reson = "任务已经完成";
+                        }
+                        QuitReasonInfo reasonInfo = new QuitReasonInfo();
+                        PersonInfo personInfo = BmobUser.getCurrentUser(PersonInfo.class);
+                        reasonInfo.setReason(sub_reson);
+                        reasonInfo.personInfo = personInfo;
+                        reasonInfo.setPersonid(personInfo.getUserId());
+                        reasonInfo.setTime(DateUtil.getCurrentTime()+"");
+                        reasonInfo.setDeviceIMEI(RxDeviceTool.getUniqueSerialNumber()+"");
+                        reasonInfo.save(new SaveListener<String>() {
+                            @Override
+                            public void done(String s, BmobException e) {
+                                if(e == null){
+                                    RxToast.success("提交成功");
+                                }else{
+                                    RxToast.error("提交失败");
+                                }
+                            }
+                        });
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                appcache.put("has_login", "no");
+                                LocationUtil.getInstance().stopGetLocation();
+                                //AppUtils.AppExit(MCSApplication.context);
+                                PersonInfo.logOut();
+                                UploadLocationService.stopService();
+                                MainActivity.this.finish();
+                            }
+                        },500);
+
+                        break;
                     default:
                         break;
                 }
@@ -305,11 +348,11 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
         mPushAgent = PushAgent.getInstance(this);
         inituserdata();
         // Create a few sample profile
-        if(!RxDataTool.isNullString(userImage)){
+        if (!RxDataTool.isNullString(userImage)) {
 
             profile = new ProfileDrawerItem().withName(userName).withEmail(userEmail).withIcon(Uri.parse(userImage));
 
-        }else{
+        } else {
 
             profile = new ProfileDrawerItem().withName(userName).withEmail(userEmail).withIcon(R.drawable.profile);
         }
@@ -373,29 +416,23 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
                                 RxActivityTool.skipActivity(MainActivity.this, UpushActivity.class);
                             } else if (drawerItem.getIdentifier() == 5) {
                                 RxActivityTool.skipActivity(MainActivity.this, PoiSearchDemo.class);
-                            } else if(drawerItem.getIdentifier() == 6){
+                            } else if (drawerItem.getIdentifier() == 6) {
                                 RxActivityTool.skipActivity(MainActivity.this, MeActivity.class);
                             } else if (drawerItem.getIdentifier() == 7) {
                                 RxActivityTool.skipActivity(MainActivity.this, SettingActivity.class);
                             } else if (drawerItem.getIdentifier() == 8) {
                                 RxActivityTool.skipActivity(MainActivity.this, NewAboutActivity.class);
-                            }
-                            else if (drawerItem.getIdentifier() == 9) {
+                            } else if (drawerItem.getIdentifier() == 9) {
                                 RxActivityTool.skipActivity(MainActivity.this, NewSettingActivity.class);
-                            }
-                            else if (drawerItem.getIdentifier() == 10) {
+                            } else if (drawerItem.getIdentifier() == 10) {
                                 RxActivityTool.skipActivity(MainActivity.this, FeedBackActivity.class);
-                            }
-                            else if (drawerItem.getIdentifier() == 11) {
+                            } else if (drawerItem.getIdentifier() == 11) {
                                 RxActivityTool.skipActivity(MainActivity.this, AdditionActivity.class);
-                            }
-                            else if (drawerItem.getIdentifier() == 12) {
+                            } else if (drawerItem.getIdentifier() == 12) {
                                 RxActivityTool.skipActivity(MainActivity.this, DynamicDemo.class);
-                            }
-                            else if (drawerItem.getIdentifier() == 13) {
+                            } else if (drawerItem.getIdentifier() == 13) {
                                 RxActivityTool.skipActivity(MainActivity.this, NavigationActivity.class);
-                            }
-                            else if (drawerItem.getIdentifier() == 14) {
+                            } else if (drawerItem.getIdentifier() == 14) {
                                 RxActivityTool.skipActivity(MainActivity.this, ZuJiActivity.class);
                             }
 
@@ -449,22 +486,22 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
         long lastCheckUpdateTime = 0L;
         try {
             String timeStr = appcache.getAsString(Constants.KEY_LAST_CHECK_UPDATE_TIME);
-            if(!TextUtils.isEmpty(timeStr)){
+            if (!TextUtils.isEmpty(timeStr)) {
                 lastCheckUpdateTime = Long.parseLong(timeStr);
             }
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }
         long interal = System.currentTimeMillis() - lastCheckUpdateTime;
-        if(interal > Constants.CHECK_UPDATE_INTERVAL){
+        if (interal > Constants.CHECK_UPDATE_INTERVAL) {
             //wifi情况下自动更新
             BmobUpdateAgent.setUpdateOnlyWifi(true);
             checkUpdate();
-            appcache.put(Constants.KEY_LAST_CHECK_UPDATE_TIME,String.valueOf(System.currentTimeMillis()));
+            appcache.put(Constants.KEY_LAST_CHECK_UPDATE_TIME, String.valueOf(System.currentTimeMillis()));
         }
     }
 
-    private void checkUpdate(){
+    private void checkUpdate() {
         AndPermission.with(this)
                 .permission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 .callback(new PermissionListener() {
@@ -472,9 +509,10 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
                     public void onSucceed(int requestCode, List<String> grantedPermissions) {
                         BmobUpdateAgent.update(MainActivity.this);
                     }
+
                     @Override
                     public void onFailed(int requestCode, List<String> deniedPermissions) {
-                        if(AndPermission.hasAlwaysDeniedPermission(MainActivity.this,deniedPermissions))
+                        if (AndPermission.hasAlwaysDeniedPermission(MainActivity.this, deniedPermissions))
                             AndPermission.defaultSettingDialog(MainActivity.this).show();
                     }
                 })
@@ -483,47 +521,47 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
 
     private void inituserdata() {
         PersonInfo personInfo = DataBaseHandler.getCurrPesonInfo();
-        if(null != personInfo){
-            if(!RxDataTool.isNullString(personInfo.getSqlemail())){
+        if (null != personInfo) {
+            if (!RxDataTool.isNullString(personInfo.getSqlemail())) {
                 userEmail = personInfo.getSqlemail();
             }
-            if(!RxDataTool.isNullString(personInfo.getUserNickname())){
+            if (!RxDataTool.isNullString(personInfo.getUserNickname())) {
                 userName = personInfo.getUserNickname();
             }
 //            if(!RxDataTool.isNullString(personInfo.getUserAvatar())){
 //                updatePersonInfoMsg(updateImageUrl,personInfo.getUserAvatar());
 //            }
-            if(!RxDataTool.isNullString(RxSPTool.getContent(mContext,"AVATAR"))){
-                userImage = RxSPTool.getContent(mContext,"AVATAR");
+            if (!RxDataTool.isNullString(RxSPTool.getContent(mContext, "AVATAR"))) {
+                userImage = RxSPTool.getContent(mContext, "AVATAR");
             }
 
             String imei = RxDeviceTool.getUniqueSerialNumber();
-            if(!RxDataTool.isNullString(imei)){
-                updatePersonInfoMsg(updateIMEI,imei);
+            if (!RxDataTool.isNullString(imei)) {
+                updatePersonInfoMsg(updateIMEI, imei);
             }
 
-            if(!RxDataTool.isNullString(mPushAgent.getRegistrationId())){
-                Log.i("mPushAgent------->",mPushAgent.getRegistrationId());
-                updatePersonInfoMsg(updateinstallation,mPushAgent.getRegistrationId());
+            if (!RxDataTool.isNullString(mPushAgent.getRegistrationId())) {
+                Log.i("mPushAgent------->", mPushAgent.getRegistrationId());
+                updatePersonInfoMsg(updateinstallation, mPushAgent.getRegistrationId());
             }
         }
 
     }
 
-    private void initAdditiondata(){
+    private void initAdditiondata() {
         PersonInfo personInfo = BmobUser.getCurrentUser(PersonInfo.class);
         AdditionInfo additionInfo = new AdditionInfo();
         BmobQuery<AdditionInfo> bmobQuery = new BmobQuery<AdditionInfo>();
-        bmobQuery.addWhereEqualTo("personid",personInfo.getUserId());
+        bmobQuery.addWhereEqualTo("personid", personInfo.getUserId());
         bmobQuery.order("createdAt");
         bmobQuery.findObjects(new FindListener<AdditionInfo>() {
             @Override
             public void done(List<AdditionInfo> list, BmobException e) {
-                if(e == null && list.size()!=0){
+                if (e == null && list.size() != 0) {
                     //查询到数据
                     RxToast.success("查询到个人补充活动情况");
-                    Log.i("--------------->","查询到个人补充活动情况");
-                }else{
+                    Log.i("--------------->", "查询到个人补充活动情况");
+                } else {
                     additionInfo.personInfo = personInfo;
                     additionInfo.setPersonid(personInfo.getUserId());
                     additionInfo.setAddcause("");
@@ -538,12 +576,12 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
                     additionInfo.save(new SaveListener<String>() {
                         @Override
                         public void done(String s, BmobException e) {
-                            if(e == null){
+                            if (e == null) {
                                 RxToast.success("添加个人补充活动信息成功");
-                                Log.i("--------------->","添加个人补充活动信息成功");
-                            }else{
+                                Log.i("--------------->", "添加个人补充活动信息成功");
+                            } else {
                                 RxToast.success("添加个人补充活动信息失败");
-                                Log.i("--------------->","添加个人补充活动信息失败"+e.getMessage());
+                                Log.i("--------------->", "添加个人补充活动信息失败" + e.getMessage());
                             }
                         }
                     });
@@ -552,20 +590,21 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
             }
         });
     }
-    private void initpushdata(){
+
+    private void initpushdata() {
         PersonInfo user = BmobUser.getCurrentUser(PersonInfo.class);
         PersonPushSet pushSet = new PersonPushSet();
         BmobQuery<PersonPushSet> bmobQuery = new BmobQuery<PersonPushSet>();
-        bmobQuery.addWhereEqualTo("personid",user.getUserId());
+        bmobQuery.addWhereEqualTo("personid", user.getUserId());
         bmobQuery.order("createdAt");
         bmobQuery.findObjects(new FindListener<PersonPushSet>() {
             @Override
             public void done(List<PersonPushSet> list, BmobException e) {
-                if(e == null && list.size()!=0){
+                if (e == null && list.size() != 0) {
                     //查询到数据
                     RxToast.success("查询到个人推送情况");
-                    Log.i("--------------->","查询到个人推送情况");
-                }else{
+                    Log.i("--------------->", "查询到个人推送情况");
+                } else {
                     pushSet.personInfo = user;
                     pushSet.setPersonid(user.getUserId());
                     pushSet.setIsopen_notifi(true);
@@ -575,12 +614,12 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
                     pushSet.save(new SaveListener<String>() {
                         @Override
                         public void done(String s, BmobException e) {
-                            if(e == null){
+                            if (e == null) {
                                 RxToast.success("添加个人推送信息成功");
-                                Log.i("--------------->","个人推送情况成功");
-                            }else{
+                                Log.i("--------------->", "个人推送情况成功");
+                            } else {
                                 RxToast.success("添加个人推送信息失败");
-                                Log.i("--------------->","个人推送情况失败");
+                                Log.i("--------------->", "个人推送情况失败");
                             }
                         }
                     });
@@ -590,10 +629,10 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
     }
 
 
-    private void updatePersonInfoMsg(int type,String content){
+    private void updatePersonInfoMsg(int type, String content) {
         Message msg = new Message();
         msg.what = type;
-        msg.obj =  content;
+        msg.obj = content;
         mHandler.sendMessage(msg);
     }
 
@@ -609,40 +648,12 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
                 .negativeText("暂不升级")
                 .show();*/
 
-        /*退出原因对话框*/
-       /* new MaterialDialog.Builder(this)
-                .title(R.string.quickresons)
-                .items(R.array.socialNetworks)
-                .itemsCallbackMultiChoice(
-                        new Integer[] {1, 3},
-                        (dialog, which, text) -> {
-                            StringBuilder str = new StringBuilder();
-                            for (int i = 0; i < which.length; i++) {
-                                if (i > 0) {
-                                    str.append('\n');
-                                }
-                                str.append(which[i]);
-                                str.append(": ");
-                                str.append(text[i]);
-                            }
-                            showToast(str.toString());
-                            return true; // allow selection
-                        })
-                .onNeutral((dialog, which) -> dialog.clearSelectedIndices())
-                .onPositive((dialog, which) -> dialog.dismiss())
-                .alwaysCallMultiChoiceCallback()
-                .positiveText(R.string.sure)
-                .autoDismiss(false)
-                .neutralText(R.string.clear_selection)
-                .show();*/
-
-
     }
 
 
     @OnClick({R.id.btn_locale})
-    public void onClick(View v){
-        switch (v.getId()){
+    public void onClick(View v) {
+        switch (v.getId()) {
             case R.id.btn_locale:
                 getMyLocation();
                 addOverLayout(currentLatitude, currentLongitude);
@@ -651,11 +662,13 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
                 break;
         }
     }
+
     public void getMyLocation() {
         LatLng latLng = new LatLng(currentLatitude, currentLongitude);
         MapStatusUpdate msu = MapStatusUpdateFactory.newLatLng(latLng);
         mBaiduMap.setMapStatus(msu);
     }
+
     private void addOverLayout(double _latitude, double _longitude) {
         //先清除图层
         mBaiduMap.clear();
@@ -664,10 +677,11 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
         LatLng point = new LatLng(_latitude, _longitude);
         // 构建MarkerOption，用于在地图上添加Marker
         MarkerOptions options = new MarkerOptions().position(point)
-                .icon( BitmapDescriptorFactory.fromResource(R.drawable.drag_location));
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.drag_location));
         // 在地图上添加Marker，并显示
         mBaiduMap.addOverlay(options);
     }
+
     private void initMap() {
         // 地图初始化
         mMapView = (MapView) findViewById(R.id.id_bmapView);
@@ -798,7 +812,7 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
                 changeLatitude = bdLocation.getLatitude();
                 changeLongitude = bdLocation.getLongitude();
 
-                Log.i("MAINACTIVITY--->","语义化信息-->"+bdLocation.getLocationDescribe()+"--->兴趣点语义化信息-->"+bdLocation.getPoiList());
+                Log.i("MAINACTIVITY--->", "语义化信息-->" + bdLocation.getLocationDescribe() + "--->兴趣点语义化信息-->" + bdLocation.getPoiList());
             }
         }
     }
@@ -841,6 +855,7 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
         mBaiduMap.setMyLocationEnabled(false);
         mMapView.onDestroy();
         mMapView = null;
+        str = null;
         super.onDestroy();
     }
 
@@ -849,7 +864,31 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
         if (intent != null) {
             boolean isExit = intent.getBooleanExtra(TAG_EXIT, false);
             if (isExit) {
-                this.finish();
+                /*退出原因对话框*/
+                new MaterialDialog.Builder(this)
+                        .title(R.string.quickresons)
+                        .items(R.array.socialNetworks)
+                        .itemsCallbackMultiChoice(
+                                new Integer[]{0, 0},
+                                (dialog, which, text) -> {
+                                    for (int i = 0; i < which.length; i++) {
+                                        if (i > 0) {
+                                            str.append('\n');
+                                        }
+                                        str.append(which[i]);
+                                        str.append(": ");
+                                        str.append(text[i]);
+                                    }
+                                    //showToast(str.toString());
+                                    return true; // allow selection
+                                })
+                        .onNeutral((dialog, which) -> dialog.clearSelectedIndices())
+                        .onPositive((dialog, which) -> updatePersonInfoMsg(quitreason,str.toString()))
+                        .alwaysCallMultiChoiceCallback()
+                        .positiveText(R.string.sure)
+                        .autoDismiss(false)
+                        .neutralText(R.string.clear_selection)
+                        .show();
             }
         }
         //Runtime.getRuntime().gc();
@@ -860,7 +899,7 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
     public boolean dispatchKeyEvent(KeyEvent event) {
         if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
             if (event.getAction() == KeyEvent.ACTION_DOWN && event.getRepeatCount() == 0) {
-                if(System.currentTimeMillis() - mLastClickReturnTime > 1000L) {
+                if (System.currentTimeMillis() - mLastClickReturnTime > 1000L) {
                     mLastClickReturnTime = System.currentTimeMillis();
                     RxToast.info("再按一次退出程序");
                     return true;

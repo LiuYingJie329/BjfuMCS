@@ -15,11 +15,20 @@ public class UserPlaceTimeInfo extends BmobObject {
     private String search;
     private String longitude;
     private String latitude;
+    private String time;
     private String starttime;
     private String endtime;
     private String alltime;
     private String often;
     private String personid;
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
 
     public String getAddress() {
         return address;

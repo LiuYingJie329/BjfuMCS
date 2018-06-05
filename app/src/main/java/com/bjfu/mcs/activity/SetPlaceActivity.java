@@ -31,6 +31,7 @@ import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.SaveListener;
+import cn.bmob.v3.listener.UpdateListener;
 
 public class SetPlaceActivity extends AppCompatActivity {
 
@@ -167,18 +168,82 @@ public class SetPlaceActivity extends AppCompatActivity {
                     break;
                 case time:
                     String sub_time = (String)msg.obj;
+                    UserPlaceTimeInfo paceinfo = new UserPlaceTimeInfo();
+                    paceinfo.setTime(sub_time);
+                    paceinfo.update(curr_obiectid, new UpdateListener() {
+                        @Override
+                        public void done(BmobException e) {
+                            if(e == null){
+                                RxToast.success("信息更新成功");
+                            }else{
+                                RxToast.error("信息更新成功");
+                            }
+                        }
+                    });
+                    tv_time.setText(sub_time);
                     break;
                 case starttime:
                     String sub_starttime = (String)msg.obj;
+                    UserPlaceTimeInfo paceinfo2 = new UserPlaceTimeInfo();
+                    paceinfo2.setStarttime(sub_starttime);
+                    paceinfo2.update(curr_obiectid, new UpdateListener() {
+                        @Override
+                        public void done(BmobException e) {
+                            if(e == null){
+                                RxToast.success("信息更新成功");
+                            }else{
+                                RxToast.error("信息更新成功");
+                            }
+                        }
+                    });
+                    tv_starttime.setText(sub_starttime);
                     break;
                 case lasttime:
                     String sub_lasttime = (String)msg.obj;
+                    UserPlaceTimeInfo paceinfo3 = new UserPlaceTimeInfo();
+                    paceinfo3.setEndtime(sub_lasttime);
+                    paceinfo3.update(curr_obiectid, new UpdateListener() {
+                        @Override
+                        public void done(BmobException e) {
+                            if(e == null){
+                                RxToast.success("信息更新成功");
+                            }else{
+                                RxToast.error("信息更新成功");
+                            }
+                        }
+                    });
+                    tv_lasttime.setText(sub_lasttime);
                     break;
                 case alltime:
                     String sub_alltime = (String)msg.obj;
+                    UserPlaceTimeInfo paceinfo4 = new UserPlaceTimeInfo();
+                    paceinfo4.setAlltime(sub_alltime);
+                    paceinfo4.update(curr_obiectid, new UpdateListener() {
+                        @Override
+                        public void done(BmobException e) {
+                            if(e == null){
+                                RxToast.success("信息更新成功");
+                            }else{
+                                RxToast.error("信息更新成功");
+                            }
+                        }
+                    });
+                    tv_alltime.setText(sub_alltime);
                     break;
                 case setdis:
                     String sub_setdis = (String)msg.obj;
+                    UserPlaceTimeInfo paceinfo5 = new UserPlaceTimeInfo();
+                    paceinfo5.setOften(sub_setdis);
+                    paceinfo5.update(curr_obiectid, new UpdateListener() {
+                        @Override
+                        public void done(BmobException e) {
+                            if(e == null){
+                                RxToast.success("信息更新成功");
+                            }else{
+                                RxToast.error("信息更新成功");
+                            }
+                        }
+                    });
                     break;
             }
         }
