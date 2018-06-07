@@ -5,6 +5,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 
@@ -54,7 +55,13 @@ public class SocialOauthActivity extends Activity {
             public void onClick(View v) {
                 //RxToast.info("登录微博");
                 skipAuth();
-                doRegistWEIBO();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        doRegistWEIBO();
+                    }
+                },5000);
+
             }
         });
         llWeChat = (ShareButton) findViewById(R.id.social_oauth_sb_wechat);
@@ -63,7 +70,13 @@ public class SocialOauthActivity extends Activity {
             public void onClick(View v) {
                 //RxToast.info("登录微信");
                 skipAuth();
-                doRegistWEIXIN();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        doRegistWEIXIN();
+                    }
+                },5000);
+
                 type = 1;
             }
         });
@@ -73,7 +86,13 @@ public class SocialOauthActivity extends Activity {
             public void onClick(View v) {
                 //RxToast.info("登录QQ");
                 skipAuth();
-                doRegistQQ();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        doRegistQQ();
+                    }
+                },5000);
+
             }
         });
 
