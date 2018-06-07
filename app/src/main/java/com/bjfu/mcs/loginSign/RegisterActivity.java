@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
+import android.os.CountDownTimer;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -69,6 +70,7 @@ public class RegisterActivity extends BaseActivity {
     private String repassword = null;
     private String password = null;
     private String sms = null;
+    private TimeCount time;
 
     private int toast1 = 0;
     private int toast2 = 0;
@@ -80,11 +82,12 @@ public class RegisterActivity extends BaseActivity {
     private int toast8 = 0;
     private int toast9 = 0;
     private int toast10 = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         showEnterAnimation();
-
+        time = new TimeCount(60000, 1000);// 构造CountDownTimer对象
         mUsername.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -268,8 +271,8 @@ public class RegisterActivity extends BaseActivity {
                             return;
                         }
                     }
-                    if(mRepeatPassword.getText().toString().length() == phone.length()
-                            && !mRepeatPassword.getText().toString().equals(phone)){
+                    if (mRepeatPassword.getText().toString().length() == phone.length()
+                            && !mRepeatPassword.getText().toString().equals(phone)) {
                         if (toast10 <= 0) {
                             RxToast.error("两次密码不一致");
                             toast10++;
@@ -297,6 +300,7 @@ public class RegisterActivity extends BaseActivity {
                 break;
 
             case R.id.getsms:
+
                 phone = mUsername.getText().toString();
                 if (RxDataTool.isNullString(phone)) {
                     RxToast.error("手机号不能为空");
@@ -313,18 +317,20 @@ public class RegisterActivity extends BaseActivity {
                 if (!RxDataTool.isNullString(phone)
                         && phone.length() == 11
                         && RxRegTool.isMobile(phone)) {
+                    time.start();// 开始计时
                     BmobSMS.requestSMSCode(phone, "MCS实验系统", new QueryListener<Integer>() {
 
                         @Override
                         public void done(Integer smsId, BmobException ex) {
                             if (ex == null) {//验证码发送成功
-                                RxToast.success("验证码发送成功，短信id：" + smsId);
+                                RxToast.success("验证码发送成功");
                             } else {
                                 RxToast.error("验证码发送失败");
                             }
                         }
                     });
                 }
+
                 break;
 
             case R.id.bt_go:
@@ -493,6 +499,24 @@ public class RegisterActivity extends BaseActivity {
             }
         });
         mAnimator.start();
+    }
+
+    class TimeCount extends CountDownTimer {
+        public TimeCount(long millisInFuture, long countDownInterval) {
+            super(millisInFuture, countDownInterval);// 参数依次为总时长,和计时的时间间隔
+        }
+
+        @Override
+        public void onFinish() {// 计时完毕时触发
+            mGetsms.setText("重新获取");
+            mGetsms.setClickable(true);
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {// 计时过程显示
+            mGetsms.setClickable(false);
+            mGetsms.setText("等待" + millisUntilFinished / 1000 + "秒");
+        }
     }
 
     @Override

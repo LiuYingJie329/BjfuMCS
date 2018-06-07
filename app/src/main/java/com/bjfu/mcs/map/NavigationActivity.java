@@ -108,20 +108,17 @@ public class NavigationActivity extends AppCompatActivity implements
 
             @Override
             public void afterTextChanged(Editable arg0) {
-                Log.d("gaolei", "afterTextChanged--------------");
             }
 
             @Override
             public void beforeTextChanged(CharSequence arg0, int arg1,
                                           int arg2, int arg3) {
-                Log.d("gaolei", "beforeTextChanged--------------");
 
             }
 
             @Override
             public void onTextChanged(CharSequence cs, int arg1, int arg2,
                                       int arg3) {
-                Log.d("gaolei", "onTextChanged--------------");
 
                 if (cs.length() <= 0) {
                     return;

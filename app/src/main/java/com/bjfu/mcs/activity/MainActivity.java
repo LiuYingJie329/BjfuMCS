@@ -410,7 +410,7 @@ public class MainActivity extends CheckPermissionsActivity implements OnGetRoute
                             } else if (drawerItem.getIdentifier() == 3) {
                                 RxActivityTool.skipActivity(MainActivity.this, ChartMainActivity.class);
                             } else if (drawerItem.getIdentifier() == 4) {
-                                InAppMessageManager mInAppMessageManager = InAppMessageManager.getInstance(mContext);
+                                InAppMessageManager mInAppMessageManager = InAppMessageManager.getInstance(MCSApplication.context);
                                 mInAppMessageManager.setInAppMsgDebugMode(true);
                                 mInAppMessageManager.setMainActivityPath("com.bjfu.mcs.upush.UpushActivity");
                                 RxActivityTool.skipActivity(MainActivity.this, UpushActivity.class);

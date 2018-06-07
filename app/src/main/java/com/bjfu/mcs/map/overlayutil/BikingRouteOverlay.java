@@ -1,6 +1,4 @@
-/*
- * Copyright (C) 2016 Baidu, Inc. All Rights Reserved.
- */
+
 package com.bjfu.mcs.map.overlayutil;
 
 import android.graphics.Color;

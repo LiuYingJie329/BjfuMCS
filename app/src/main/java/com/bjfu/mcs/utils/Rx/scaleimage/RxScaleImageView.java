@@ -1,18 +1,4 @@
-/*
-Copyright 2013-2015 David Morrissey
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
 
 package com.bjfu.mcs.utils.Rx.scaleimage;
 
@@ -68,16 +54,6 @@ import java.util.Map;
 import java.util.concurrent.Executor;
 
 
-/**
- * Displays an image subsampled as necessary to avoid loading too much image data into memory. After a pinch to zoom in,
- * a set of image tiles subsampled at higher resolution are loaded and displayed over the base layer. During pinch and
- * zoom, tiles off screen or higher/lower resolution than required are discarded from memory.
- * <p>
- * Tiles are no larger than the max supported bitmap size, so with large images tiling may be used even when zoomed out.
- * <p>
- * v prefixes - coordinates, translations and distances measured in screen (view) pixels
- * s prefixes - coordinates, translations and distances measured in source image pixels (scaled)
- */
 @SuppressWarnings("unused")
 public class RxScaleImageView extends View {
 

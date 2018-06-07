@@ -38,6 +38,8 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 
+import static com.bjfu.mcs.application.MCSApplication.mPushAgent;
+
 public class UpushActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = UpushActivity.class.getName();
@@ -52,7 +54,7 @@ public class UpushActivity extends AppCompatActivity implements View.OnClickList
 
     private TextView tagRemain;
 
-    private PushAgent mPushAgent;
+    //private PushAgent mPushAgent;
     private Handler handler;
 
     private SharedPreferences sharedPref;
@@ -166,14 +168,6 @@ public class UpushActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    private void deviceToken() {
-        String pkgName = getApplicationContext().getPackageName();
-        String info = String.format("DeviceToken:%s\n" + "SdkVersion:%s\nAppVersionCode:%s\nAppVersionName:%s",
-                mPushAgent.getRegistrationId(), MsgConstant.SDK_VERSION,
-                UmengMessageDeviceConfig.getAppVersionCode(this), UmengMessageDeviceConfig.getAppVersionName(this));
-        Log.i("友盟推送","应用包名:" + pkgName + "\n" + info);
-    }
-
     private void setAlias() {
         String alias = inputAlias.getText().toString();
         String aliasType = inputAliasType.getText().toString();
@@ -249,35 +243,7 @@ public class UpushActivity extends AppCompatActivity implements View.OnClickList
         });
     }
 
-    private void showWeightedTag() {
-        mPushAgent.getTagManager().getWeightedTags(new WeightedTagListCallBack() {
-            @Override
-            public void onMessage(final boolean isSuccess, final Hashtable<String, Integer> result) {
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (isSuccess) {
-                            StringBuilder builder = new StringBuilder();
-                            for (String key : result.keySet()) {
-                                int value = result.get(key);
-                                builder.append(getString(R.string.push_tag));
-                                builder.append(key);
-                                builder.append(" ");
-                                builder.append(getString(R.string.push_tag_value));
-                                builder.append(value);
-                                builder.append("\n");
-                            }
-                            PushDialogFragment.newInstance(1, 1, getString(R.string.push_get_tags),
-                                builder.toString()).show(getFragmentManager(), "deleshowWeightedTagteTag");
-                        } else {
-                            PushDialogFragment.newInstance(1, 0, getString(R.string.push_get_tags),
-                                "").show(getFragmentManager(), "showWeightedTag");
-                        }
-                    }
-                });
-            }
-        });
-    }
+
 
     private void deleteWeightedTag() {
         mPushAgent.getTagManager().deleteWeightedTags(new TCallBack() {
@@ -302,41 +268,7 @@ public class UpushActivity extends AppCompatActivity implements View.OnClickList
         }, inputWeightedTag.getText().toString());
     }
 
-    private void addWeightedTag() {
-        if (TextUtils.isEmpty(inputWeightedTag.getText())) {
-            Toast.makeText(this, "请输入weighted tag", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if (TextUtils.isEmpty(inputWeightedTagValue.getText())) {
-            Toast.makeText(this, "请输入value", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        final Hashtable<String, Integer> table = new Hashtable<String, Integer>();
-        table.put(inputWeightedTag.getText().toString(), Integer.valueOf(inputWeightedTagValue.getText().toString()));
-        mPushAgent.getTagManager().addWeightedTags(new TCallBack() {
-            @Override
-            public void onMessage(final boolean isSuccess, final Result result) {
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (isSuccess) {
-                            sharedPref.edit().putInt(WEIGHTED_TAG_REMAIN, result.remain).apply();
-                            PushDialogFragment.newInstance(0, 1, getString(R.string.push_add_success),
-                                inputWeightedTag.getText().toString() + "\n" + getString(R.string.push_tag_value) +
-                                    inputWeightedTagValue.getText().toString()).show(getFragmentManager(),
-                                "addWeightedTag");
-                            inputWeightedTag.setText("");
-                            inputWeightedTagValue.setText("");
-                        } else {
-                            PushDialogFragment.newInstance(0, 0, getString(R.string.push_add_fail),
-                                inputWeightedTag.getText().toString() + "\n" + getString(R.string.push_tag_value) + inputWeightedTagValue.getText()
-                                    .toString()).show(getFragmentManager(), "addWeightedTag");
-                        }
-                    }
-                });
-            }
-        }, table);
-    }
+
 
     private void showTag() {
         mPushAgent.getTagManager().getTags(new TagManager.TagListCallBack() {
@@ -368,32 +300,34 @@ public class UpushActivity extends AppCompatActivity implements View.OnClickList
         });
     }
 
-    private void deleteTag() {
-        final String tag = inputTag.getText().toString();
-        if (TextUtils.isEmpty(tag)) {
-            Toast.makeText(this, "请先输入tag", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        mPushAgent.getTagManager().deleteTags(new TagManager.TCallBack() {
+    private void showWeightedTag() {
+        mPushAgent.getTagManager().getWeightedTags(new WeightedTagListCallBack() {
             @Override
-            public void onMessage(final boolean isSuccess, final ITagManager.Result result) {
+            public void onMessage(final boolean isSuccess, final Hashtable<String, Integer> result) {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        inputTag.setText("");
                         if (isSuccess) {
-                            sharedPref.edit().putInt(TAG_REMAIN, result.remain).apply();
-                            tagRemain.setText(String.valueOf(result.remain));
-                            PushDialogFragment.newInstance(0, 1,
-                                getString(R.string.push_delete_success), tag).show(getFragmentManager(), "deleteTag");
+                            StringBuilder builder = new StringBuilder();
+                            for (String key : result.keySet()) {
+                                int value = result.get(key);
+                                builder.append(getString(R.string.push_tag));
+                                builder.append(key);
+                                builder.append(" ");
+                                builder.append(getString(R.string.push_tag_value));
+                                builder.append(value);
+                                builder.append("\n");
+                            }
+                            PushDialogFragment.newInstance(1, 1, getString(R.string.push_get_tags),
+                                    builder.toString()).show(getFragmentManager(), "showWeightedTag");
                         } else {
-                            PushDialogFragment.newInstance(0, 0,
-                                getString(R.string.push_delete_fail), tag).show(getFragmentManager(), "deleteTag");
+                            PushDialogFragment.newInstance(1, 0, getString(R.string.push_get_tags),
+                                    "").show(getFragmentManager(), "showWeightedTag");
                         }
                     }
                 });
             }
-        }, tag);
+        });
     }
 
     private void addTag() {
@@ -417,6 +351,68 @@ public class UpushActivity extends AppCompatActivity implements View.OnClickList
                         } else {
                             PushDialogFragment.newInstance(0, 0, getString(R.string.push_add_fail), tag).show(
                                 getFragmentManager(), "addTag");
+                        }
+                    }
+                });
+            }
+        }, tag);
+    }
+    private void addWeightedTag() {
+        if (TextUtils.isEmpty(inputWeightedTag.getText())) {
+            Toast.makeText(this, "请输入weighted tag", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (TextUtils.isEmpty(inputWeightedTagValue.getText())) {
+            Toast.makeText(this, "请输入value", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        final Hashtable<String, Integer> table = new Hashtable<String, Integer>();
+        table.put(inputWeightedTag.getText().toString(), Integer.valueOf(inputWeightedTagValue.getText().toString()));
+        mPushAgent.getTagManager().addWeightedTags(new TCallBack() {
+            @Override
+            public void onMessage(final boolean isSuccess, final Result result) {
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (isSuccess) {
+                            sharedPref.edit().putInt(WEIGHTED_TAG_REMAIN, result.remain).apply();
+                            PushDialogFragment.newInstance(0, 1, getString(R.string.push_add_success),
+                                    inputWeightedTag.getText().toString() + "\n" + getString(R.string.push_tag_value) +
+                                            inputWeightedTagValue.getText().toString()).show(getFragmentManager(),
+                                    "addWeightedTag");
+                            inputWeightedTag.setText("");
+                            inputWeightedTagValue.setText("");
+                        } else {
+                            PushDialogFragment.newInstance(0, 0, getString(R.string.push_add_fail),
+                                    inputWeightedTag.getText().toString() + "\n" + getString(R.string.push_tag_value) + inputWeightedTagValue.getText()
+                                            .toString()).show(getFragmentManager(), "addWeightedTag");
+                        }
+                    }
+                });
+            }
+        }, table);
+    }
+    private void deleteTag() {
+        final String tag = inputTag.getText().toString();
+        if (TextUtils.isEmpty(tag)) {
+            Toast.makeText(this, "请先输入tag", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        mPushAgent.getTagManager().deleteTags(new TagManager.TCallBack() {
+            @Override
+            public void onMessage(final boolean isSuccess, final ITagManager.Result result) {
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        inputTag.setText("");
+                        if (isSuccess) {
+                            sharedPref.edit().putInt(TAG_REMAIN, result.remain).apply();
+                            tagRemain.setText(String.valueOf(result.remain));
+                            PushDialogFragment.newInstance(0, 1,
+                                    getString(R.string.push_delete_success), tag).show(getFragmentManager(), "deleteTag");
+                        } else {
+                            PushDialogFragment.newInstance(0, 0,
+                                    getString(R.string.push_delete_fail), tag).show(getFragmentManager(), "deleteTag");
                         }
                     }
                 });
@@ -466,6 +462,15 @@ public class UpushActivity extends AppCompatActivity implements View.OnClickList
             + "\n" + getString(R.string.push_system_notification_switch) + status;
         PushDialogFragment.newInstance(1, 0, getString(
             R.string.push_device_check), info).show(getFragmentManager(), "deviceCheck");
+    }
+
+    private void deviceToken() {
+        String pkgName = getApplicationContext().getPackageName();
+        String info = String.format("DeviceToken:%s\n" + "SdkVersion:%s\nAppVersionCode:%s\nAppVersionName:%s",
+                mPushAgent.getRegistrationId(), MsgConstant.SDK_VERSION,
+                UmengMessageDeviceConfig.getAppVersionCode(this), UmengMessageDeviceConfig.getAppVersionName(this));
+        Log.i("友盟推送","应用包名:" + pkgName + "\n" + info);
+        PushDialogFragment.newInstance(1,0,"设备检查",info).show(getFragmentManager(),"deviceToken");
     }
 
     class MyReceiver extends BroadcastReceiver {

@@ -128,7 +128,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_weight="1"
-            android:text="一周内在图书馆次数"
+            android:text="一周内在此地次数"
             android:textColor="@color/brown1" />
 
         <TextView
@@ -218,7 +218,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="20dp"
-            android:text="15小时20分钟"
+            android:hint="尚未得到"
             android:textColor="@color/brown1" />
 
 

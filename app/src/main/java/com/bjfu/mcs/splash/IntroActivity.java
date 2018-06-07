@@ -26,7 +26,7 @@ public class IntroActivity extends MaterialIntroActivity {
         enableLastSlideAlphaExitTransition(true);
 
 
-        //IntentWrapper.whiteListMatters(this, "群智感知系统服务持续运行");
+        IntentWrapper.whiteListMatters(this, "群智感知系统服务持续运行");
 
 
         getBackButtonTranslationWrapper()

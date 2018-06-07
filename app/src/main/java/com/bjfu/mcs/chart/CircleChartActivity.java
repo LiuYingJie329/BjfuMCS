@@ -47,7 +47,7 @@ public class CircleChartActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		super.onCreateOptionsMenu(menu);
         menu.add(Menu.NONE, Menu.FIRST + 1, 0, "帮助");
-        menu.add(Menu.NONE, Menu.FIRST + 2, 0, "关于XCL-Charts");
+        menu.add(Menu.NONE, Menu.FIRST + 2, 0, "关于Charts");
 		return true;
 	}
 	 @Override

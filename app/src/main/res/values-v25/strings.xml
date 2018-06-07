@@ -44,7 +44,7 @@
     <string name="title_activity_dial_chart3">DialChart3Activity</string>
     <string name="title_activity_dial_chart4">DialChart4Activity</string>
     <string name="title_activity_dy_sp">DySpActivity</string>
-    <string name="showdata">Show Data : %1$s</string>
+    <string name="showdata">%1$s</string>
     <string name="update_content">最新版本:1.0.1 新版本大小:16.7M  更新内容:修复了已经BUG</string>
     <string name="donetask">已经完成的任务</string>
     <string name="doingtask">正在进行的任务</string>

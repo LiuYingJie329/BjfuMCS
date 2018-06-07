@@ -1,6 +1,4 @@
-/*
- * Copyright (C) 2016 Baidu, Inc. All Rights Reserved.
- */
+
 package com.bjfu.mcs.adapter;
 
 import android.content.Context;

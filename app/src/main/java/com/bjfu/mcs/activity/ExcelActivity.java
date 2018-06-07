@@ -36,6 +36,7 @@ import com.bjfu.mcs.bean.MergeInfo;
 import com.bjfu.mcs.bean.UserInfo;
 
 import com.bjfu.mcs.utils.BaseDialog;
+import com.bjfu.mcs.utils.Rx.RxToast;
 import com.daivd.chart.component.axis.BaseAxis;
 import com.daivd.chart.component.base.IAxis;
 import com.daivd.chart.component.base.IComponent;
@@ -162,6 +163,12 @@ public class ExcelActivity extends AppCompatActivity implements View.OnClickList
         });
         Column<String> column4 = new Column<>("停留时长", "childData.child");
         column4.setAutoCount(true);
+        column4.setOnColumnItemClickListener(new OnColumnItemClickListener<String>() {
+            @Override
+            public void onClick(Column<String> column, String value, String s, int position) {
+                RxToast.success(value+"-->"+position);
+            }
+        });
         Column<Boolean> column6 = new Column<>("停留开始时间", "isCheck", new TextImageDrawFormat<Boolean>(size,size, TextImageDrawFormat.LEFT,10) {
             @Override
             protected Context getContext() {

@@ -27,10 +27,10 @@ public class MyPushIntentService extends UmengMessageService {
             //可以通过MESSAGE_BODY取得消息体
             String message = intent.getStringExtra(AgooConstants.MESSAGE_BODY);
             UMessage msg = new UMessage(new JSONObject(message));
-            Log.d(TAG, "message=" + message);    //消息体
-            Log.d(TAG, "custom=" + msg.custom);    //自定义消息的内容
-            Log.d(TAG, "title=" + msg.title);    //通知标题
-            Log.d(TAG, "text=" + msg.text);    //通知内容
+            Log.d(TAG, "message---->=" + message);    //消息体
+            Log.d(TAG, "custom----->=" + msg.custom);    //自定义消息的内容
+            Log.d(TAG, "title------->=" + msg.title);    //通知标题
+            Log.d(TAG, "text------>=" + msg.text);    //通知内容
             // code  to handle message here
             // ...
 

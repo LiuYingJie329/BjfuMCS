@@ -259,6 +259,18 @@ public class ZuJiMapActivity extends AppCompatActivity implements BaiduMap.OnMar
     }
 
     @Override
+    protected void onPause() {
+        mapView.onPause();
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        mapView.onResume();
+        super.onResume();
+
+    }
+    @Override
     protected void onDestroy() {
         // 关闭定位图层
         mBaiduMap.setMyLocationEnabled(false);
@@ -266,6 +278,7 @@ public class ZuJiMapActivity extends AppCompatActivity implements BaiduMap.OnMar
         mapView = null;
         super.onDestroy();
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

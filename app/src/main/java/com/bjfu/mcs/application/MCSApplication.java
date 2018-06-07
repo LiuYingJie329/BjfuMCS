@@ -6,6 +6,7 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Vibrator;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 
 import com.baidu.mapapi.SDKInitializer;
 import com.bjfu.mcs.R;
+import com.bjfu.mcs.activity.MainActivity;
 import com.bjfu.mcs.greendao.DaoMaster;
 import com.bjfu.mcs.greendao.DaoSession;
 import com.bjfu.mcs.greendao.helper.DaoMasterOpenHelper;
@@ -23,6 +25,10 @@ import com.bjfu.mcs.keepalive.service.DaemonService;
 import com.bjfu.mcs.keepalive.service.PlayerMusicService;
 import com.bjfu.mcs.keepalive.service.UploadLocationService;
 import com.bjfu.mcs.mapservice.BaiduMapLocationService;
+import com.bjfu.mcs.upush.CustomNotificationHandler;
+import com.bjfu.mcs.upush.MyPushIntentService;
+import com.bjfu.mcs.upush.UmengNotificationService;
+import com.bjfu.mcs.upush.UpushOpenCardActivity;
 import com.bjfu.mcs.utils.Rx.RxDataTool;
 import com.bjfu.mcs.utils.Rx.RxToast;
 import com.bjfu.mcs.utils.Rx.RxTool;
@@ -43,6 +49,7 @@ import com.xdandroid.hellodaemon.DaemonEnv;
 
 //import cn.bmob.push.BmobPush;
 import java.io.File;
+import java.io.Serializable;
 import java.lang.reflect.Field;
 
 import cn.bmob.sms.BmobSMS;
@@ -375,25 +382,35 @@ public class MCSApplication extends Application {
 
             @Override
             public void launchApp(Context context, UMessage msg) {
+                Log.i("友盟自定义行为","启动文档");
                 super.launchApp(context, msg);
             }
 
             @Override
             public void openUrl(Context context, UMessage msg) {
+                Log.i("友盟自定义行为","打开URL");
                 super.openUrl(context, msg);
             }
 
             @Override
             public void openActivity(Context context, UMessage msg) {
+                Log.i("友盟自定义行为","打开Activity");
+
+                //D/MobclickAgent: constructMessage:{"sessions":[{"id":"E7B09837584CE93D8E4E1F00ABFAD73E","start_time":"1528282863932","end_time":"1528282866151","duration":2219,"pages":[{"page_name":"com.bjfu.mcs.upush.UpushActivity","duration":2222}]}],"sdk_version":"7.5.0","device_id":"865372020318579","device_model":"MI 4LTE","version":1,"appkey":"5b0faa348f4a9d2fa2000036","channel":"Umeng"}
+                //I/System.out: true
+                //I/MobclickAgent: Start new session: 327E2E0BA211C37674A308971D25045A
+                //I/UMLog_com.umeng.message.inapp.e: get card message success{"success":"ok","data":{"t":1528282864302,"check_num":"","sduration":1,"pduration":1000,"card":{"msg_info":{"plain_text":{"activity":"com.bjfu.mcs.activity.MainActivity","action_type":"go_activity","button_text":"确定","title":"qweqweqwe","content":"qeqweqweqweqw"},"display_button":false},"msg_id":"uat0a0c152825044859700","msg_type":5,"policy":{"show_type":0,"show_times":0,"start_time":"2018-06-06 01:24:46","expire_time":"2018-06-07 01:24:46"}}}}
                 super.openActivity(context, msg);
             }
 
             @Override
             public void dealWithCustomAction(Context context, UMessage msg) {
+                Log.i("友盟自定义行为","自定义行为");
                 Toast.makeText(context, msg.custom, Toast.LENGTH_LONG).show();
             }
         };
         //使用自定义的NotificationHandler
+        //CustomNotificationHandler notificationClickHandler = new CustomNotificationHandler();
         mPushAgent.setNotificationClickHandler(notificationClickHandler);
 
         //注册推送服务 每次调用register都会回调该接口
@@ -411,8 +428,8 @@ public class MCSApplication extends Application {
             }
         });
 
-        //使用完全自定义处理
-        //mPushAgent.setPushIntentServiceClass(UmengNotificationService.class);
+        //使用完全自定义处理UmengNotificationService
+        mPushAgent.setPushIntentServiceClass(UmengNotificationService.class);
 
         //小米通道
         //MiPushRegistar.register(this, XIAOMI_ID, XIAOMI_KEY);

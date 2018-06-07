@@ -5,6 +5,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -12,6 +13,9 @@ import com.bjfu.mcs.R;
 import com.bjfu.mcs.adapter.InfoEntity;
 import com.bjfu.mcs.adapter.SectionsPagerAdapter;
 import com.bjfu.mcs.base.BaseActivity;
+import com.bjfu.mcs.bean.PersonInfo;
+import com.bjfu.mcs.greendao.SystemActivityInfo;
+import com.bjfu.mcs.utils.Rx.RxToast;
 import com.tencent.bugly.crashreport.CrashReport;
 
 import org.w3c.dom.Text;
@@ -22,13 +26,19 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.bmob.sms.exception.BmobException;
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.listener.FindListener;
 
 public class SettingActivity extends AppCompatActivity {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
     private List<InfoEntity> infoEntities = new ArrayList<>();
-
+    private String done;
+    private String doing;
+    private String todo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +55,7 @@ public class SettingActivity extends AppCompatActivity {
                 finish();
             }
         });
-
+        getdata();
         /**
          *地图坐标
          * 116.346639 , 40.006374
@@ -62,10 +72,36 @@ public class SettingActivity extends AppCompatActivity {
          * 116.355658 , 40.006595
          */
 
+        PersonInfo personInfo = BmobUser.getCurrentUser(PersonInfo.class);
+        BmobQuery<SystemActivityInfo> bmobQuery = new BmobQuery<SystemActivityInfo>();
+        bmobQuery.addQueryKeys("usertodo,userdone,userdoing,syscontent");
+        bmobQuery.findObjects(new FindListener<SystemActivityInfo>() {
+            @Override
+            public void done(List<SystemActivityInfo> list, cn.bmob.v3.exception.BmobException e) {
+                if(e == null & list.size() != 0){
+                    RxToast.success("查询成功");
+                    for(int i=0;i<list.size();i++){
+                        if(list.get(i).getUserdone() !=null && list.get(i).getUserdone().contains(personInfo.getUsername())){
+                            done = done+list.get(i).getSyscontent();
+                            Log.i("已经完成的任务",done);
+                        }
+                        if(list.get(i).getUsertodo() != null && list.get(i).getUsertodo().contains(personInfo.getUsername())){
+                            todo = todo+list.get(i).getSyscontent();
+                            Log.i("准备去做的任务",todo);
+                        }
+                        if(list.get(i).getUserdoing() != null && list.get(i).getUserdoing().contains(personInfo.getUsername())){
+                            doing = doing+list.get(i).getSyscontent();
+                            Log.i("正在进行的任务",doing);
+                        }
+                    }
+                }
+            }
+        });
+
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-        infoEntities.add(new InfoEntity(getResources().getString(R.string.donetask), "当前无已完成任务，请继续努力"));
-        infoEntities.add(new InfoEntity(getResources().getString(R.string.doingtask), "正在进行第二次移动群智感知任务，任务id:20180302"));
-        infoEntities.add(new InfoEntity(getResources().getString(R.string.untask), "很棒，当前无未完成任务"));
+        infoEntities.add(new InfoEntity(getResources().getString(R.string.donetask), "当前已完成任务:"+done));
+        infoEntities.add(new InfoEntity(getResources().getString(R.string.doingtask), "正在进行移动群智感知任务，任务内容："+doing));
+        infoEntities.add(new InfoEntity(getResources().getString(R.string.untask), "未完成任务:"+todo));
         mSectionsPagerAdapter.init(infoEntities);
 
         // Set up the ViewPager with the sections adapter.
@@ -81,5 +117,10 @@ public class SettingActivity extends AppCompatActivity {
 
     }
 
+    private void  getdata(){
+        done="升级测试";
+        todo="推送测试";
+        doing="插屏测试";
+    }
 
 }

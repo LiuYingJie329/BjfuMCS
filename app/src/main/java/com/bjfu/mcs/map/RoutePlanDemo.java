@@ -1,6 +1,4 @@
-/*
- * Copyright (C) 2016 Baidu, Inc. All Rights Reserved.
- */
+
 package com.bjfu.mcs.map;
 
 import android.app.Activity;
@@ -53,6 +51,7 @@ import com.baidu.mapapi.search.route.WalkingRouteResult;
 import com.baidu.navisdk.adapter.BNRoutePlanNode;
 import com.bjfu.mcs.R;
 import com.bjfu.mcs.adapter.RouteLineAdapter;
+import com.bjfu.mcs.loginSign.LoginActivity;
 import com.bjfu.mcs.map.overlayutil.BikingRouteOverlay;
 import com.bjfu.mcs.map.overlayutil.DrivingRouteOverlay;
 import com.bjfu.mcs.map.overlayutil.MassTransitRouteOverlay;
@@ -141,6 +140,8 @@ public class RoutePlanDemo extends AppCompatActivity implements BaiduMap.OnMapCl
             if (bundle != null) {
                 startNodeStr = (String)bundle.getSerializable("startdistance");
                 endNodeStr = (String)bundle.getSerializable("enddistance");
+                Log.i("传递参数---->搜索开始位置",startNodeStr.toString());
+                Log.i("传递参数---->搜索结束位置",endNodeStr.toString());
             }
         }
     }
@@ -169,6 +170,8 @@ public class RoutePlanDemo extends AppCompatActivity implements BaiduMap.OnMapCl
             mSearch.masstransitSearch(new MassTransitRoutePlanOption().from(stMassNode).to(enMassNode));
             nowSearchType = 0;
         } else if (v.getId() == R.id.drive) {
+            Log.i("搜索开始位置",stNode.toString());
+            Log.i("搜索结束位置",enNode.toString());
             mSearch.drivingSearch((new DrivingRoutePlanOption())
                     .from(stNode).to(enNode));
             nowSearchType = 1;
@@ -177,10 +180,14 @@ public class RoutePlanDemo extends AppCompatActivity implements BaiduMap.OnMapCl
                     .from(stNode).city("北京").to(enNode));
             nowSearchType = 2;
         } else if (v.getId() == R.id.walk) {
+            Log.i("搜索开始位置",stNode.toString());
+            Log.i("搜索结束位置",enNode.toString());
             mSearch.walkingSearch((new WalkingRoutePlanOption())
                     .from(stNode).to(enNode));
             nowSearchType = 3;
         } else if (v.getId() == R.id.bike) {
+            Log.i("搜索开始位置",stNode.toString());
+            Log.i("搜索结束位置",enNode.toString());
             mSearch.bikingSearch((new BikingRoutePlanOption())
                     .from(stNode).to(enNode));
             nowSearchType = 4;
@@ -337,7 +344,7 @@ public class RoutePlanDemo extends AppCompatActivity implements BaiduMap.OnMapCl
     @Override
     public void onGetWalkingRouteResult(WalkingRouteResult result) {
         if (result == null || result.error != SearchResult.ERRORNO.NO_ERROR) {
-            Toast.makeText(RoutePlanDemo.this, "抱歉，未找到结果", Toast.LENGTH_SHORT).show();
+            Toast.makeText(RoutePlanDemo.this, "抱歉，未找到结果。路径规划失败", Toast.LENGTH_SHORT).show();
         }
         if (result.error == SearchResult.ERRORNO.AMBIGUOUS_ROURE_ADDR) {
             // 起终点或途经点地址有岐义，通过以下接口获取建议查询信息
@@ -599,6 +606,7 @@ public class RoutePlanDemo extends AppCompatActivity implements BaiduMap.OnMapCl
         if (result == null || result.error != SearchResult.ERRORNO.NO_ERROR) {
             Toast.makeText(RoutePlanDemo.this, "抱歉，未找到结果", Toast.LENGTH_SHORT).show();
         }
+
         if (result.error == SearchResult.ERRORNO.AMBIGUOUS_ROURE_ADDR) {
             // 起终点或途经点地址有岐义，通过以下接口获取建议查询信息
             // result.getSuggestAddrInfo()
@@ -609,6 +617,8 @@ public class RoutePlanDemo extends AppCompatActivity implements BaiduMap.OnMapCl
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
+                    Log.i("建议路径信息",result.getSuggestAddrInfo().getSuggestEndNode().toString()
+                    +"---->"+result.getSuggestAddrInfo().getSuggestEndNode().toString());
                 }
             });
             builder.create().show();

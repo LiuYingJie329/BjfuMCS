@@ -252,9 +252,10 @@
 
         <service android:name=".keepalive.daemon.TraceServiceImpl" />
         <service android:name=".upush.MyNotificationService" />
-        <service android:name=".upush.UmengNotificationService" />
+        <service android:name=".upush.UmengNotificationService"  android:process=":push" />
         <service android:name=".keepalive.service.ScreenService" />
         <service android:name=".keepalive.service.UploadLocationService" />
+        <service android:name=".upush.MyPushIntentService" android:process=":push"/>
 
         <receiver android:name=".upush.NotificationBroadcast" />
 
@@ -442,10 +443,10 @@
         <activity
             android:name=".activity.ZuJiActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar"/>
+            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar" />
         <activity
             android:name="cn.bmob.v3.update.UpdateDialogActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
             android:name=".activity.MapActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -477,14 +478,21 @@
         </provider>
         -->
 
-        <activity android:name=".activity.AdditionActivity"
+        <activity
+            android:name=".activity.AdditionActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar"/>
-        <activity android:name=".loginSign.SocialOauthActivity"
+            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar" />
+        <activity
+            android:name=".loginSign.SocialOauthActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:launchMode="singleTop"
             android:exported="true"
-            android:theme="@style/SocialOauthActivity"/>
+            android:launchMode="singleTop"
+            android:theme="@style/SocialOauthActivity" />
+        <activity android:name=".upush.UpushOpenCardActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar"
+            android:launchMode="singleTask"
+            />
     </application>
 
 </manifest>

@@ -193,7 +193,7 @@ public class NavUtil {
             String start_latlng = pt1.latitude + "," + pt1.longitude;
             String end_latlng = pt2.latitude + "," + pt2.longitude;
             Intent intent = Intent.getIntent("intent://map/direction?origin=latlng:"+start_latlng+"|name:"+"Start"+"&destination=latlng:"+end_latlng+"|name:"+"End"+"&mode=riding&src=这里随便写#Intent;scheme=bdapp;package=com.baidu.BaiduMap;end");
-            Log.d("gaolei", "---------------" + start_address + "," + end_address);
+            Log.d("lyj", "---------------" + start_address + "," + end_address);
             activity.startActivity(intent);
         } catch (Exception e) {
             e.printStackTrace();
@@ -287,22 +287,26 @@ public class NavUtil {
                 activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                       Toast.makeText(activity, authinfo, Toast.LENGTH_LONG).show();
+                       //Toast.makeText(activity, authinfo, Toast.LENGTH_LONG).show();
+                       Log.i("lyj",authinfo);
                     }
                 });
             }
 
             public void initSuccess() {
-                Toast.makeText(activity, "百度导航引擎初始化成功", Toast.LENGTH_SHORT).show();
+                Log.i("lyj","百度导航引擎初始化成功");
+                //Toast.makeText(activity, "百度导航引擎初始化成功", Toast.LENGTH_SHORT).show();
                 initSetting();
             }
 
             public void initStart() {
-                Toast.makeText(activity, "百度导航引擎初始化开始", Toast.LENGTH_SHORT).show();
+                Log.i("lyj","百度导航引擎初始化开始");
+                //Toast.makeText(activity, "百度导航引擎初始化开始", Toast.LENGTH_SHORT).show();
             }
 
             public void initFailed() {
-               Toast.makeText(activity, "百度导航引擎初始化失败", Toast.LENGTH_SHORT).show();
+                Log.i("lyj","百度导航引擎初始化失败");
+               //Toast.makeText(activity, "百度导航引擎初始化失败", Toast.LENGTH_SHORT).show();
             }
         }, null, ttsHandler, ttsPlayStateListener);
 
